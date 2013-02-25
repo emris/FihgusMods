@@ -14,7 +14,7 @@ public class Mod_Permission
 	@Instance("fihgu's Permission Mod")
 	public static Mod_Permission instance;
 	
-	@SidedProxy(clientSide="fihgu.permission.ClientProxy", serverSide="fihgu.permission.ServerProxy")
+	@SidedProxy(clientSide="permission.ClientProxy", serverSide="permission.ServerProxy")
 	public static CommonProxy proxy;
 	
 	@ServerStarting

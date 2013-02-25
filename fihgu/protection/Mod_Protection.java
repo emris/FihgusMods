@@ -14,7 +14,7 @@ public class Mod_Protection
 	@Instance("fihgu's Protection Mod")
 	public static Mod_Protection instance;
 	
-	@SidedProxy(clientSide="fihgu.protection.ClientProxy", serverSide="fihgu.protection.ServerProxy")
+	@SidedProxy(clientSide="protection.ClientProxy", serverSide="protection.ServerProxy")
 	public static CommonProxy proxy;
 	
 	@ServerStarting

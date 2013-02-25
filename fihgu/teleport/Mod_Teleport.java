@@ -14,7 +14,7 @@ public class Mod_Teleport
 	@Instance("fihgu's Teleport Mod")
 	public static Mod_Teleport instance;
 	
-	@SidedProxy(clientSide="fihgu.teleport.ClientProxy", serverSide="fihgu.teleport.ServerProxy")
+	@SidedProxy(clientSide="teleport.ClientProxy", serverSide="teleport.ServerProxy")
 	public static CommonProxy proxy;
 	
 	@ServerStarting

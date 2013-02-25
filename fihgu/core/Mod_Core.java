@@ -17,7 +17,7 @@ public class Mod_Core
 	@Instance("fihgu's Core Mod")
 	public static Mod_Core instance;
 	
-	@SidedProxy(clientSide="fihgu.core.ClientProxy", serverSide="fihgu.core.ServerProxy")
+	@SidedProxy(clientSide="core.ClientProxy", serverSide="core.ServerProxy")
 	public static CommonProxy proxy;
 	
 	@ServerStarting

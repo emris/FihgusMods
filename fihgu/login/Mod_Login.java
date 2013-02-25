@@ -14,7 +14,7 @@ public class Mod_Login
 	@Instance("fihgu's Login Mod")
 	public static Mod_Login instance;
 	
-	@SidedProxy(clientSide="fihgu.login.ClientProxy", serverSide="fihgu.login.ServerProxy")
+	@SidedProxy(clientSide="login.ClientProxy", serverSide="login.ServerProxy")
 	public static CommonProxy proxy;
 	
 	@ServerStarting
