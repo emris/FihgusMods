@@ -1,0 +1,6 @@
+plans and notes will be writen here.
+
+fihgu: I just updated part of my old code to 1.4.6, and added some commends, 
+take some time to read it. :)
+btw: we should use a lot of //TODO: in our code, so the other guy could find unfinished
+work and do it, I will added those in my code tomorrow.
