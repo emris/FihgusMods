@@ -46,7 +46,7 @@ public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 	{
 		//TODO: set defualt languge config
 		Language.setLanguage("English");
-		System.out.println("[fihgu's Core Mod]: " + Language.translate("Language has been set to: " + Language.getLanguage()));
+		System.out.println("[fihgu's Core Mod]: " + Language.translate("Language has been set to: ") + Language.getLanguage());
 		return null;
 	}
 
