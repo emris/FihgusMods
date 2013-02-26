@@ -5,12 +5,16 @@ import java.util.Arrays;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import core.functions.Language;
 import core.functions.Log;
 
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
 import cpw.mods.fml.common.ModMetadata;
+import cpw.mods.fml.common.event.FMLLoadEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
 public class FModContainer extends DummyModContainer
 {
@@ -35,6 +39,12 @@ public class FModContainer extends DummyModContainer
 	@Subscribe
 	public void onServerStarting(FMLServerStartingEvent e) 
 	{
-		Log.log("fihgu's Core Mod says hi~");
+		
+	}
+	
+	@Subscribe
+	public void onServerStopping(FMLServerStoppingEvent e)
+	{
+		Language.save();
 	}
 }

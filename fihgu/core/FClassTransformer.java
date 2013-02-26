@@ -1,12 +1,17 @@
 package core;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
+
+import core.functions.Language;
+import core.functions.Log;
 
 import cpw.mods.fml.relauncher.IClassTransformer;
 
@@ -16,24 +21,19 @@ public class FClassTransformer implements IClassTransformer
 	 * hashmap that contains the methods needed to be modified.
 	 * 
 	 * format:
+	 * <key: Target Method>,<Value: Replacement Method>
 	 * path/className.MethodName
 	 */
 	static HashMap<String,String> patchMap = new HashMap<String,String>();
 	
 	static
 	{
-		
+		patchMap.put("login/CommonProxy.init","core/container/TestContainer.init");
 	}
 	
 	private byte[] modify(byte[] bytes, String targetMethod)
 	{
-		//TODO;
-		return null;
-	}
-
-	@Override
-	public byte[] transform(String name, byte[] bytes) 
-	{
+		Log.logCore(Language.translate("Modifing Method: ") + targetMethod);
 		ClassNode cn = new ClassNode();
 		ClassReader cr = new ClassReader(bytes);
 		
@@ -44,12 +44,59 @@ public class FClassTransformer implements IClassTransformer
 		while(mn.hasNext())
 		{
 			MethodNode method = mn.next();
+			String[] part = targetMethod.split("[.]");
 			
-			for(String targetMethod: patchMap.keySet())
+			if(method.name.equals(part[1]))
 			{
-				if(method.name.equals(targetMethod))
-					return modify(bytes, targetMethod);
+				method.instructions.clear();
+				try //replace the target method with the replacement
+				{
+					String[] replacement = patchMap.get(targetMethod).split("[.]");
+					ClassNode tcn = new ClassNode();
+					ClassReader tcr = new ClassReader(replacement[0]);
+					tcr.accept(tcn, 0);
+					
+					for(Object temp : tcn.methods)
+					{
+						MethodNode tmethod = (MethodNode)temp;
+						
+						if(tmethod.name.equals(replacement[1]))
+						{
+							method.instructions.clear();
+							method.instructions.add(tmethod.instructions);
+							ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+							cn.accept(cw);
+							patchMap.remove(targetMethod);
+							Log.logCore(Language.translate("Finished modifing Method: ") + targetMethod);
+							return cw.toByteArray();
+						}
+					}
+					
+				} catch (IOException e) 
+				{
+					System.err.println(Language.translate("Exception: trying to modify ") + targetMethod);
+					e.printStackTrace();
+				}
+				return bytes;
 			}
+		}
+		
+		return bytes;
+	}
+
+	@Override
+	public byte[] transform(String name, byte[] bytes) 
+	{
+		ClassNode cn = new ClassNode();
+		ClassReader cr = new ClassReader(bytes);
+		
+		cr.accept(cn, 0);
+		
+		for(String targetMethod: patchMap.keySet())
+		{
+			String[] part = targetMethod.split("[.]");
+			if(cn.name.equals(part[0]))
+				return modify(bytes, targetMethod);
 		}
 			
 		return bytes;
