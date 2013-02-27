@@ -7,7 +7,7 @@ public class PlayerManager
 {
 	public static String[] getPlayerList()
 	{	
-		return Server.getServerConfigurationManager().getAllUsernames();
+		return Server.getConfigurationManager().getAllUsernames();
 	}
 	
 	/**
@@ -23,12 +23,12 @@ public class PlayerManager
 			if(ignoreCase)
 			{
 				if(tempName.equalsIgnoreCase(name))
-					player = Server.getServerConfigurationManager().getPlayerForUsername(tempName);
+					player = Server.getConfigurationManager().getPlayerForUsername(tempName);
 			}
 			else
 			{
 				if(tempName.equals(name))
-					player = Server.getServerConfigurationManager().getPlayerForUsername(tempName);
+					player = Server.getConfigurationManager().getPlayerForUsername(tempName);
 			}
 		}
 		
@@ -88,7 +88,7 @@ public class PlayerManager
 	 */
 	public static boolean isOp(String playerName)
 	{
-		return Server.getServerConfigurationManager().getOps().contains(playerName.toLowerCase());
+		return Server.getConfigurationManager().getOps().contains(playerName.toLowerCase());
 	}
 	
 	public static boolean isOp(EntityPlayerMP player)

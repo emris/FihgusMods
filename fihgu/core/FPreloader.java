@@ -2,6 +2,7 @@ package core;
 
 import java.util.Map;
 
+import core.elements.ConfigFile;
 import core.functions.Language;
 import core.functions.Log;
 
@@ -10,6 +11,7 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
 public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 {
+	public static ConfigFile mainConfig = new ConfigFile("config.cfg", "./core/");
 
 	@Override
 	public String[] getLibraryRequestClass() 
@@ -43,9 +45,10 @@ public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 
 	@Override
 	public Void call() throws Exception 
-	{
-		//TODO: set defualt languge config
-		Language.setLanguage("English");
+	{		
+		String language = mainConfig.get("language", "English");
+		
+		Language.setLanguage(language);
 		System.out.println("[fihgu's Core Mod]: " + Language.translate("Language has been set to: ") + Language.getLanguage());
 		return null;
 	}

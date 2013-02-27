@@ -7,9 +7,11 @@ import java.util.Iterator;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
+import core.elements.SaveFile;
 import core.functions.Language;
 import core.functions.Log;
 
@@ -17,6 +19,9 @@ import cpw.mods.fml.relauncher.IClassTransformer;
 
 public class FClassTransformer implements IClassTransformer
 {
+	
+	private static SaveFile patchSave = new SaveFile("PatchData.dat","./core/");
+	
 	/**
 	 * hashmap that contains the methods needed to be modified.
 	 * 
@@ -28,7 +33,16 @@ public class FClassTransformer implements IClassTransformer
 	
 	static
 	{
-		patchMap.put("login/CommonProxy.init","core/container/TestContainer.init");
+		patchSave.load();
+		
+		for(String line: patchSave.data)
+		{
+			String part[] = line.split(";");
+			patchMap.put(part[0],part[1]);
+		}
+		
+		//temp:
+		//patchMap.put("net/minecraft/network/NetLoginHandler.completeConnection", "core/container/LoginContainer.completeConnection");
 	}
 	
 	private byte[] modify(byte[] bytes, String targetMethod)
@@ -48,7 +62,6 @@ public class FClassTransformer implements IClassTransformer
 			
 			if(method.name.equals(part[1]))
 			{
-				method.instructions.clear();
 				try //replace the target method with the replacement
 				{
 					String[] replacement = patchMap.get(targetMethod).split("[.]");
@@ -62,12 +75,13 @@ public class FClassTransformer implements IClassTransformer
 						
 						if(tmethod.name.equals(replacement[1]))
 						{
-							method.instructions.clear();
+							method.instructions.clear();							
 							method.instructions.add(tmethod.instructions);
 							ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 							cn.accept(cw);
-							patchMap.remove(targetMethod);
+							//patchMap.remove(targetMethod);
 							Log.logCore(Language.translate("Finished modifing Method: ") + targetMethod);
+							
 							return cw.toByteArray();
 						}
 					}

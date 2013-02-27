@@ -74,15 +74,10 @@ public class CommandBase implements ICommand
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) 
 	{
-		EntityPlayerMP player = PlayerManager.getPlayer(sender.getCommandSenderName());
-		if(player == null)
-		{
-			this.processConsole(args);
-		}
+		if(sender instanceof EntityPlayerMP)
+			this.processPlayer((EntityPlayerMP)sender, args);
 		else
-		{
-			this.processPlayer(player, args);
-		}
+			this.processConsole(args);
 	}
 
 	@Override

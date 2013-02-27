@@ -11,7 +11,7 @@ public class Server
 		return MinecraftServer.getServer();
 	}
 	
-	public static ServerConfigurationManager getServerConfigurationManager()
+	public static ServerConfigurationManager getConfigurationManager()
 	{
 		return getServer().getConfigurationManager();
 	}
