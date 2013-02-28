@@ -42,7 +42,7 @@ public class FClassTransformer implements IClassTransformer
 		}
 		
 		//temp:
-		//patchMap.put("net/minecraft/network/NetLoginHandler.completeConnection", "core/container/LoginContainer.completeConnection");
+		patchMap.put("net/minecraft/network/NetLoginHandler.completeConnection", "core/container/LoginContainer.completeConnection");
 	}
 	
 	private byte[] modify(byte[] bytes, String targetMethod)

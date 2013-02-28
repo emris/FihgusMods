@@ -74,7 +74,7 @@ public class LoginContainer extends NetLoginHandler
                 //Server.getConfigurationManager().playerLoggedIn(par2EntityPlayerMP);
                 //var6.setPlayerLocation(par2EntityPlayerMP.posX, par2EntityPlayerMP.posY, par2EntityPlayerMP.posZ, par2EntityPlayerMP.rotationYaw, par2EntityPlayerMP.rotationPitch);
                 Server.getServer().getNetworkThread().addPlayer(var6);
-                var6.sendPacketToPlayer(new Packet4UpdateTime(var4.getTotalWorldTime(), var4.getWorldTime()));
+                //var6.sendPacketToPlayer(new Packet4UpdateTime(var4.getTotalWorldTime(), var4.getWorldTime()));
                 
                 login.CommonProxy.waitMap.put(par2EntityPlayerMP, this);
                 var2.sendChatToPlayer("Please login!");

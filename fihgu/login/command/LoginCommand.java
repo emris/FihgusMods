@@ -59,7 +59,8 @@ public class LoginCommand extends CommandBase
 	        //Server.getConfigurationManager().func_72381_a(par2EntityPlayerMP, (EntityPlayerMP)null, var4);
 	        par2EntityPlayerMP.theItemInWorldManager.initializeGameType(var4.getWorldInfo().getGameType());
 	        /////////////////////////////////////////////////////////// 
-	        NetServerHandler var6 = new NetServerHandler(Server.getServer(), par1INetworkManager, par2EntityPlayerMP);
+	        //NetServerHandler var6 = new NetServerHandler(Server.getServer(), par1INetworkManager, par2EntityPlayerMP);
+	        NetServerHandler var6 = par2EntityPlayerMP.playerNetServerHandler;
 	        //var6.sendPacketToPlayer(new Packet1Login(par2EntityPlayerMP.entityId, var4.getWorldInfo().getTerrainType(), par2EntityPlayerMP.theItemInWorldManager.getGameType(), var4.getWorldInfo().isHardcoreModeEnabled(), var4.provider.dimensionId, var4.difficultySetting, var4.getHeight(), Server.getConfigurationManager().getMaxPlayers()));
 	        var6.sendPacketToPlayer(new Packet6SpawnPosition(var5.posX, var5.posY, var5.posZ));
 	        var6.sendPacketToPlayer(new Packet202PlayerAbilities(par2EntityPlayerMP.capabilities));
