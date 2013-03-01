@@ -2,6 +2,9 @@ package login;
 
 import java.util.Iterator;
 
+import login.command.LoginCommand;
+import login.command.RegisterCommand;
+
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
@@ -21,7 +24,9 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.ForgeSubscribe;
 import core.events.PlayerLoginEvent;
 import core.events.PlayerLogoutEvent;
+import core.events.TryCommandEvent;
 import core.functions.Language;
+import core.functions.McColor;
 import core.shortcut.Server;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -57,7 +62,7 @@ public class EventHandler
         var6.sendPacketToPlayer(new Packet16BlockItemSwitch(par2EntityPlayerMP.inventory.currentItem));
         Server.getConfigurationManager().updateTimeAndWeatherForPlayer(par2EntityPlayerMP, var4);
         Server.getConfigurationManager().sendPacketToAllPlayers(new Packet3Chat("\u00a7e" + par2EntityPlayerMP.username + Language.translate(" are trying to login.")));
-        var6.setPlayerLocation(par2EntityPlayerMP.posX, par2EntityPlayerMP.posY, par2EntityPlayerMP.posZ, par2EntityPlayerMP.rotationYaw, par2EntityPlayerMP.rotationPitch);
+        //var6.setPlayerLocation(par2EntityPlayerMP.posX, par2EntityPlayerMP.posY, par2EntityPlayerMP.posZ, par2EntityPlayerMP.rotationYaw, par2EntityPlayerMP.rotationPitch);
         Server.getServer().getNetworkThread().addPlayer(var6);
         var6.sendPacketToPlayer(new Packet4UpdateTime(var4.getTotalWorldTime(), var4.getWorldTime()));
 
@@ -65,17 +70,9 @@ public class EventHandler
         {
             par2EntityPlayerMP.requestTexturePackLoad(Server.getServer().getTexturePack(), Server.getServer().textureSize());
         }
-
-        Iterator var7 = par2EntityPlayerMP.getActivePotionEffects().iterator();
-
-        while (var7.hasNext())
-        {
-            PotionEffect var8 = (PotionEffect)var7.next();
-            var6.sendPacketToPlayer(new Packet41EntityEffect(par2EntityPlayerMP.entityId, var8));
-        }
+        
         par2EntityPlayerMP.addSelfToInternalCraftingInventory();
         handler.connectionComplete = true;
-        
         
         login.CommonProxy.waitMap.put(par2EntityPlayerMP, handler);
         par2EntityPlayerMP.sendChatToPlayer(Language.translate("Please login or Register."));
@@ -93,6 +90,25 @@ public class EventHandler
 			var2.removeEntity(e.player);
 			var2.getPlayerManager().removePlayer(e.player);
 			Server.getConfigurationManager().playerEntityList.remove(e.player);
+		}
+	}
+
+	@ForgeSubscribe
+	public void onTryCommand(TryCommandEvent e)
+	{
+		if(CommonProxy.waitMap.containsKey(e.sender))
+		{
+			if(LoginCommand.Instance.name.equals(e.command.split(" ")[0]))
+			{
+			}
+			else if(RegisterCommand.Instance.name.equals(e.command.split(" ")[0]))
+			{
+			}
+			else
+			{
+				e.setCanceled(true);
+				e.sender.sendChatToPlayer(McColor.darkRed + Language.translate("You must login/register before you can use any command!"));
+			}
 		}
 	}
 }

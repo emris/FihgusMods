@@ -18,9 +18,12 @@ public class CommandBase implements ICommand
 	public String usage;
 	public boolean opOnly = false;
 	
+	public static CommandBase Instance;
+	
 	public void register()
 	{
 		Server.getCommandHandler().registerCommand(this);
+		Instance = this;
 	}
 	
 	/**

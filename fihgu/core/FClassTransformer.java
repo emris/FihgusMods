@@ -35,6 +35,7 @@ public class FClassTransformer implements IClassTransformer
 	{	
 		patchMap.put("net/minecraft/network/NetLoginHandler.completeConnection", "core/container/FNetLoginHandler.completeConnection");
 		patchMap.put("net/minecraft/server/management/ServerConfigurationManager.playerLoggedOut", "core/container/FServerConfigurationManager.playerLoggedOut");
+		patchMap.put("net/minecraft/command/CommandHandler.executeCommand", "core/container/FCommandHandler.executeCommand");
 	}
 	
 	private byte[] modify(byte[] bytes, String targetMethod)
@@ -65,11 +66,13 @@ public class FClassTransformer implements IClassTransformer
 					{
 						MethodNode tmethod = (MethodNode)temp;
 						
-						if(tmethod.name.equals(replacement[1]))
+						if(tmethod.name.equals(replacement[1]) && method.desc.equals(tmethod.desc))
 						{
 							method.instructions.clear();							
 							method.instructions.add(tmethod.instructions);
-							ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+							method.tryCatchBlocks.clear();
+							method.tryCatchBlocks.addAll(tmethod.tryCatchBlocks);
+							ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 							cn.accept(cw);
 							//patchMap.remove(targetMethod);
 							Log.logCore(Language.translate("Finished modifing Method: ") + targetMethod);

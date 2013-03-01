@@ -13,6 +13,7 @@ import net.minecraft.network.packet.Packet3Chat;
 import net.minecraft.network.packet.Packet41EntityEffect;
 import net.minecraft.network.packet.Packet4UpdateTime;
 import net.minecraft.network.packet.Packet6SpawnPosition;
+import net.minecraft.network.packet.Packet70GameEvent;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.EnumGameType;
@@ -21,6 +22,7 @@ import net.minecraftforge.common.MinecraftForge;
 import core.elements.CommandBase;
 import core.events.PlayerLoginEvent;
 import core.functions.Language;
+import core.functions.McColor;
 import core.shortcut.Server;
 import cpw.mods.fml.common.network.FMLNetworkHandler;
 
@@ -34,6 +36,11 @@ public class LoginCommand extends CommandBase
 	
 	@Override
 	public void processPlayer(EntityPlayerMP player, String[] args)
+	{
+		
+	}
+	
+	private void login(EntityPlayerMP player)
 	{
 		NetLoginHandler handler = login.CommonProxy.waitMap.get(player);
 		
@@ -67,10 +74,22 @@ public class LoginCommand extends CommandBase
             NetServerHandler var6 = par2EntityPlayerMP.playerNetServerHandler;
             Server.getConfigurationManager().sendPacketToAllPlayers(new Packet3Chat("\u00a7e" + par2EntityPlayerMP.username + " joined the game."));
             Server.getConfigurationManager().playerLoggedIn(par2EntityPlayerMP);
+            var6.setPlayerLocation(par2EntityPlayerMP.posX, par2EntityPlayerMP.posY, par2EntityPlayerMP.posZ, par2EntityPlayerMP.rotationYaw, par2EntityPlayerMP.rotationPitch);
+            var6.sendPacketToPlayer(new Packet202PlayerAbilities(par2EntityPlayerMP.capabilities));
+            var6.sendPacketToPlayer(new Packet16BlockItemSwitch(par2EntityPlayerMP.inventory.currentItem));
             FMLNetworkHandler.handlePlayerLogin(par2EntityPlayerMP, var6, par1INetworkManager);
+            var6.sendPacketToPlayer(new Packet4UpdateTime(var4.getTotalWorldTime(), var4.getWorldTime()));
+            par2EntityPlayerMP.playerNetServerHandler.sendPacketToPlayer(new Packet70GameEvent(3, par2EntityPlayerMP.theItemInWorldManager.getGameType().getID()));
             
+            Iterator var7 = par2EntityPlayerMP.getActivePotionEffects().iterator();
+
+            while (var7.hasNext())
+            {
+                PotionEffect var8 = (PotionEffect)var7.next();
+                var6.sendPacketToPlayer(new Packet41EntityEffect(par2EntityPlayerMP.entityId, var8));
+            }
             
-			player.sendChatToPlayer(Language.translate("You have been logged in."));
+			player.sendChatToPlayer(McColor.green + Language.translate("You have been logged in."));
 			login.CommonProxy.waitMap.remove(par2EntityPlayerMP);
 		}
 	}

@@ -22,5 +22,7 @@ public class CommonProxy
 	private void registerCommands()
 	{
 		new LoginCommand().register();
+		new RegisterCommand().register();
+		new LogoutCommand().register();
 	}
 }
