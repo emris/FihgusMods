@@ -32,17 +32,9 @@ public class FClassTransformer implements IClassTransformer
 	static HashMap<String,String> patchMap = new HashMap<String,String>();
 	
 	static
-	{
-		patchSave.load();
-		
-		for(String line: patchSave.data)
-		{
-			String part[] = line.split(";");
-			patchMap.put(part[0],part[1]);
-		}
-		
-		//temp:
-		patchMap.put("net/minecraft/network/NetLoginHandler.completeConnection", "core/container/LoginContainer.completeConnection");
+	{	
+		patchMap.put("net/minecraft/network/NetLoginHandler.completeConnection", "core/container/FNetLoginHandler.completeConnection");
+		patchMap.put("net/minecraft/server/management/ServerConfigurationManager.playerLoggedOut", "core/container/FServerConfigurationManager.playerLoggedOut");
 	}
 	
 	private byte[] modify(byte[] bytes, String targetMethod)

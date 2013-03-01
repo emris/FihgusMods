@@ -46,7 +46,7 @@ public class CommandBase implements ICommand
 		{
 			return this.getCommandName().charAt(0) - ((ICommand)o).getCommandName().charAt(0);
 		}
-		return 1;
+		return -1;
 	}
 
 	@Override
