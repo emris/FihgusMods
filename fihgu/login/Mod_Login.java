@@ -1,10 +1,13 @@
 package login;
 
+import com.google.common.eventbus.Subscribe;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid="fihgu's Login Mod", name="fihgu's Login Mod", version="3.0.0")
@@ -21,5 +24,10 @@ public class Mod_Login
 	public void serverStarting(FMLServerStartingEvent event)
 	{
 		proxy.init();
+	}
+	@Subscribe
+	public void onServerStopping(FMLServerStoppingEvent e)
+	{
+		proxy.exit();
 	}
 }

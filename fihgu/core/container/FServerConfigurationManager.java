@@ -2,6 +2,7 @@ package core.container;
 
 import core.events.PlayerLogoutEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.packet.Packet201PlayerInfo;
 import net.minecraft.server.MinecraftServer;
@@ -16,7 +17,6 @@ public class FServerConfigurationManager extends ServerConfigurationManager
 	{
 		super(par1MinecraftServer);
 	}
-
 	public void playerLoggedOut(EntityPlayerMP par1EntityPlayerMP)
     {
 		if(!MinecraftForge.EVENT_BUS.post(new PlayerLogoutEvent(par1EntityPlayerMP)))

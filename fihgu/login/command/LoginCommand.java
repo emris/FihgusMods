@@ -2,6 +2,8 @@ package login.command;
 
 import java.util.Iterator;
 
+import login.CommonProxy;
+
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
@@ -28,19 +30,46 @@ import cpw.mods.fml.common.network.FMLNetworkHandler;
 
 public class LoginCommand extends CommandBase
 {
+	public static CommandBase instance;
 	public LoginCommand()
 	{
 		name = "login";
 		usage = "log you in!";
+		instance = this;
 	}
 	
 	@Override
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{
+		if(CommonProxy.getPassword(player.username) == null)
+		{
+			player.sendChatToPlayer(McColor.darkRed + Language.translate("You did not register."));
+			return;
+		}
 		
+		if(!CommonProxy.waitMap.containsKey(player))
+		{
+			player.sendChatToPlayer(McColor.darkRed + Language.translate("You have already logged in."));
+			return;
+		}
+		
+		if(args.length != 1)
+		{
+			player.sendChatToPlayer(McColor.darkRed + Language.translate("Argument mismatch, try:"));
+			player.sendChatToPlayer(McColor.green + Language.translate("/login password"));
+			return;
+		}
+		
+		if(args[0].equals(CommonProxy.getPassword(player.username)))
+			login(player);
+		else
+		{
+			player.sendChatToPlayer(McColor.darkRed + Language.translate("Wrong password!"));
+			return;
+		}
 	}
 	
-	private void login(EntityPlayerMP player)
+	public static void login(EntityPlayerMP player)
 	{
 		NetLoginHandler handler = login.CommonProxy.waitMap.get(player);
 		
@@ -89,6 +118,7 @@ public class LoginCommand extends CommandBase
                 var6.sendPacketToPlayer(new Packet41EntityEffect(par2EntityPlayerMP.entityId, var8));
             }
             
+            CommonProxy.loginIP.put(par2EntityPlayerMP.username, var3);
 			player.sendChatToPlayer(McColor.green + Language.translate("You have been logged in."));
 			login.CommonProxy.waitMap.remove(par2EntityPlayerMP);
 		}

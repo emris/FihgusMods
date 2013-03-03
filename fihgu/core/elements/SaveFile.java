@@ -19,7 +19,7 @@ public class SaveFile
 	String mask = "what you see is not what it is.";
 	
 	//if this sign is detected, it's a masked file.
-	String sign = "_(:3¡¹¡Ï)_ ";
+	String sign = ".(OAo)o ";
 	
 	public SaveFile(String name, String path)
 	{

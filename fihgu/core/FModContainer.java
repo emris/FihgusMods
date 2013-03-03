@@ -46,6 +46,7 @@ public class FModContainer extends DummyModContainer
 	public void onServerStopping(FMLServerStoppingEvent e)
 	{
 		FPreloader.mainConfig.saveConfig();
+		FPreloader.commandConfig.saveConfig();
 		Language.save();
 	}
 }

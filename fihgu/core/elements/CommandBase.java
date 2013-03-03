@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
+import core.FPreloader;
 import core.functions.Language;
 import core.functions.Log;
 import core.functions.Message;
@@ -18,12 +19,11 @@ public class CommandBase implements ICommand
 	public String usage;
 	public boolean opOnly = false;
 	
-	public static CommandBase Instance;
 	
 	public void register()
 	{
+		name = FPreloader.commandConfig.get(name, name);
 		Server.getCommandHandler().registerCommand(this);
-		Instance = this;
 	}
 	
 	/**
@@ -68,9 +68,6 @@ public class CommandBase implements ICommand
 	public List getCommandAliases() 
 	{
 		ArrayList<String> name = new ArrayList<String>();
-		
-		//TODO: add a config to set aliases.
-		//config may be edited by notepad only.(no in game command to edit config.)
 		return name;
 	}
 
@@ -87,7 +84,7 @@ public class CommandBase implements ICommand
 	public boolean canCommandSenderUseCommand(ICommandSender sender) 
 	{
 		//Console or RCON
-		if(PlayerManager.getPlayer(sender.getCommandSenderName()) == null)
+		if(!(sender instanceof EntityPlayerMP))
 			return true;
 		
 		if(opOnly && !PlayerManager.isOp(sender.getCommandSenderName()))

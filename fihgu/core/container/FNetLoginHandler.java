@@ -7,6 +7,7 @@ import java.util.Iterator;
 import core.events.PlayerLoginEvent;
 import core.shortcut.Server;
 import cpw.mods.fml.common.network.FMLNetworkHandler;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
@@ -33,7 +34,6 @@ public class FNetLoginHandler extends NetLoginHandler
 	{
 		super(par1MinecraftServer, par2Socket, par3Str);
 	}
-
 	///Minecraft/src/net/minecraft/network/NetLoginHandler.java
 	public void completeConnection(String var1)
     {
@@ -54,5 +54,6 @@ public class FNetLoginHandler extends NetLoginHandler
             	}
             }
         }
+        super.connectionComplete = true;
     }
 }

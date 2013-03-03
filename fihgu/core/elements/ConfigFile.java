@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ConfigFile extends SaveFile
 {
-	public static HashMap<String,String> map = new HashMap<String,String>();
+	public HashMap<String,String> map = new HashMap<String,String>();
 	
 	public ConfigFile(String name, String path)
 	{

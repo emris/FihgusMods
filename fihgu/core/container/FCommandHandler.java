@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import core.events.TryCommandEvent;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandHandler;
@@ -20,7 +21,7 @@ import net.minecraftforge.event.CommandEvent;
 public class FCommandHandler extends CommandHandler
 {
 	public void executeCommand(ICommandSender par1ICommandSender, String par2Str)
-    {
+    {		
         if (par2Str.startsWith("/"))
         {
             par2Str = par2Str.substring(1);
