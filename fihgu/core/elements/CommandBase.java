@@ -45,11 +45,7 @@ public class CommandBase implements ICommand
 	@Override
 	public int compareTo(Object o) 
 	{
-		if(o instanceof ICommand)
-		{
-			return this.getCommandName().charAt(0) - ((ICommand)o).getCommandName().charAt(0);
-		}
-		return -1;
+		return this.getCommandName().charAt(0) - ((ICommand)o).getCommandName().charAt(0);
 	}
 
 	@Override
@@ -61,7 +57,7 @@ public class CommandBase implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender sender) 
 	{
-		return usage;
+		return "/" + name + " " + usage;
 	}
 
 	@Override

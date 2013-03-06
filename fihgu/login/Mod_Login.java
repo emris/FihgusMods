@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.ServerStarting;
+import cpw.mods.fml.common.Mod.ServerStopping;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
@@ -25,7 +26,7 @@ public class Mod_Login
 	{
 		proxy.init();
 	}
-	@Subscribe
+	@ServerStopping
 	public void onServerStopping(FMLServerStoppingEvent e)
 	{
 		proxy.exit();

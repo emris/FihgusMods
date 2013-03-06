@@ -13,7 +13,7 @@ public class LogoutCommand extends CommandBase
 	public LogoutCommand()
 	{
 		name = "logout";
-		usage = "logout from this computer.";
+		usage = Language.translate(": logout from this computer.");
 		instance = this;
 	}
 	

@@ -1,6 +1,6 @@
 package core.functions;
 
-import core.elements.ConfigFile;
+import core.io.ConfigFile;
 
 public class Language 
 {
@@ -36,7 +36,7 @@ public class Language
 		
 		Language.language = language;
 		languageFile = new ConfigFile(language + ".txt","./fihgu/core/language/");
-		languageFile.loadConfig();
+		languageFile.load();
 	}
 	
 	public static String getLanguage()
@@ -46,6 +46,6 @@ public class Language
 	
 	public static void save()
 	{
-		languageFile.saveConfig();
+		languageFile.save();
 	}
 }

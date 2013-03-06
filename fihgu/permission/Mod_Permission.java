@@ -3,8 +3,10 @@ package permission;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.ServerStarting;
+import cpw.mods.fml.common.Mod.ServerStopping;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid="fihgu's Permission Mod", name="fihgu's Permission Mod", version="3.0.0")
@@ -21,5 +23,11 @@ public class Mod_Permission
 	public void serverStarting(FMLServerStartingEvent event)
 	{
 		proxy.init();
+	}
+	
+	@ServerStopping
+	public void onServerStopping(FMLServerStoppingEvent e)
+	{
+		proxy.exit();
 	}
 }

@@ -1,4 +1,4 @@
-package core.elements;
+package core.io;
 
 import java.util.HashMap;
 
@@ -11,9 +11,9 @@ public class ConfigFile extends SaveFile
 		super(name, path);
 	}
 	
-	public void loadConfig()
+	public void load()
 	{
-		load();
+		super.load();
 		
 		map.clear();
 		for(String line : data)
@@ -25,14 +25,14 @@ public class ConfigFile extends SaveFile
 		}
 	}
 	
-	public void saveConfig()
+	public void save()
 	{
 		data.clear();
 		for(String key : map.keySet())
 		{
 			data.add(key + "=" + map.get(key));
 		}
-		save(false);
+		super.save(false);
 	}
 	
 	/**

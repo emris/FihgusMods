@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import core.elements.CommandBase;
 import core.functions.Language;
 import core.functions.McColor;
+import core.functions.PlayerManager;
 
 public class SetPasswordCommand extends CommandBase
 {
@@ -13,19 +14,31 @@ public class SetPasswordCommand extends CommandBase
 	public SetPasswordCommand()
 	{
 		name = "setpassword";
-		usage = "register an account or reset password for a player.";
-		opOnly = true;
+		usage = Language.translate(" [PlayerName] <Passowrd>: register an account or reset password for a player.");
+		//opOnly = true;
 		instance = this;
 	}
 	
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) 
-	{
+	{	
+		if(sender instanceof EntityPlayerMP && args.length == 1)
+		{
+			setPassword(sender.getCommandSenderName(),args[0]);
+			sender.sendChatToPlayer(McColor.green + args[0] + Language.translate("'s password has been changed to ") + args[1]);
+			return;
+		}
+		
 		if(args.length != 2)
 		{
 			sender.sendChatToPlayer(McColor.darkRed + Language.translate("Argument mismatch, try:"));
 			sender.sendChatToPlayer(McColor.green + Language.translate("/setpassword playerName password"));
 			return;
+		}
+		
+		if(!(sender instanceof EntityPlayerMP && PlayerManager.isOp(sender.getCommandSenderName())))
+		{
+			sender.sendChatToPlayer(McColor.darkRed + Language.translate("You may not change others' passwords."));
 		}
 		
 		if(CommonProxy.getPassword(args[0]) == null)
@@ -34,16 +47,23 @@ public class SetPasswordCommand extends CommandBase
 			return;
 		}		
 		
+		setPassword(args[0],args[1]);
+		sender.sendChatToPlayer(McColor.green + args[0] + Language.translate("'s password has been changed to ") + args[1]);
+	}
+	
+	public static void setPassword(String name, String password)
+	{
 		for(int i = 0; i < CommonProxy.playerData.data.size(); i++)
 		{
 			String line = CommonProxy.playerData.data.get(i);
-			if(line.split(" ")[0].equals(args[0]))
+			if(line.split(" ")[0].equals(name))
 			{
-				CommonProxy.playerData.data.set(i,args[0] + " " + args[1]);
+				CommonProxy.playerData.data.set(i,name + " " + password);
 				CommonProxy.playerData.save(true);
-				sender.sendChatToPlayer(McColor.green + Language.translate(args[0] + "'s password has been changed."));
 				return;
 			}
 		}
+		CommonProxy.playerData.data.add(name + " " + password);
+		CommonProxy.playerData.save(true);
 	}
 }

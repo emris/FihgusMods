@@ -1,4 +1,4 @@
-package core.elements;
+package core.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,6 +29,7 @@ public class SaveFile
 		
 		createFile();
 	}
+	protected SaveFile(){}
 	
 	public void createFile()
 	{		

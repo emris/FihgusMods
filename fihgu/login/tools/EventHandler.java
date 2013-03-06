@@ -1,7 +1,8 @@
-package login;
+package login.tools;
 
 import java.util.Iterator;
 
+import login.CommonProxy;
 import login.command.LoginCommand;
 import login.command.RegisterCommand;
 

@@ -7,9 +7,9 @@ import java.util.Map;
 import core.container.FCommandHandler;
 import core.container.FNetLoginHandler;
 import core.container.FServerConfigurationManager;
-import core.elements.ConfigFile;
 import core.functions.Language;
 import core.functions.Log;
+import core.io.ConfigFile;
 
 import cpw.mods.fml.relauncher.IFMLCallHook;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
@@ -59,8 +59,8 @@ public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 	@Override
 	public Void call() throws Exception 
 	{		
-		mainConfig.loadConfig();
-		commandConfig.loadConfig();
+		mainConfig.load();
+		commandConfig.load();
 		String language = mainConfig.get("language", "English");
 		
 		Language.setLanguage(language);

@@ -15,9 +15,9 @@ import org.objectweb.asm.tree.MethodNode;
 import core.container.FCommandHandler;
 import core.container.FNetLoginHandler;
 import core.container.FServerConfigurationManager;
-import core.elements.SaveFile;
 import core.functions.Language;
 import core.functions.Log;
+import core.io.SaveFile;
 
 import cpw.mods.fml.relauncher.IClassTransformer;
 import cpw.mods.fml.relauncher.ILibrarySet;

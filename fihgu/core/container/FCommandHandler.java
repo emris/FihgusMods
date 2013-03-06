@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import core.events.TryCommandEvent;
+import core.shortcut.FML;
+import cpw.mods.fml.common.event.FMLLoadEvent;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 import net.minecraft.command.CommandException;
@@ -71,7 +73,7 @@ public class FCommandHandler extends CommandHandler
 
 			if (!MinecraftForge.EVENT_BUS.post(new TryCommandEvent(par1ICommandSender, par2Str))) 
 			{
-				if (var5.canCommandSenderUseCommand(par1ICommandSender)) 
+				if (var5.canCommandSenderUseCommand(par1ICommandSender) || FML.isModLoaded("fihgu's Permission Mod")) 
 				{
 					CommandEvent event = new CommandEvent(var5,	par1ICommandSender, var3);
 					if (MinecraftForge.EVENT_BUS.post(event)) 

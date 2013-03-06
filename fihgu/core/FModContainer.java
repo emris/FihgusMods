@@ -10,7 +10,9 @@ import core.functions.Log;
 
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
+import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.ModMetadata;
+import cpw.mods.fml.common.Mod.ServerStopping;
 import cpw.mods.fml.common.event.FMLLoadEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -36,17 +38,17 @@ public class FModContainer extends DummyModContainer
 		return true;
 	}
 	
-	@Subscribe
+	@ServerStarting
 	public void onServerStarting(FMLServerStartingEvent e) 
 	{
 		
 	}
 	
-	@Subscribe
+	@ServerStopping
 	public void onServerStopping(FMLServerStoppingEvent e)
 	{
-		FPreloader.mainConfig.saveConfig();
-		FPreloader.commandConfig.saveConfig();
+		FPreloader.mainConfig.save();
+		FPreloader.commandConfig.save();
 		Language.save();
 	}
 }
