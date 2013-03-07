@@ -19,6 +19,8 @@ public class PermissionNode
 	
 	public boolean checkPermission(String command)
 	{
+		//TODO:Apply special node to define player/groups
+		//TODO:Apply special node to define numeric range.
 		String args[] = command.split(" ");
 		String nodes[] = permission.split("[.]");
 		for(int i = 0; i < args.length; i++)
