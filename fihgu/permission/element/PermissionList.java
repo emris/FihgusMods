@@ -155,6 +155,6 @@ public class PermissionList
 			saveFile.data.add(node.permission);
 		}
 		
-		saveFile.createFile();
+		saveFile.save(false);
 	}
 }

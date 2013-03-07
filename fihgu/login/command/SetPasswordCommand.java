@@ -25,7 +25,7 @@ public class SetPasswordCommand extends CommandBase
 		if(sender instanceof EntityPlayerMP && args.length == 1)
 		{
 			setPassword(sender.getCommandSenderName(),args[0]);
-			sender.sendChatToPlayer(McColor.green + args[0] + Language.translate("'s password has been changed to ") + args[1]);
+			sender.sendChatToPlayer(McColor.green + sender.getCommandSenderName() + Language.translate("'s password has been changed to ") + args[0]);
 			return;
 		}
 		

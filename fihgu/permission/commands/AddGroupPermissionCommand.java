@@ -10,12 +10,12 @@ import core.elements.CommandBase;
 import core.functions.Language;
 import core.functions.McColor;
 
-public class AddPermissionCommand extends CommandBase
+public class AddGroupPermissionCommand extends CommandBase
 {
-	public AddPermissionCommand()
+	public AddGroupPermissionCommand()
 	{
-		name = "addpermission";
-		usage = Language.translate(" <PlayerName> <Permission>: give the player a permission");
+		name = "addgrouppermission";
+		usage = Language.translate(" <GroupName> <Permission>: give the Group a permission");
 		
 		//I know this is kind of unnecessary, but it should be there if someone mess with the event.
 		opOnly = true;
@@ -38,10 +38,10 @@ public class AddPermissionCommand extends CommandBase
 			
 		}
 		
-		PermissionList target = CommonProxy.get(new PermissionOwner(args[0]));
+		PermissionList target = CommonProxy.get(new PermissionOwner(args[0],true));
 		target.addPermission(new PermissionNode(permission));
 		target.save();
-		sender.sendChatToPlayer(McColor.purple + permission + Language.translate(" Permission has been added to ") + args[0]);
+		sender.sendChatToPlayer(McColor.purple + permission + Language.translate(" Permission has been added to group ") + args[0]);
 	}
 	
 }

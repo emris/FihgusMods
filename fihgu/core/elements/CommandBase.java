@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import core.FPreloader;
 import core.functions.Language;
 import core.functions.Log;
+import core.functions.McColor;
 import core.functions.Message;
 import core.functions.PlayerManager;
 import core.shortcut.Server;
@@ -99,5 +100,11 @@ public class CommandBase implements ICommand
 	public boolean isUsernameIndex(int index) 
 	{
 		return false;
+	}
+	
+	public void argumentMismatch(ICommandSender sender)
+	{
+		sender.sendChatToPlayer(McColor.darkRed + Language.translate("Argument mismatch, try:"));
+		sender.sendChatToPlayer(McColor.green + usage);
 	}
 }

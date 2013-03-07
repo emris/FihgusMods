@@ -8,6 +8,11 @@ public class PermissionNode
 	
 	public PermissionNode(String permission)
 	{
+		if(permission.startsWith("!"))
+		{
+			isDenyNode = true;
+			permission = permission.substring(1);
+		}
 		this.permission = permission;
 	}
 	

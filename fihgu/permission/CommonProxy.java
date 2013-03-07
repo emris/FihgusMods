@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import core.io.ConfigFile;
 import core.io.SaveFile;
 import core.shortcut.Forge;
+import permission.commands.*;
 import permission.element.PermissionList;
 import permission.element.PermissionOwner;
 import permission.tools.EventHandler;
@@ -34,6 +35,7 @@ public class CommonProxy
 		temp = new SaveFile("group_player.txt","./fihgu/permission/groups/");
 		temp.data.add("login.*");
 		temp.data.add("register.*");
+		temp.data.add("logout.*");
 		temp.data.add("setPassword.$");
 		temp.data.add("me.*");
 		temp.data.add("?.*");
@@ -110,7 +112,10 @@ public class CommonProxy
 	}
 	private void registerCommands()
 	{
-		
+		new AddPermissionCommand().register();
+		new AddGroupPermissionCommand().register();
+		new DelPermissionCommand().register();
+		new DelGroupPermissionCommand().register();
 	}
 	public void save()
 	{
