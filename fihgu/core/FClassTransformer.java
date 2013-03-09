@@ -44,7 +44,7 @@ public class FClassTransformer implements IClassTransformer
 		
 		
 		patchMap.put("it;completeConnection", "core/container/FNetLoginHandler;completeConnection");
-		patchMap.put("gm;e", "core./container/FServerConfigurationManager;e");
+		patchMap.put("gm;e", "core/container/FServerConfigurationManager;e");
 		patchMap.put("x;a", "core/ontainer/FCommandHandler;a");
 	}
 	
