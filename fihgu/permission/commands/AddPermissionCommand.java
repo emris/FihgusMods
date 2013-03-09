@@ -39,7 +39,7 @@ public class AddPermissionCommand extends CommandBase
 		}
 		
 		PermissionList target = CommonProxy.get(new PermissionOwner(args[0]));
-		target.addPermission(new PermissionNode(permission));
+		target.addPermission(new PermissionNode(permission,new PermissionOwner(args[0])));
 		target.save();
 		sender.sendChatToPlayer(McColor.purple + permission + Language.translate(" Permission has been added to ") + args[0]);
 	}

@@ -2,6 +2,8 @@ package permission.element;
 
 import java.util.ArrayList;
 
+import core.events.TryCommandEvent;
+
 import permission.CommonProxy;
 import permission.io.PermissionFile;
 
@@ -18,10 +20,11 @@ public class PermissionList
 		this.owner = owner;
 		this.saveFile = new PermissionFile(owner);
 		
-		if(owner.isGroup)
+		if(owner.isGroup && !CommonProxy.groups.contains(this))
 			CommonProxy.groups.add(this);
-		else
+		else if(!CommonProxy.players.contains(this))
 			CommonProxy.players.add(this);
+		
 		load();
 	}
 	
@@ -81,43 +84,44 @@ public class PermissionList
 		return false;
 	}
 	
-	public boolean checkPermission(String line)
+	public boolean checkPermission(TryCommandEvent e)
 	{
 		load();
 		
-		if(checkDeny(line))
+		if(checkDeny(e))
 			return false;
 		
 		for(PermissionNode node:nodes)
 		{
-			if(node.checkPermission(line))
+			if(node.checkPermission(e))
 				return true;
 		}
 		for(PermissionList group:groups)
 		{
-			if(group.checkPermission(line))
+			if(group.checkPermission(e))
 				return true;
 		}
 		
 		return false;
 	}
 	
-	public boolean checkDeny(String line)
+	public boolean checkDeny(TryCommandEvent e)
 	{
 		for(PermissionNode node:denyNodes)
 		{
-			if(node.checkPermission(line))
+			if(node.checkPermission(e))
 				return true;
 		}
 		for(PermissionList group:groups)
 		{
-			if(group.checkDeny(line))
+			if(group.checkDeny(e))
 				return true;
 		}
 		return false;
 	}
 	public void load()
 	{
+		clear();
 		saveFile.load();
 		
 		for(String line : saveFile.data)
@@ -131,11 +135,11 @@ public class PermissionList
 			
 			if(line.startsWith("!") && line.length()>1)
 			{
-				denyNodes.add(new PermissionNode(line.substring(1),true));
+				denyNodes.add(new PermissionNode(line.substring(1),true,owner));
 			}
 			
 			if(!line.equals(""))
-				nodes.add(new PermissionNode(line));
+				nodes.add(new PermissionNode(line,owner));
 		}
 	}
 	public void save()
@@ -144,7 +148,7 @@ public class PermissionList
 		
 		for(PermissionList group:groups)
 		{
-			saveFile.data.add("@group" + group.owner.name);
+			saveFile.data.add("@group " + group.owner.name);
 		}
 		for(PermissionNode node:denyNodes)
 		{
@@ -156,5 +160,23 @@ public class PermissionList
 		}
 		
 		saveFile.save(false);
+	}
+	
+	@Override 
+	public boolean equals(Object o)
+	{
+		if(o instanceof PermissionList)
+		{
+			PermissionList list = (PermissionList) o;
+			return owner.equals(list.owner);
+		}
+		return false;
+	}
+	
+	public void clear()
+	{
+		groups.clear();
+		nodes.clear();
+		denyNodes.clear();
 	}
 }

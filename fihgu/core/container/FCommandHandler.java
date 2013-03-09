@@ -1,6 +1,9 @@
 package core.container;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import core.events.TryCommandEvent;
@@ -133,5 +136,25 @@ public class FCommandHandler extends CommandHandler
             par1ICommandSender.sendChatToPlayer("\u00a7c" + par1ICommandSender.translateString("commands.generic.exception", new Object[0]));
             var17.printStackTrace();
         }
+    }
+	
+	
+	public List getPossibleCommands(ICommandSender par1ICommandSender)
+    {
+        ArrayList var2 = new ArrayList();
+
+        for (Object key : super.getCommands().keySet())
+        {
+        	
+            ICommand var4 = (ICommand)super.getCommands().get(key);
+
+            if (var4.canCommandSenderUseCommand(par1ICommandSender) || (FML.isModLoaded("fihgu's Permission Mod")))
+            {
+            	if(!var2.contains(super.getCommands().get(key)))
+                var2.add(var4);
+            }
+        }
+
+        return var2;
     }
 }

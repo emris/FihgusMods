@@ -1,12 +1,17 @@
 package permission.element;
 
+import core.events.TryCommandEvent;
+import core.functions.PlayerManager;
+import permission.CommonProxy;
+
 public class PermissionNode 
 {
 	public String permission;
 	public boolean isDenyNode = false;
+	public PermissionOwner owner;
 	
 	
-	public PermissionNode(String permission)
+	public PermissionNode(String permission, PermissionOwner owner)
 	{
 		if(permission.startsWith("!"))
 		{
@@ -14,43 +19,94 @@ public class PermissionNode
 			permission = permission.substring(1);
 		}
 		this.permission = permission;
+		this.owner = owner;
 	}
 	
-	public PermissionNode(String permission, boolean isDenyNode)
+	public PermissionNode(String permission, boolean isDenyNode, PermissionOwner owner)
 	{
 		this.permission = permission;
 		this.isDenyNode = isDenyNode;
+		this.owner = owner;
 	}
 	
-	public boolean checkPermission(String command)
+	public boolean checkPermission(TryCommandEvent e)
 	{
-		//TODO:Apply special node to define player/groups
-		//TODO:Apply special node to define numeric range.
+		//TODO: apply groups, add group defining to core mod.
+		
+		String command = e.command;
+		
 		String args[] = command.split(" ");
 		String nodes[] = permission.split("[.]");
-		for(int i = 0; i < args.length; i++)
+		checking: for(int i = 0; i <= args.length; i++)
 		{
-			String arg = args[i];
-			String node = null;
+			if(i == args.length && i == nodes.length)
+				return true;
 			
-			if(i >= nodes.length)
+			if(i >= nodes.length || i >= args.length)
 			{//already read all nodes
 				return false;
 			}
 			
-			node = nodes[i];
+			String arg = args[i];
+			String node = nodes[i];
 			
-			if(node.equals("*"))
+			if(node.equals(CommonProxy.allNode))
 				return true;
 			
-			if(node.equals("$"))
+			if(node.equals(CommonProxy.partNode))
 				continue;
+			
+			if(node.equals(CommonProxy.commandSenderNode))
+			{
+				if(arg.equals(e.sender.getCommandSenderName()))
+					continue;
+			}
+			
+			if(node.equals(CommonProxy.otherPlayerNode))
+			{
+				if(!arg.equals(e.sender.getCommandSenderName()))
+					continue;
+			}
+			
+			if(node.equals(CommonProxy.onlinePlayerNode))
+			{
+				for(String playerName : PlayerManager.getPlayerList())
+				{
+					if(arg.equals(playerName))
+						continue checking;
+				}
+			}
+			
+			if(node.startsWith(CommonProxy.rangeNode))
+			{
+				if(node.length() < CommonProxy.rangeNode.length())
+				{
+					return false;
+				}
+				
+				String temp = node.substring(CommonProxy.rangeNode.length());
+				
+				try
+				{
+					double begin = Double.parseDouble(temp.split("[-]")[0]);
+					double finish = Double.parseDouble(temp.split("[-]")[1]);
+					
+					double max = Math.max(begin, finish);
+					double min = Math.min(begin, finish);
+					
+					double val = Double.parseDouble(arg);
+					
+					if(val >= min && val <= max)
+						continue;
+					
+				}catch(Exception ex){return false;}
+			}
 			
 			if(!node.equalsIgnoreCase(arg))
 				return false;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	@Override 

@@ -16,6 +16,14 @@ public class CommonProxy
 	public static ArrayList<PermissionList> groups = new ArrayList<PermissionList>();
 	public static ConfigFile config = new ConfigFile("permission.cfg","./fihgu/permission/");
 	
+	public static String allNode = "*";
+	public static String partNode = "$";
+	public static String commandSenderNode = "%commandsender%";
+	public static String otherPlayerNode = "%otherplayer%";
+	public static String onlinePlayerNode = "%onlineplayer%";
+	public static String groupNode = "%group%"; // TODO: implement this!
+	public static String rangeNode = "%between%";
+	
 	public static String defaultGroup = "player";
 	
 	public void init() 
@@ -23,10 +31,20 @@ public class CommonProxy
 		Forge.registerEventHandler(new EventHandler());
 		registerCommands();
 		
-		if(config.get("regenerateDefaultPermission", "true").equals("true"))
+		config.load();
+		
+		if(config.get("regenerateDefaultPermission", "false").equals("true"))
 			createDefaultPermission();
 		
 		defaultGroup = config.get("defaultGroup", "player");
+		allNode = config.get("allNode", allNode);
+		partNode = config.get("partNode", partNode);
+		commandSenderNode = config.get("commandSenderNode", commandSenderNode);
+		otherPlayerNode = config.get("otherPlayerNode", otherPlayerNode);
+		onlinePlayerNode = config.get("onlinePlayerNode", onlinePlayerNode);
+		groupNode = config.get("groupNode", groupNode);
+		rangeNode = config.get("rangeNode", rangeNode);
+		
 	}
 	private void createDefaultPermission()
 	{
@@ -70,6 +88,10 @@ public class CommonProxy
 		temp.data.add("pardon.*");
 		temp.data.add("pardon-ip.*");
 		temp.data.add("whitelist.*");
+		temp.data.add("addpermission.*");
+		temp.data.add("delpermission.*");
+		temp.data.add("addgrouppermission.*");
+		temp.data.add("delgrouppermission.*");
 		temp.save(false);
 		temp = new SaveFile("group_owner.txt","./fihgu/permission/groups/");
 		temp.data.add("@group admin");
@@ -97,13 +119,6 @@ public class CommonProxy
 		}
 		
 		PermissionList newList = new PermissionList(owner);
-		if(!owner.isGroup)
-		{
-			newList.groups.add(get(new PermissionOwner(defaultGroup,true)));
-			newList.save();
-		}
-			
-		
 		return newList;
 	}
 	public void exit()

@@ -39,9 +39,9 @@ public class DelPermissionCommand extends CommandBase
 		}
 		
 		PermissionList target = CommonProxy.get(new PermissionOwner(args[0]));
-		target.removePermission(new PermissionNode(permission));
+		target.removePermission(new PermissionNode(permission,new PermissionOwner(args[0])));
 		target.save();
-		sender.sendChatToPlayer(McColor.purple + permission + Language.translate(" Permission has been added to ") + args[0]);
+		sender.sendChatToPlayer(McColor.purple + permission + Language.translate(" Permission has been removed from ") + args[0]);
 	}
 	
 }

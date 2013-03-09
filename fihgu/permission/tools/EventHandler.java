@@ -18,7 +18,7 @@ public class EventHandler
 		if(e.sender instanceof EntityPlayerMP)
 		{
 			EntityPlayerMP player = (EntityPlayerMP) e.sender;
-			if(!CommonProxy.get(new PermissionOwner(player.username)).checkPermission(e.command))
+			if(!CommonProxy.get(new PermissionOwner(player.username)).checkPermission(e))
 			{
 				Message.warnPlayer(player, Language.translate("[fihgu's Permission Mod]: You don't have permission to use this command."));
 				e.setCanceled(true);

@@ -17,4 +17,15 @@ public class PermissionOwner
 		this.name = name;
 		this.isGroup = isGroup;
 	}
+	@Override 
+	
+	public boolean equals(Object o)
+	{
+		if(o instanceof PermissionOwner)
+		{
+			PermissionOwner node = (PermissionOwner) o;
+			return name.equals(node.name) && (isGroup == node.isGroup);
+		}
+		return false;
+	}
 }

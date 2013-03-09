@@ -40,14 +40,17 @@ public class FClassTransformer implements IClassTransformer
 		patchMap.put("net/minecraft/network/NetLoginHandler;completeConnection", "core/container/FNetLoginHandler;completeConnection");
 		patchMap.put("net/minecraft/server/management/ServerConfigurationManager;playerLoggedOut", "core/container/FServerConfigurationManager;playerLoggedOut");
 		patchMap.put("net/minecraft/command/CommandHandler;executeCommand", "core/container/FCommandHandler;executeCommand");
+		patchMap.put("net/minecraft/command/CommandHandler;getPossibleCommands", "core/container/FCommandHandler;getPossibleCommands");
 		
-		patchMap.put("it;completeConnection", "core.container.FNetLoginHandler;completeConnection");
-		patchMap.put("gm;e", "core.container.FServerConfigurationManager;e");
-		patchMap.put("x;a", "core.container.FCommandHandler;a");
+		
+		patchMap.put("it;completeConnection", "core/container/FNetLoginHandler;completeConnection");
+		patchMap.put("gm;e", "core./container/FServerConfigurationManager;e");
+		patchMap.put("x;a", "core/ontainer/FCommandHandler;a");
 	}
 	
 	private byte[] modify(byte[] bytes, String targetMethod)
 	{
+		byte[] modifiedBytes = bytes;
 		System.out.println(Language.translate("Modifing Method: ") + targetMethod);
 		ClassNode cn = new ClassNode();
 		ClassReader cr = new ClassReader(bytes);
@@ -88,7 +91,7 @@ public class FClassTransformer implements IClassTransformer
 							//patchMap.remove(targetMethod);
 							System.out.println(Language.translate("Finished modifing Method: ") + targetMethod);
 							
-							return cw.toByteArray();
+							modifiedBytes = cw.toByteArray();
 						}
 					}
 					
@@ -97,11 +100,10 @@ public class FClassTransformer implements IClassTransformer
 					System.err.println(Language.translate("Exception: trying to modify ") + targetMethod);
 					e.printStackTrace();
 				}
-				return bytes;
 			}
 		}
 		
-		return bytes;
+		return modifiedBytes;
 	}
 
 	@Override
@@ -113,14 +115,16 @@ public class FClassTransformer implements IClassTransformer
 		
 		cr.accept(cn, 0);
 		
+		byte[] modifiedBytes = bytes;
+		
 		//System.out.println(cn.name);
 		for(String targetMethod: patchMap.keySet())
 		{
 			String[] part = targetMethod.split(";");
 			if(cn.name.equals(part[0]))
-				return modify(bytes, targetMethod);
+				modifiedBytes = modify(modifiedBytes, targetMethod);
 		}
 			
-		return bytes;
+		return modifiedBytes;
 	}
 }

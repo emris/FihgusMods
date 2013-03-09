@@ -39,7 +39,7 @@ public class AddGroupPermissionCommand extends CommandBase
 		}
 		
 		PermissionList target = CommonProxy.get(new PermissionOwner(args[0],true));
-		target.addPermission(new PermissionNode(permission));
+		target.addPermission(new PermissionNode(permission,new PermissionOwner(args[0])));
 		target.save();
 		sender.sendChatToPlayer(McColor.purple + permission + Language.translate(" Permission has been added to group ") + args[0]);
 	}

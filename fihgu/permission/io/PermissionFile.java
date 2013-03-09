@@ -3,6 +3,7 @@ package permission.io;
 import java.io.File;
 import java.util.ArrayList;
 
+import permission.CommonProxy;
 import permission.element.PermissionNode;
 import permission.element.PermissionOwner;
 
@@ -31,6 +32,12 @@ public class PermissionFile extends SaveFile
 		}
 		
 		file = new File(path + name);
-		createFile();
+		
+		if(!file.exists())
+		{
+			createFile();
+			data.add("@group " + CommonProxy.defaultGroup);
+			this.save(false);
+		}
 	}
 }
