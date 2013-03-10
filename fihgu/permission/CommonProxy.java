@@ -33,7 +33,7 @@ public class CommonProxy
 		
 		config.load();
 		
-		if(config.get("regenerateDefaultPermission", "false").equals("true"))
+		if(config.get("regenerateDefaultPermission", "true").equals("true"))
 			createDefaultPermission();
 		
 		defaultGroup = config.get("defaultGroup", "player");
@@ -146,6 +146,9 @@ public class CommonProxy
 		temp.data.add("stop");
 		temp.data.add("stop.*");
 		temp.save(false);
+		
+		config.map.put("regenerateDefaultPermission", "false");
+		config.save();
 	}
 	public static PermissionList get(PermissionOwner owner)
 	{

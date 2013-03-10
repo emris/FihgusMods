@@ -45,7 +45,7 @@ public class FClassTransformer implements IClassTransformer
 		
 		patchMap.put("it;completeConnection", "core/container/FNetLoginHandler;completeConnection");
 		patchMap.put("gm;e", "core/container/FServerConfigurationManager;e");
-		patchMap.put("x;a", "core/ontainer/FCommandHandler;a");
+		patchMap.put("x;a", "core/container/FCommandHandler;a");
 	}
 	
 	private byte[] modify(byte[] bytes, String targetMethod)
@@ -53,7 +53,7 @@ public class FClassTransformer implements IClassTransformer
 		byte[] modifiedBytes = bytes;
 		System.out.println(Language.translate("Modifing Method: ") + targetMethod);
 		ClassNode cn = new ClassNode();
-		ClassReader cr = new ClassReader(bytes);
+		ClassReader cr = new ClassReader(modifiedBytes);
 		
 		cr.accept(cn, 0);
 		
@@ -73,15 +73,17 @@ public class FClassTransformer implements IClassTransformer
 					RelaunchClassLoader loader = (RelaunchClassLoader) this.getClass().getClassLoader();	
 					
 					ClassNode tcn = new ClassNode();
-					ClassReader tcr = new ClassReader(loader.getClassBytes(replacement[0]));
+					ClassReader tcr = new ClassReader(loader.getClassBytes(replacement[0].replace('/', '.')));
 					tcr.accept(tcn, 0);
 					
-					for(Object temp : tcn.methods)
+					Iterator<MethodNode> tmn = tcn.methods.iterator();
+					
+					while(tmn.hasNext())
 					{
-						MethodNode tmethod = (MethodNode)temp;
+						MethodNode tmethod = tmn.next();
 						
-						if(tmethod.name.equals(replacement[1]) && method.desc.equals(tmethod.desc))
-						{							
+						if(tmethod.name.equals(method.name) && method.desc.equals(tmethod.desc))
+						{
 							method.instructions.clear();							
 							method.instructions.add(tmethod.instructions);
 							method.tryCatchBlocks.clear();
@@ -89,7 +91,7 @@ public class FClassTransformer implements IClassTransformer
 							ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 							cn.accept(cw);
 							//patchMap.remove(targetMethod);
-							System.out.println(Language.translate("Finished modifing Method: ") + targetMethod);
+							System.out.println(Language.translate("Finished modifing Method: ") + targetMethod + method.desc);
 							
 							modifiedBytes = cw.toByteArray();
 						}

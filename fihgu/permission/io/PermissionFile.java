@@ -36,7 +36,8 @@ public class PermissionFile extends SaveFile
 		if(!file.exists())
 		{
 			createFile();
-			data.add("@group " + CommonProxy.defaultGroup);
+			if(!owner.isGroup)
+				data.add("@group " + CommonProxy.defaultGroup);
 			this.save(false);
 		}
 	}
