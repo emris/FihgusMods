@@ -15,6 +15,7 @@ public class AddGroupPermissionCommand extends CommandBase
 	public AddGroupPermissionCommand()
 	{
 		name = "addgrouppermission";
+		trueName = name;
 		usage = Language.translate(" <GroupName> <Permission>: give the Group a permission");
 		
 		//I know this is kind of unnecessary, but it should be there if someone mess with the event.

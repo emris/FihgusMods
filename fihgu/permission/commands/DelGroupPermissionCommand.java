@@ -15,6 +15,7 @@ public class DelGroupPermissionCommand extends CommandBase
 	public DelGroupPermissionCommand()
 	{
 		name = "delgrouppermission";
+		trueName = name;
 		usage = Language.translate(" <GroupName> <Permission>: remove a permission from the group.");
 		
 		//I know this is kind of unnecessary, but it should be there if someone mess with the event.

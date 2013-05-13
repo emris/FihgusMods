@@ -15,6 +15,7 @@ public class DelPermissionCommand extends CommandBase
 	public DelPermissionCommand()
 	{
 		name = "delpermission";
+		trueName = name;
 		usage = Language.translate(" <PlayerName> <Permission>: remove a permission from the player");
 		
 		//I know this is kind of unnecessary, but it should be there if someone mess with the event.

@@ -11,6 +11,7 @@ public class RegisterCommand extends CommandBase
 	public static CommandBase instance;
 	public RegisterCommand()
 	{
+		trueName = "register";
 		name = "register";
 		usage = Language.translate(" <Password> <Password>: register an account on this server.");
 		instance = this;

@@ -126,7 +126,8 @@ public class FCommandHandler extends CommandHandler
             }
             else
             {
-                par1ICommandSender.sendChatToPlayer("" + EnumChatFormatting.RED + "You do not have permission to use this command.");
+            	if(!FML.isModLoaded("fihgu's Permission Mod"))
+            		par1ICommandSender.sendChatToPlayer("" + EnumChatFormatting.RED + "You do not have permission to use this command.");
             }
         }
         catch (WrongUsageException wrongusageexception)

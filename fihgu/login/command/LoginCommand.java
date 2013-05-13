@@ -33,6 +33,7 @@ public class LoginCommand extends CommandBase
 	public static CommandBase instance;
 	public LoginCommand()
 	{
+		trueName = "login";
 		name = "login";
 		usage = Language.translate(" <Password>: Connect you with the server");
 		instance = this;

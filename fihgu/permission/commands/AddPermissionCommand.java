@@ -15,6 +15,7 @@ public class AddPermissionCommand extends CommandBase
 	public AddPermissionCommand()
 	{
 		name = "addpermission";
+		trueName = name;
 		usage = Language.translate(" <PlayerName> <Permission>: give the player a permission");
 		
 		//I know this is kind of unnecessary, but it should be there if someone mess with the event.

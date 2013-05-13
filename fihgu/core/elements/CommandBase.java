@@ -16,7 +16,7 @@ import fihgu.core.shortcut.Server;
 
 public class CommandBase implements ICommand
 {
-	public String trueName;
+	public static String trueName;
 	public String name;
 	public String usage;
 	public boolean opOnly = false;

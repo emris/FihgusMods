@@ -13,6 +13,7 @@ public class SetPasswordCommand extends CommandBase
 	public static CommandBase instance;
 	public SetPasswordCommand()
 	{
+		trueName = "setpassword";
 		name = "setpassword";
 		usage = Language.translate(" [PlayerName] <Passowrd>: register an account or reset password for a player.");
 		//opOnly = true;
