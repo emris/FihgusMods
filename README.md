@@ -14,7 +14,7 @@ save the current location for later use.
 warps the user to that player or location.
 if a player have the same name with a location, player is used.
 
-/warp playerName1 [playerName2/warpPointName]
+/warp playerName1 playerName2/warpPointName
 warps the given player1 to that player2 or location.
 
 /summon playerName
