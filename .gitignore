@@ -15,7 +15,20 @@ local.properties
 .classpath
 .settings/
 .loadpath
-minecraft/
+
+cpw/
+ibxm/
+net/
+paulscode/
+fml_at.cfg
+fml_marker.cfg
+fmlversion.properties
+forge_at.cfg
+forge_logo.png
+mcp.png
+mcpmod.info
+Start.java
+
 
 # External tool builders
 .externalToolBuilders/
