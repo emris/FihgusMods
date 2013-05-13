@@ -1,6 +1,4 @@
-package fihgu.login;
-
-import com.google.common.eventbus.Subscribe;
+package fihgu.permission;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
@@ -11,14 +9,14 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid="fihgu's Login Mod", name="fihgu's Login Mod", version="3.0.0")
+@Mod(modid="fihgu's Permission Mod", name="fihgu's Permission Mod", version="3.0.0")
 @NetworkMod(clientSideRequired=false, serverSideRequired=false)
-public class Mod_Login 
+public class Mod_Permission 
 {
-	@Instance("fihgu's Login Mod")
-	public static Mod_Login instance;
+	@Instance("fihgu's Permission Mod")
+	public static Mod_Permission instance;
 	
-	@SidedProxy(clientSide="fihgu.login.ClientProxy", serverSide="fihgu.login.ServerProxy")
+	@SidedProxy(clientSide="fihgu.permission.ClientProxy", serverSide="fihgu.permission.ServerProxy")
 	public static CommonProxy proxy;
 	
 	@ServerStarting
@@ -26,6 +24,7 @@ public class Mod_Login
 	{
 		proxy.init();
 	}
+	
 	@ServerStopping
 	public void onServerStopping(FMLServerStoppingEvent e)
 	{
