@@ -1,5 +1,7 @@
 package fihgu.core.elements;
 
+import java.util.ArrayList;
+
 import fihgu.core.functions.PlayerManager;
 import fihgu.core.shortcut.Server;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -15,6 +17,20 @@ public class Player
 	public Player(String name)
 	{
 		this.name = name;
+	}
+	
+	/**
+	 * @return a list of groups this player is in.
+	 */
+	public ArrayList<Group> getGroups()
+	{
+		ArrayList<Group> list = new ArrayList<Group>();
+		
+		for(Group group:Group.groups)
+			if(group.players.contains(this))
+				list.add(group);
+		
+		return list;
 	}
 	
 	/**
@@ -56,5 +72,11 @@ public class Player
 		{
 			((SaveHandler)DimensionManager.getWorld(0).getSaveHandler()).writePlayerData(entity);
 		}
+	}
+	
+	@Override
+	public boolean equals(Object O)
+	{
+		return (O instanceof Player) && ((Player)O).name.equals(name);
 	}
 }
