@@ -3,8 +3,8 @@ package fihgu.login.tools;
 import java.util.Iterator;
 
 import fihgu.login.CommonProxy;
-import fihgu.login.command.LoginCommand;
-import fihgu.login.command.RegisterCommand;
+import fihgu.login.commands.LoginCommand;
+import fihgu.login.commands.RegisterCommand;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;

@@ -1,4 +1,4 @@
-package fihgu.login.command;
+package fihgu.login.commands;
 
 import fihgu.login.CommonProxy;
 import net.minecraft.command.ICommandSender;

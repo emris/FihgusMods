@@ -6,7 +6,7 @@ import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
 import fihgu.core.io.SaveFile;
 
-import fihgu.login.command.*;
+import fihgu.login.commands.*;
 import fihgu.login.tools.EventHandler;
 
 import net.minecraft.entity.player.EntityPlayerMP;
