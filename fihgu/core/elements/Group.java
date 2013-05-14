@@ -53,7 +53,8 @@ public class Group
 	
 	public static void saveAll()
 	{
-		
+		for(Group group: Group.groups)
+			group.save();
 	}
 	
 	public void save()
