@@ -7,6 +7,7 @@ import java.util.Map;
 import fihgu.core.transformers.containers.FCommandHandler;
 import fihgu.core.transformers.containers.FNetLoginHandler;
 import fihgu.core.transformers.containers.FServerConfigurationManager;
+import fihgu.core.elements.Group;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.Log;
 import fihgu.core.io.ConfigFile;
@@ -65,6 +66,8 @@ public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 		
 		Language.setLanguage(language);
 		System.out.println("[fihgu's Core Mod]: " + Language.translate("Language has been set to: ") + Language.getLanguage());	
+		
+		Group.loadAll();
 		
 		return null;
 	}

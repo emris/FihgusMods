@@ -26,8 +26,6 @@ public class SaveFile
 		this.name = name;
 		this.path = path;
 		file = new File(path + name);
-		
-		createFile();
 	}
 	protected SaveFile(){}
 	
@@ -159,5 +157,10 @@ public class SaveFile
 	public void clear()
 	{
 		data.clear();
+	}
+	
+	public boolean exists()
+	{
+		return file.exists();
 	}
 }
