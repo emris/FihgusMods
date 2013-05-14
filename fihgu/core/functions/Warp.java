@@ -19,32 +19,15 @@ public class Warp {
 	//////////////////////////////////////////////////////////////////////
 	// Functions for teleporting player
 	//////////////////////////////////////////////////////////////////////
-	public void teleportToPlayer(EntityPlayerMP from, EntityPlayerMP to){
-		ChunkCoordinates toWhere = to.getPlayerCoordinates();
-		
-		from.setPositionAndUpdate(toWhere.posX,toWhere.posY,toWhere.posZ);
-	}
 	
-	public void teleportToLoc(EntityPlayerMP who, int x, int y, int z){
-		who.setPositionAndUpdate(x,y,z);
-	}
-	
-	public void teleportToLoc(EntityPlayerMP who, int x, int z){
-		int y = 0;
-		
-		
-		who.setPositionAndUpdate(x,y,z);
-	}
-	
-	public void teleportToSpawn(EntityPlayerMP who){
-		
-	}
-	
-	public void warpTo(EntityPlayerMP who, String name)
+	public boolean warpTo(EntityPlayerMP who, String name)
 	{
 		Location loc = this.getWarp(name);
 		if(loc!=null){
-			who.setPositionAndUpdate(loc.posX, loc.posZ, loc.posY);
+			who.setPositionAndUpdate(loc.posX+0.5, loc.posZ+0.5, loc.posY);
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
@@ -58,21 +41,22 @@ public class Warp {
 	// Functions for saving file information
 	//////////////////////////////////////////////////////////////////////
 	
-	public void newWarp(Location loc, String name){
+	public boolean newWarp(Location loc, String name){
 		warps.load();
 		int x,y,z,d;
 		String toSave;
 		if(!warps.containsKey(name)){
 			x = loc.x;
-			y = loc.y;
-			z = loc.z;
+			y = loc.z;
+			z = loc.y;
 			d = loc.dimension;
 			toSave = x+","+y+","+z+","+d;
 			warps.get(name, toSave);
+			warps.save();
+			return true;
 		} else{
-			return;
+			return false;
 		}
-		warps.save();
 	}
 	
 	public Location getWarp(String name){
@@ -86,8 +70,8 @@ public class Warp {
 			String[] warpSplit = warp.split(",");
 			
 			x=Integer.parseInt(warpSplit[0]);
-			y=Integer.parseInt(warpSplit[1]);
-			z=Integer.parseInt(warpSplit[2]);
+			y=Integer.parseInt(warpSplit[2]);
+			z=Integer.parseInt(warpSplit[1]);
 			d=Integer.parseInt(warpSplit[3]);
 			
 			loc = new Location(x,y,z,d);

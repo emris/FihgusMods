@@ -24,8 +24,12 @@ public class SetWarpCommand extends CommandBase{
 			player.sendChatToPlayer(Language.translate("Invalad command arguments."));
 			player.sendChatToPlayer(Language.translate("Usage: /setwarp <Warp Name>"));
 		} else if(args.length == 1) {
-			loc = new Location(player.chunkCoordX,player.chunkCoordY,player.chunkCoordZ,player.dimension);
-			warp.newWarp(loc, args[0]);
+			loc = new Location(player);
+			if(warp.newWarp(loc, args[0])){
+				player.sendChatToPlayer(Language.translate("Warp " + args[0] + " set to your current location!"));
+			} else {				
+				player.sendChatToPlayer(Language.translate("Warp " + args[0] + " already exists."));
+			}
 		}
 	}
 }
