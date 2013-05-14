@@ -12,7 +12,7 @@ public class Location
 {
 	public int x,y,z;
 	public double posX,posY,posZ;
-	int dimension;
+	public int dimension;
 	
 	public Location(int x, int y, int z, int dimension)
 	{
