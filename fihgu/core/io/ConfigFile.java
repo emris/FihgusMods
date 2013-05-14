@@ -6,6 +6,12 @@ public class ConfigFile extends SaveFile
 {
 	public HashMap<String,String> map = new HashMap<String,String>();
 	
+	/**
+	 * 
+	 * 
+	 * @param name
+	 * @param path
+	 */
 	public ConfigFile(String name, String path)
 	{
 		super(name, path);
@@ -51,6 +57,21 @@ public class ConfigFile extends SaveFile
 		}
 	}
 	
+	/**
+	 * If the key does not exist, returns null.
+	 * 
+	 * @param key the wanted config
+	 * @return key's value
+	 */
+	public String get(String key)
+	{
+		if(map.containsKey(key))
+			return map.get(key);
+		else
+		{
+			return null;
+		}
+	}
 	public boolean containsKey(String key)
 	{
 		return map.containsKey(key);
