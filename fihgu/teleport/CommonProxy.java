@@ -1,5 +1,6 @@
 package fihgu.teleport;
 
+import fihgu.teleport.commands.BackCommand;
 import fihgu.teleport.commands.HomeCommand;
 import fihgu.teleport.commands.SetHomeCommand;
 import fihgu.teleport.commands.SetWarpCommand;
@@ -13,5 +14,6 @@ public class CommonProxy
 		new SetWarpCommand().register();
 		new SetHomeCommand().register();
 		new HomeCommand().register();
+		new BackCommand().register();
 	}
 }

@@ -1,5 +1,7 @@
 package fihgu.core.functions;
 
+import java.util.HashMap;
+
 import fihgu.core.elements.Location;
 import fihgu.core.io.ConfigFile;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -12,6 +14,8 @@ public class Warp {
 	private String fileLoc = "./fihgu/teleport/";
 	private ConfigFile warps = new ConfigFile("warps.txt", fileLoc);
 	private ConfigFile homes = new ConfigFile("homes.txt", fileLoc);
+	private Warp previous = null;
+	private HashMap<EntityPlayerMP, Location> playerBackMap = new HashMap<EntityPlayerMP, Location>();
 	
 	public Warp(){
 		
@@ -26,6 +30,7 @@ public class Warp {
 		loc = this.getWarp(name);
 		
 		if(loc!=null){
+			playerBackMap.put(who, new Location(who));
 			who.setPositionAndUpdate(loc.posX+0.5, loc.posZ, loc.posY+0.5);
 			return true;
 		} else {
@@ -38,12 +43,25 @@ public class Warp {
 		loc = this.getHome(who);
 		
 		if(loc!=null){
+			playerBackMap.put(who, new Location(who));
 			who.setPositionAndUpdate(loc.posX+0.5, loc.posZ, loc.posY+0.5);
 			return true;
 		} else {
 			return false;
 		}
-	}	
+	}
+	
+	public boolean goBack(EntityPlayerMP player){
+		Location loc;
+		if(playerBackMap.containsKey(player)){
+			loc = playerBackMap.get(player);
+			playerBackMap.put(player, new Location(player));
+			player.setPositionAndUpdate(loc.posX,loc.posZ,loc.posY);
+			return true;
+		} else {
+			return false;
+		}
+	}
 	//////////////////////////////////////////////////////////////////////
 	// Functions for getting warp information
 	//////////////////////////////////////////////////////////////////////
