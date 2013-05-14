@@ -8,9 +8,6 @@ public class ConfigFile extends SaveFile
 	
 	/**
 	 * 
-	 * 
-	 * @param name
-	 * @param path
 	 */
 	public ConfigFile(String name, String path)
 	{
@@ -68,16 +65,18 @@ public class ConfigFile extends SaveFile
 		if(map.containsKey(key))
 			return map.get(key);
 		else
-		{
 			return null;
-		}
 	}
 	
-	public boolean set(String key, String value){
-		if(map.containsKey(key)){
+	public boolean set(String key, String value)
+	{
+		if(map.containsKey(key))
+		{
 			map.put(key, value);
 			return true;
-		} else {
+		}
+		else 
+		{
 			return false;
 		}
 	}
