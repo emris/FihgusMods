@@ -11,19 +11,24 @@ public class Teleport LoginCommand extends CommandBase{
 		instance = this;
 	}
 	
-	public void teleportToPlayer(Player from, Player to){
+	public void teleportToPlayer(EntityPlayerMP from, EntityPlayerMP to){
+		ChunkCoordinates toWhere = to.getPlayerCoordinates();
 		
+		from.setPositionAndUpdate(toWhere.posX,toWhere.posY,toWhere.posZ);
 	}
 	
-	public void teleportToLoc(Player who, int x, int y, int z){
-		
+	public void teleportToLoc(EntityPlayerMP who, int x, int y, int z){
+		who.setPositionAndUpdate(x,y,z);
 	}
 	
-	public void teleportToLoc(Player who, int x, int z){
+	public void teleportToLoc(EntityPlayerMP who, int x, int z){
+		int y;
 		
+		
+		who.setPositionAndUpdate(x,y,z);
 	}
 	
-	public void teleportToSpawn(Player who){
+	public void teleportToSpawn(EntityPlayerMP who){
 		
 	}
 }
