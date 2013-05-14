@@ -1,16 +1,16 @@
 package fihgu.core.functions;
 
-import fihgu.core.elements.CommandBase;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.ChunkCoordinates;
 
-public class Teleport LoginCommand extends CommandBase{
+
+
+public class Warp {
 	
-	public static ComandBase instance;
-	
-	public Teleport(){
-		name = "Teleport";
-		instance = this;
+	public Warp(){
+		
 	}
-	
+	//////////////////////////////////////////////////////////////////////
 	public void teleportToPlayer(EntityPlayerMP from, EntityPlayerMP to){
 		ChunkCoordinates toWhere = to.getPlayerCoordinates();
 		
@@ -22,7 +22,7 @@ public class Teleport LoginCommand extends CommandBase{
 	}
 	
 	public void teleportToLoc(EntityPlayerMP who, int x, int z){
-		int y;
+		int y = 0;
 		
 		
 		who.setPositionAndUpdate(x,y,z);
@@ -31,4 +31,10 @@ public class Teleport LoginCommand extends CommandBase{
 	public void teleportToSpawn(EntityPlayerMP who){
 		
 	}
+	//////////////////////////////////////////////////////////////////////
+	
+	//////////////////////////////////////////////////////////////////////
+	
+	
+	
 }
