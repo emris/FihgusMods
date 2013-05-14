@@ -1,11 +1,16 @@
 package fihgu.core.elements;
 
+import fihgu.core.functions.PlayerManager;
+import fihgu.core.shortcut.Server;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemInWorldManager;
+import net.minecraft.world.storage.SaveHandler;
+import net.minecraftforge.common.DimensionManager;
 
 public class Player 
 {
 	public String name;
-	public EntityPlayerMP entity;
+	private EntityPlayerMP entity;
 	
 	public Player(String name)
 	{
@@ -13,22 +18,43 @@ public class Player
 	}
 	
 	/**
-	 * TODO:check if player is online.
+	 *check if player is online.
 	 */
 	public boolean isOnline()
 	{
-		return false;
+		return PlayerManager.getPlayer(name)!=null;
 	}
 	
 	/**
-	 * TODO: return player entity if he is online.
-	 * load data n construct a player entity from saved data if he's not.
-	 * return null if no player is found.
+	 * TEST REQUIRED
 	 * 
-	 * so you can access player inventory even if he is offline.
+	 * get the player's entity no matter he's online or not.
+	 * 
 	 */
 	public EntityPlayerMP getEntity()
 	{
+		if(isOnline())
+			entity = PlayerManager.getPlayer(name);
+		else
+		{
+			ItemInWorldManager itemInWorldManager = new ItemInWorldManager(Server.getServer().worldServerForDimension(0));
+			entity = new EntityPlayerMP(Server.getServer(), Server.getServer().worldServerForDimension(0), name, itemInWorldManager);
+			
+			Server.getConfigurationManager().readPlayerDataFromFile(entity);
+		}
+		
 		return entity;
+	}
+	
+	/**
+	 * TEST REQUIRED
+	 * save the player's current data to the hard drive
+	 */
+	public void save()
+	{
+		if(entity != null)
+		{
+			((SaveHandler)DimensionManager.getWorld(0).getSaveHandler()).writePlayerData(entity);
+		}
 	}
 }
