@@ -72,6 +72,16 @@ public class ConfigFile extends SaveFile
 			return null;
 		}
 	}
+	
+	public boolean set(String key, String value){
+		if(map.containsKey(key)){
+			map.put(key, value);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public boolean containsKey(String key)
 	{
 		return map.containsKey(key);

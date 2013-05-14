@@ -9,7 +9,7 @@ import net.minecraft.util.ChunkCoordinates;
 
 public class Warp {
 	
-	private String fileLoc = "./fihgu/teleport";
+	private String fileLoc = "./fihgu/teleport/";
 	private ConfigFile warps = new ConfigFile("warps.txt", fileLoc);
 	private ConfigFile homes = new ConfigFile("homes.txt", fileLoc);
 	
@@ -22,15 +22,28 @@ public class Warp {
 	
 	public boolean warpTo(EntityPlayerMP who, String name)
 	{
-		Location loc = this.getWarp(name);
+		Location loc = null;
+		loc = this.getWarp(name);
+		
 		if(loc!=null){
-			who.setPositionAndUpdate(loc.posX+0.5, loc.posZ+0.5, loc.posY);
+			who.setPositionAndUpdate(loc.posX+0.5, loc.posZ, loc.posY+0.5);
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+	public boolean warpHome(EntityPlayerMP who)
+	{
+		Location loc = null;
+		loc = this.getHome(who);
+		
+		if(loc!=null){
+			who.setPositionAndUpdate(loc.posX+0.5, loc.posZ, loc.posY+0.5);
+			return true;
+		} else {
+			return false;
+		}
+	}	
 	//////////////////////////////////////////////////////////////////////
 	// Functions for getting warp information
 	//////////////////////////////////////////////////////////////////////
@@ -81,9 +94,52 @@ public class Warp {
 			return null;
 		}
 	}
+
+	public boolean newHome(EntityPlayerMP who){
+		homes.load();
+		Location loc = new Location(who);
+		String toSave = loc.x+","+loc.z+","+loc.y+","+loc.dimension;
+		if(!homes.containsKey(who.username)){
+			homes.get(who.username, toSave);
+			homes.save();
+			setRespawn(who);
+			return true;
+		} else {
+			homes.set(who.username, toSave);
+			homes.save();
+			setRespawn(who);
+			return false;
+		}
+	}	
+	
+	public Location getHome(EntityPlayerMP who){
+		homes.load();
+		Location loc;
+		int x,y,z,d;
+		
+		if(homes.containsKey(who.username)){
+			
+			String warp = homes.get(who.username);
+			String[] warpSplit = warp.split(",");
+			
+			x=Integer.parseInt(warpSplit[0]);
+			y=Integer.parseInt(warpSplit[2]);
+			z=Integer.parseInt(warpSplit[1]);
+			d=Integer.parseInt(warpSplit[3]);
+			
+			loc = new Location(x,y,z,d);
+			
+			return loc;
+		} else {
+			return null;
+		}
+	}
 	
 	//////////////////////////////////////////////////////////////////////
 	// Misc functions
 	//////////////////////////////////////////////////////////////////////
 	
+	public void setRespawn(EntityPlayerMP who){
+		who.setSpawnChunk(new ChunkCoordinates(who.chunkCoordX,who.chunkCoordY,who.chunkCoordZ), true);
+	}
 }
