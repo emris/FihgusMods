@@ -62,7 +62,24 @@ public class Warp
 			return false;
 		}
 	}
-	
+	/**
+	 * @param name: the name of target warp point.
+	 * player to warp point
+	 */
+	public boolean warpTo(EntityPlayerMP who, EntityPlayerMP where)
+	{
+		Location loc = this.getLocation(where);
+		
+		if(loc!=null)
+		{
+			warpTo(who,loc,false);
+			return true;
+		} 
+		else 
+		{
+			return false;
+		}
+	}	
 	public boolean warpHome(EntityPlayerMP who)
 	{
 		Location loc = this.getHome(who);
@@ -201,5 +218,10 @@ public class Warp
 	public void setRespawn(EntityPlayerMP who)
 	{
 		who.setSpawnChunk(new ChunkCoordinates(who.chunkCoordX,who.chunkCoordY,who.chunkCoordZ), true);
+	}
+	
+	public Location getLocation(EntityPlayerMP who)
+	{
+		return new Location(who);
 	}
 }

@@ -11,6 +11,7 @@ import fihgu.core.functions.Warp;
 
 public class SummonCommand extends CommandBase{
 	private Warp warp;
+	private EntityPlayerMP sender;
 	
 	public SummonCommand()
 	{
@@ -23,7 +24,7 @@ public class SummonCommand extends CommandBase{
 	public void processPlayer(EntityPlayerMP p, String[] args)
 	{
 		Player player = new Player(p);
-		Player player2 = null;
+		Player player2 = new Player(PlayerManager.getPlayer(args[0], true));
 		if(args.length < 1 || args.length > 1)
 		{
 			player.msg(Language.translate("Invalad command arguments."));
@@ -31,21 +32,19 @@ public class SummonCommand extends CommandBase{
 		}
 		else if(args.length == 1)
 		{
-			player2 = new Player(PlayerManager.getPlayer(args[0], true));
 			if(player2!=null)
 			{
 				player.msg(Language.translate("Request sent to " + player2.name + "!"));
 				player2.msg(Language.translate(player.name + " has send you a Warp request!"));
 				player2.msg(Language.translate("Would you like to warp? Use command /accept"));
+				sender = p;
 				new Request(player2, 30)
 				{
-					 Player sender = player;
 					 @Override
 					 public void accepted()
 					 {
-						 player.msg("Tdaf;sadf;");
-						 Location loc = new Location(sender.getEntity());
-						 warp.warpTo(sender.getEntity(), loc, false);
+						 Location loc = new Location(sender);
+						 warp.warpTo(player.getEntity(), loc, false);
 					 }
 				};
 			}
