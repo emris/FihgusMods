@@ -39,12 +39,11 @@ public class SummonCommand extends CommandBase{
 				player2.msg(Language.translate("Would you like to warp? Use command /accept"));
 				new Request(player2, 30)
 				{
+					Player sender = player;
 					 public void onAccept()
 					 {
-						 Player sent = player;
-						 Location loc = new Location(player.getEntity());
-						 Warp warp = new Warp();
-						 warp.warpTo(sent.getEntity(), loc, false);
+						 Location loc = new Location(sender.getEntity());
+						 Warp.warpTo(sender.getEntity(), loc, false);
 					 }
 				};
 			}

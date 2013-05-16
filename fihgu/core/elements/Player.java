@@ -99,4 +99,10 @@ public class Player
 	{
 		Warp.warpTo(getEntity(), loc, false);
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return name.hashCode();
+	}
 }
