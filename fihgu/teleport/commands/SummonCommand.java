@@ -40,7 +40,8 @@ public class SummonCommand extends CommandBase{
 				new Request(player2, 30)
 				{
 					 Player sender = player;
-					 public void onAccepted()
+					 @Override
+					 public void accepted()
 					 {
 						 player.msg("Tdaf;sadf;");
 						 Location loc = new Location(sender.getEntity());
