@@ -21,19 +21,27 @@ public class Warp
 	//////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * TODO: implement dimension here :)
+	 * Send player to location.
 	 * 
 	 * @param exact: use double when it's true;
-	 * the basic player to location warp.
+	 * 
 	 */
 	public static void warpTo(EntityPlayerMP player, Location loc, boolean exact)
 	{		
 		playerBackMap.put(player, new Location(player));
+		int dimension = loc.dimension;
+
+		if(dimension != player.dimension)
+			player.travelToDimension(dimension);
 		
 		if(!exact)
+		{	
 			player.setPositionAndUpdate(loc.x+0.5, loc.z, loc.y+0.5);
+		}
 		else
+		{
 			player.setPositionAndUpdate(loc.posX, loc.posZ, loc.posY);
+		}
 	}
 	
 	/**
@@ -84,11 +92,6 @@ public class Warp
 			return false;
 		}
 	}
-	//////////////////////////////////////////////////////////////////////
-	// Functions for getting warp information
-	//////////////////////////////////////////////////////////////////////
-
-	
 	
 	//////////////////////////////////////////////////////////////////////
 	// Functions for saving file information

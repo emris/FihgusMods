@@ -5,7 +5,8 @@ import fihgu.core.elements.CommandBase;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.Warp;
 
-public class SetHomeCommand extends CommandBase{
+public class SetHomeCommand extends CommandBase
+{
 	private Warp warp;
 	
 	public SetHomeCommand()
@@ -18,13 +19,19 @@ public class SetHomeCommand extends CommandBase{
 	@Override
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{
-		if(args.length > 0){
+		if(args.length > 0)
+		{
 			player.sendChatToPlayer(Language.translate("Invalad command arguments."));
 			player.sendChatToPlayer(Language.translate("Usage: /sethome"));
-		} else if(args.length == 0) {
-			if(warp.newHome(player)){
+		}
+		else if(args.length == 0) 
+		{
+			if(warp.newHome(player))
+			{
 				player.sendChatToPlayer(Language.translate("Your home has been set to your location!"));
-			} else {
+			}
+			else 
+			{
 				player.sendChatToPlayer(Language.translate("Your home has been updated to your location!"));
 			}
 		}
