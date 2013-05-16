@@ -9,8 +9,8 @@ import fihgu.core.functions.Warp;
 public class WarpCommand extends CommandBase{
 	Warp warp;
 	
-	public WarpCommand()
-	{
+	public WarpCommand(){
+		System.out.println("test");
 		warp = new Warp();
 		name = "warp";
 		usage = Language.translate(" <Warp Name>: Teleport to a set Warp");
