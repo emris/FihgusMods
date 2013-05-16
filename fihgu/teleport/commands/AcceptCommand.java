@@ -29,8 +29,10 @@ public class AcceptCommand extends CommandBase
 		}
 		else if(args.length == 0)
 		{
+			player.sendChatToPlayer("Warping!");
 			if(Request.map.containsKey(new Player(player)))
 			{
+				player.sendChatToPlayer("Made it");
 				Request.map.get(new Player(player)).interact(true);
 			}
 			else
