@@ -26,7 +26,7 @@ public class Warp
 	 * @param exact: use double when it's true;
 	 * the basic player to location warp.
 	 */
-	public void warpTo(EntityPlayerMP player, Location loc, boolean exact)
+	public static void warpTo(EntityPlayerMP player, Location loc, boolean exact)
 	{		
 		playerBackMap.put(player, new Location(player));
 		

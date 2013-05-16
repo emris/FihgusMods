@@ -5,21 +5,26 @@ import java.util.Arrays;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import fihgu.core.commands.*;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.Log;
 
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.ServerStarted;
 import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.Mod.ServerStopping;
 import cpw.mods.fml.common.event.FMLLoadEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
 public class FModContainer extends DummyModContainer
-{
+{	
+	
 	public FModContainer()
 	{
 		super(new ModMetadata());
@@ -35,16 +40,24 @@ public class FModContainer extends DummyModContainer
 	public boolean registerBus(EventBus bus, LoadController controller)
 	{
 		bus.register(this);
+		System.out.println("working!!!");
 		return true;
 	}
 	
-	@ServerStarting
+	@Subscribe
 	public void onServerStarting(FMLServerStartingEvent e) 
 	{
 		
 	}
 	
-	@ServerStopping
+	@Subscribe
+	public void onServerStarted(FMLServerStartedEvent e)
+	{
+		new NCommand().register();
+		new YCommand().register();
+	}
+	
+	@Subscribe
 	public void onServerStopping(FMLServerStoppingEvent e)
 	{
 		FPreloader.mainConfig.save();

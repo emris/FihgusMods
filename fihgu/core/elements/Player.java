@@ -3,6 +3,7 @@ package fihgu.core.elements;
 import java.util.ArrayList;
 
 import fihgu.core.functions.PlayerManager;
+import fihgu.core.functions.Warp;
 import fihgu.core.shortcut.Server;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemInWorldManager;
@@ -19,6 +20,12 @@ public class Player
 		this.name = name;
 	}
 	
+	public Player(EntityPlayerMP player)
+	{
+		this.name = player.username;
+		this.entity = player;
+	}
+	
 	/**
 	 * @return a list of groups this player is in.
 	 */
@@ -31,6 +38,14 @@ public class Player
 				list.add(group);
 		
 		return list;
+	}
+	
+	public void msg(String line)
+	{
+		if(this.isOnline())
+		{
+			this.getEntity().sendChatToPlayer(line);
+		}
 	}
 	
 	/**
@@ -78,5 +93,10 @@ public class Player
 	public boolean equals(Object O)
 	{
 		return (O instanceof Player) && ((Player)O).name.equals(name);
+	}
+	
+	public void warp(Location loc)
+	{
+		Warp.warpTo(getEntity(), loc, false);
 	}
 }
