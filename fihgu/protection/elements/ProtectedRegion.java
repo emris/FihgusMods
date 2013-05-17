@@ -1,10 +1,12 @@
 package fihgu.protection.elements;
 
+import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
 import fihgu.core.elements.Region;
+import fihgu.core.functions.Protection;
 
 public class ProtectedRegion extends Region
-{
+{	
 	public Member owner;
 	public int id;
 	public String name;
@@ -21,4 +23,10 @@ public class ProtectedRegion extends Region
 	public boolean lavaFlow = false;
 	public boolean waterFlow = false;
 	public boolean pvp = false;
+	
+	public ProtectedRegion(Location loc1, Location loc2){
+		this.point1 = loc1;
+		this.point2 = loc2;
+	}
+	
 }
