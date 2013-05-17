@@ -48,13 +48,34 @@ public class WarpCommand extends CommandBase
 						player.msg(McColor.green
 								+ Language.translate("Warpped to ")
 								+ McColor.blue + sender.username);
+
 					}
 				};
 			} else if (warp.warpTo(player, args[0]))
 			{
 				player.sendChatToPlayer(McColor.green
-						+ Language.translate("Warped to ") + args[0] + ".");
-			} else
+						+ Language.translate("Warped to ") + args[0] + ".");			
+			}
+			else if(PlayerManager.getPossiblePlayer(args[0]) != null)
+			{
+				player2 = PlayerManager.getPossiblePlayer(args[0]);
+				
+				player.sendChatToPlayer(Language.translate("Request sent to ")  + player2.username + "!");
+				player2.sendChatToPlayer(player.username + Language.translate(" has send you a Warp request!"));
+				player2.sendChatToPlayer(Language.translate("you can use /y to accept or /n to deny."));
+				
+				new Request(new Player(player2), 30)
+				{
+					@Override
+					public void accepted()
+					{
+						sender.sendChatToPlayer(player + " has accepted!");
+						warp.warpTo(sender, player.getEntity());
+						player.msg("Warpped to " + sender.username);
+					}
+				};
+			}
+			else
 			{
 				player.sendChatToPlayer(McColor.red
 						+ Language.translate("Warp ") + McColor.blue + args[0]

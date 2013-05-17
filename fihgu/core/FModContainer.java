@@ -8,6 +8,8 @@ import com.google.common.eventbus.Subscribe;
 import fihgu.core.commands.*;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.Log;
+import fihgu.core.shortcut.Forge;
+import fihgu.core.tools.EventHandler;
 
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
@@ -40,7 +42,6 @@ public class FModContainer extends DummyModContainer
 	public boolean registerBus(EventBus bus, LoadController controller)
 	{
 		bus.register(this);
-		System.out.println("working!!!");
 		return true;
 	}
 	
@@ -55,6 +56,8 @@ public class FModContainer extends DummyModContainer
 	{
 		new NCommand().register();
 		new YCommand().register();
+		
+		Forge.registerPlayerTracker(new EventHandler());
 	}
 	
 	@Subscribe

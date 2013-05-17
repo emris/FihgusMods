@@ -27,8 +27,9 @@ public class SummonCommand extends CommandBase
 	public void processPlayer(EntityPlayerMP p, String[] args)
 	{
 		Player player = new Player(p);
-		Player player2 = new Player(PlayerManager.getPlayer(args[0], true));
-		if (args.length < 1 || args.length > 1)
+	Player player2 = new Player(PlayerManager.getPossiblePlayer(args[0]));
+
+		if(args.length < 1 || args.length > 1)
 		{
 			player.msg(McColor.red
 					+ Language.translate("Invalad command arguments."));
