@@ -32,6 +32,7 @@ public class Player
 	public ArrayList<Group> getGroups()
 	{
 		ArrayList<Group> list = new ArrayList<Group>();
+		Group.loadAll();
 		
 		for(Group group:Group.groups)
 			if(group.players.contains(this))

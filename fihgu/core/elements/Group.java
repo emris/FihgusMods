@@ -39,6 +39,7 @@ public class Group
 	
 	public static void loadAll()
 	{
+		groups.clear();
 		File dir = new File("./fihgu/core/groups/");
 		if(dir.exists())
 		{
