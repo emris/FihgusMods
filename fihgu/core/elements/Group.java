@@ -3,6 +3,7 @@ package fihgu.core.elements;
 import java.io.File;
 import java.util.ArrayList;
 
+import fihgu.core.FPreloader;
 import fihgu.core.io.SaveFile;
 
 /**
@@ -49,6 +50,17 @@ public class Group
 				groups.add(new Group(file.getName().substring(6,file.getName().length()-4)));
 			}
 		}
+		
+		//deafult groups
+		
+		if(!(groups.contains(new Group("Player")) || groups.contains(new Group("Admin")) || groups.contains(new Group("Owner"))))
+		{
+			groups.add(new Group("Player"));
+			groups.add(new Group("Admin"));
+			groups.add(new Group("Owner"));
+			
+			saveAll();
+		}
 	}
 	
 	public static void saveAll()
@@ -67,5 +79,33 @@ public class Group
 		}
 		
 		saveFile.save(false);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return this.name.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object O)
+	{
+		return (O instanceof Group) && ((Group)O).name.equals(name);
+	}
+	
+	public static Group getDefaultGroup()
+	{
+		String defaultGroup = FPreloader.mainConfig.get("default Group", "Player");
+		
+		if(groups.contains(new Group("Player")))
+		{
+			return groups.get(groups.indexOf(new Group("Player")));
+		}
+		else
+		{
+			Group temp = new Group("Player");
+			groups.add(temp);
+			return temp;
+		}
 	}
 }

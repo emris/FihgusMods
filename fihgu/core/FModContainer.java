@@ -8,6 +8,8 @@ import com.google.common.eventbus.Subscribe;
 import fihgu.core.commands.*;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.Log;
+import fihgu.core.shortcut.Forge;
+import fihgu.core.tools.EventHandler;
 
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
@@ -55,6 +57,8 @@ public class FModContainer extends DummyModContainer
 	{
 		new NCommand().register();
 		new YCommand().register();
+		
+		Forge.registerEventHandler(new EventHandler());
 	}
 	
 	@Subscribe
