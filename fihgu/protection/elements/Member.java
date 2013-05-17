@@ -6,10 +6,10 @@ public class Member
 {
 	public Player member;
 	public ProtectedRegion region;
-	public boolean destroy;
-	public boolean build;
-	public boolean useItems;
-	public boolean accessBlocks;
+	private boolean destroy;
+	private boolean build;
+	private boolean useItems;
+	private boolean accessBlocks;
 	
 	/**
 	 * Makes new Member
