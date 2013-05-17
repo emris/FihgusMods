@@ -5,10 +5,10 @@ import fihgu.core.elements.Region;
 
 public class ProtectedRegion extends Region
 {
-	public Player owner;
+	public Member owner;
 	public int id;
 	public String name;
-	public Player[] members;
+	public Member[] members;
 	
 	public boolean creeperDmg = false;
 	public boolean mobSpawn = false;
