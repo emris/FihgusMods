@@ -34,7 +34,8 @@ public class LockCommand extends CommandBase
 		}
 		else if(args.length == 1)
 		{
-			
+			player.msg(McColor.green
+					+ Language.translate("Please RIGHT click two blocks to protect a region."));
 		}
 		else if(args.length == 0)
 		{

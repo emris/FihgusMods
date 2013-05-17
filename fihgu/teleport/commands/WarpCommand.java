@@ -25,7 +25,7 @@ public class WarpCommand extends CommandBase
 	@Override
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{
-		EntityPlayerMP player2 = PlayerManager.getPlayer(args[0], true);
+		EntityPlayerMP player2 ;
 		if (args.length < 1 || args.length > 1)
 		{
 			player.sendChatToPlayer(McColor.red
@@ -34,6 +34,7 @@ public class WarpCommand extends CommandBase
 					.translate("Usage: /warp <Warp Name | Player>"));
 		} else if (args.length == 1)
 		{
+			player2 = PlayerManager.getPlayer(args[0], true);
 			if (player2 != null)
 			{
 				sender = player;
