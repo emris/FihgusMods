@@ -6,12 +6,10 @@ public class Member
 {
 	public Player member;
 	public ProtectedRegion region;
-	public boolean isOwner;
-	
-	public boolean destroy = true;
-	public boolean build = true;
-	public boolean useItems = true;
-	public boolean accessBlocks = true;
+	public boolean destroy;
+	public boolean build;
+	public boolean useItems;
+	public boolean accessBlocks;
 	
 	/**
 	 * Makes new Member
@@ -20,9 +18,20 @@ public class Member
 	 * @param region of where member is located.
 	 * @param isOwner of the region where member is located.
 	 */
-	public Member(Player member, ProtectedRegion region, boolean isOwner){
+	public Member(Player member, ProtectedRegion region){
 		this.member = member;
 		this.region = region;
-		this.isOwner = isOwner;
+		this.destroy = region.destroy;
+		this.build = region.build;
+		this.useItems = region.useItems;
+		this.accessBlocks = region.accessBlocks;
 	}
+	
+	public void destroy(boolean b){this.destroy=b;}
+
+	public void build(boolean b){this.build=b;}
+
+	public void useItems(boolean b){this.useItems=b;}
+
+	public void accessBlocks(boolean b){this.accessBlocks=b;}
 }
