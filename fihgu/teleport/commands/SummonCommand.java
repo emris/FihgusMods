@@ -24,7 +24,6 @@ public class SummonCommand extends CommandBase{
 	public void processPlayer(EntityPlayerMP p, String[] args)
 	{
 		Player player = new Player(p);
-		Player player2 = new Player(PlayerManager.getPlayer(args[0], true));
 		if(args.length < 1 || args.length > 1)
 		{
 			player.msg(Language.translate("Invalad command arguments."));
@@ -32,11 +31,12 @@ public class SummonCommand extends CommandBase{
 		}
 		else if(args.length == 1)
 		{
+			Player player2 = new Player(PlayerManager.getPossiblePlayer(args[0]));
 			if(player2!=null)
 			{
-				player.msg(Language.translate("Request sent to " + player2.name + "!"));
-				player2.msg(Language.translate(player.name + " has send you a Warp request!"));
-				player2.msg(Language.translate("Would you like to warp? Use command /accept"));
+				player.msg(Language.translate("Request sent to ")  + player2.name + "!");
+				player2.msg(player.name + Language.translate(" has send you a Warp request!"));
+				player2.msg(Language.translate("you can use /y to accept or /n to deny."));
 				sender = p;
 				new Request(player2, 30)
 				{

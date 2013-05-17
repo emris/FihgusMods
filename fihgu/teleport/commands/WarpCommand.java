@@ -22,21 +22,30 @@ public class WarpCommand extends CommandBase{
 	
 	@Override
 	public void processPlayer(EntityPlayerMP player, String[] args)
-	{
-		EntityPlayerMP player2 = PlayerManager.getPlayer(args[0], true);
+	{	
+		sender = player;	
 		if(args.length < 1 || args.length > 1)
 		{
 			player.sendChatToPlayer(Language.translate("Invalad command arguments."));
 			player.sendChatToPlayer(Language.translate("Usage: /warp <Warp Name | Player>"));
-		} else if(args.length == 1) {
+		} 
+		else if(args.length == 1) 
+		{
+			EntityPlayerMP player2 = PlayerManager.getPlayer(args[0], true);
+			
 			if(player2 != null)
 			{
-				sender = player;
-				new Request(new Player(player2), 30){
+				player.sendChatToPlayer(Language.translate("Request sent to ")  + player2.username + "!");
+				player2.sendChatToPlayer(player.username + Language.translate(" has send you a Warp request!"));
+				player2.sendChatToPlayer(Language.translate("you can use /y to accept or /n to deny."));
+				
+				new Request(new Player(player2), 30)
+				{
 					@Override
-					public void accepted(){
-						warp.warpTo(sender, player.getEntity());
+					public void accepted()
+					{
 						sender.sendChatToPlayer(player + " has accepted!");
+						warp.warpTo(sender, player.getEntity());
 						player.msg("Warpped to " + sender.username);
 					}
 				};
@@ -44,6 +53,25 @@ public class WarpCommand extends CommandBase{
 			else if(warp.warpTo(player, args[0]))
 			{
 				player.sendChatToPlayer(Language.translate("Warped to " + args[0] + "."));			
+			}
+			else if(PlayerManager.getPossiblePlayer(args[0]) != null)
+			{
+				player2 = PlayerManager.getPossiblePlayer(args[0]);
+				
+				player.sendChatToPlayer(Language.translate("Request sent to ")  + player2.username + "!");
+				player2.sendChatToPlayer(player.username + Language.translate(" has send you a Warp request!"));
+				player2.sendChatToPlayer(Language.translate("you can use /y to accept or /n to deny."));
+				
+				new Request(new Player(player2), 30)
+				{
+					@Override
+					public void accepted()
+					{
+						sender.sendChatToPlayer(player + " has accepted!");
+						warp.warpTo(sender, player.getEntity());
+						player.msg("Warpped to " + sender.username);
+					}
+				};
 			}
 			else 
 			{
