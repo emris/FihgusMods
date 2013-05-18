@@ -9,11 +9,11 @@ import fihgu.core.functions.McColor;
 import fihgu.core.functions.PlayerManager;
 import fihgu.core.functions.Warp;
 
-public class AcceptCommand extends CommandBase
+public class AcceptWarpCommand extends CommandBase
 {
 	private Warp warp;
 
-	public AcceptCommand()
+	public AcceptWarpCommand()
 	{
 		warp = new Warp();
 		name = "accept";
