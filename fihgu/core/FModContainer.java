@@ -54,8 +54,11 @@ public class FModContainer extends DummyModContainer
 	{
 		new NCommand().register();
 		new YCommand().register();
-
-		Forge.registerPlayerTracker(new EventHandler());
+		
+		EventHandler eventHandler = new EventHandler();
+		
+		Forge.registerPlayerTracker(eventHandler);
+		Forge.registerEventHandler(eventHandler);
 	}
 
 	@Subscribe

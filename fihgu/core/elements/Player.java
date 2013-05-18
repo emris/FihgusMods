@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import fihgu.core.functions.PlayerManager;
 import fihgu.core.functions.Warp;
 import fihgu.core.shortcut.Server;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemInWorldManager;
 import net.minecraft.world.storage.SaveHandler;
@@ -18,6 +19,11 @@ public class Player
 	public Player(String name)
 	{
 		this.name = name;
+	}
+	
+	public Player(EntityPlayer player)
+	{
+		this.name = player.username;
 	}
 	
 	public Player(EntityPlayerMP player)
