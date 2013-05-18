@@ -26,6 +26,7 @@ import net.minecraftforge.event.CommandEvent;
 
 public class FCommandHandler extends CommandHandler
 {
+	@Override
 	public int executeCommand(ICommandSender par1ICommandSender, String par2Str)
     {
         par2Str = par2Str.trim();
@@ -147,23 +148,22 @@ public class FCommandHandler extends CommandHandler
         return j;
     }
 	
-	
+	@Override
 	public List getPossibleCommands(ICommandSender par1ICommandSender)
-    {
-        ArrayList var2 = new ArrayList();
+    {       
+        ArrayList arraylist = new ArrayList();
+        Iterator iterator = super.getCommands().entrySet().iterator();
 
-        for (Object key : super.getCommands().keySet())
+        while (iterator.hasNext())
         {
-        	
-            ICommand var4 = (ICommand)super.getCommands().get(key);
+            ICommand icommand = (ICommand)iterator.next();
 
-            if (var4.canCommandSenderUseCommand(par1ICommandSender) || (FML.isModLoaded("fihgu's Permission Mod")))
+            if (icommand.canCommandSenderUseCommand(par1ICommandSender) || FML.isModLoaded("fihgu's Permission Mod"))
             {
-            	if(!var2.contains(super.getCommands().get(key)))
-                var2.add(var4);
+                arraylist.add(icommand);
             }
         }
 
-        return var2;
+        return arraylist;
     }
 }

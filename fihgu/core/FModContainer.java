@@ -25,8 +25,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
 public class FModContainer extends DummyModContainer
-{	
-	
+{
 	public FModContainer()
 	{
 		super(new ModMetadata());
@@ -37,29 +36,28 @@ public class FModContainer extends DummyModContainer
 		meta.authorList = Arrays.asList(new String[]{"fihgu"});
 		meta.description = "Provide API for fihgu's other mods";
 	}
-	
+
 	@Override
 	public boolean registerBus(EventBus bus, LoadController controller)
 	{
 		bus.register(this);
 		return true;
 	}
-	
+
 	@Subscribe
-	public void onServerStarting(FMLServerStartingEvent e) 
+	public void onServerStarting(FMLServerStartingEvent e)
 	{
-		
 	}
-	
+
 	@Subscribe
 	public void onServerStarted(FMLServerStartedEvent e)
 	{
 		new NCommand().register();
 		new YCommand().register();
-		
+
 		Forge.registerPlayerTracker(new EventHandler());
 	}
-	
+
 	@Subscribe
 	public void onServerStopping(FMLServerStoppingEvent e)
 	{
