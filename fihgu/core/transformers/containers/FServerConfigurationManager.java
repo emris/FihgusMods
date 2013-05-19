@@ -17,6 +17,8 @@ public class FServerConfigurationManager extends ServerConfigurationManager
 	{
 		super(par1MinecraftServer);
 	}
+	
+	@Override
 	public void playerLoggedOut(EntityPlayerMP par1EntityPlayerMP)
     {
 		if(!MinecraftForge.EVENT_BUS.post(new PlayerLogoutEvent(par1EntityPlayerMP)))
