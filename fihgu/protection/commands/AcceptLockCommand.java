@@ -11,7 +11,7 @@ public class AcceptLockCommand extends CommandBase
 
 	public AcceptLockCommand()
 	{
-		protection = new Protection();
+		//protection = new Protection();
 		name = "lockaccept";
 		usage = Language.translate(" : Accept locking a block or region down.");
 	}

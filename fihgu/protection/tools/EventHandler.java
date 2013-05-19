@@ -32,13 +32,15 @@ public class EventHandler
 		{
 			if (!protection.hasSetTwoLocations(player))
 			{
-				if (protection.getA(player) != null)
+				if (protection.getA(player) != null){
 					protection.addLocationA(player, loc);
-				else if (protection.getb(player) != null)
+					player.msg("Location 1 added: x=" + loc.posX + " y=" + loc.posZ + " z=" + loc.posY);
+				}
+				else if (protection.getb(player) != null){
 					protection.addLocationB(player, loc);
-			} else
-			{
-				protection.makeProtection(player);
+					player.msg("Location 2 added: x=" + loc.posX + " y=" + loc.posZ + " z=" + loc.posY);
+					this.makeProtection(player);
+				}
 			}
 		}
 	}
@@ -61,5 +63,11 @@ public class EventHandler
 			return true;
 		else
 			return false;
+	}
+	
+	private void makeProtection(Player player){
+		protection.makeProtection(player);
+		player.msg("Protection " + protection.getName());
+		this.stopWatching(player);
 	}
 }

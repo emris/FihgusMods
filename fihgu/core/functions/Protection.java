@@ -10,10 +10,12 @@ public class Protection
 {
 	private HashMap<Player, Location[]> locations;
 	private ProtectedRegion pr;
+	private String name;
 
-	public Protection()
+	public Protection(String name)
 	{
 		locations = new HashMap<Player, Location[]>();
+		this.name = name;
 	}
 
 	public void addLocationA(Player player, Location loc)
@@ -33,7 +35,7 @@ public class Protection
 		}
 		this.locations.get(player)[1] = loc;
 	}
-
+	
 	public boolean isProtecting(Player player)
 	{
 		if (this.locations.containsKey(player))
@@ -70,6 +72,11 @@ public class Protection
 	
 	public void makeProtection(Player player)
 	{
-			this.pr = new ProtectedRegion(this.getA(player), this.getb(player));
+			this.pr = new ProtectedRegion(this.name, this.getA(player), this.getb(player));
+			pr.save();
+	}
+	
+	public String getName(){
+		return pr.name;
 	}
 }

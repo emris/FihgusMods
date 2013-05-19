@@ -14,45 +14,45 @@ import fihgu.protection.tools.EventHandler;
 
 public class LockCommand extends CommandBase
 {
-	
+
 	private Protection protection;
 	private EventHandler events;
-	private Location loc1,loc2;
-	
+	private Location loc1, loc2;
+
 	public LockCommand()
 	{
-		protection = new Protection();
 		events = new EventHandler(protection);
 		name = "lock";
-		usage = Language.translate(" [Region Name]: Protect region or single block when no name is given.");
+		usage = Language
+				.translate(" [Region Name]: Protect region or single block when no name is given.");
 	}
-	
+
 	@Override
 	public void processPlayer(EntityPlayerMP p, String[] args)
 	{
 		Player player = new Player(p);
-		if(args.length > 1)
+		if (args.length > 1)
 		{
 			player.msg(McColor.red
 					+ Language.translate("Invalad command arguments."));
 			player.msg(McColor.red
 					+ Language.translate("Usage: /lock [Region Name]"));
-			player.msg(McColor.red
-					+ Language.translate("or: /lock"));
+			player.msg(McColor.red + Language.translate("or: /lock"));
 		}
-		else if(args.length == 1)
+		else if (args.length == 1)
 		{
+			protection = new Protection(args[0]);
 			player.msg(McColor.green
-					+ Language.translate("Please RIGHT click two blocks to protect a region."));
-			
+					+ Language
+							.translate("Please RIGHT click two blocks to protect a region."));
+
 			events.watchPlayer(player);
-			
-			
 		}
-		else if(args.length == 0)
+		else if (args.length == 0)
 		{
 			player.msg(McColor.green
-					+ Language.translate("Please RIGHT click block that you would like to lock."));
+					+ Language
+							.translate("Please RIGHT click block that you would like to lock."));
 		}
 	}
 }
