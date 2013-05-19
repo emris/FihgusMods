@@ -1,6 +1,8 @@
 package fihgu.core.functions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
@@ -8,75 +10,24 @@ import fihgu.protection.elements.ProtectedRegion;
 
 public class Protection
 {
-	private HashMap<Player, Location[]> locations;
-	private ProtectedRegion pr;
-	private String name;
 
-	public Protection(String name)
-	{
-		locations = new HashMap<Player, Location[]>();
-		this.name = name;
-	}
-
-	public void addLocationA(Player player, Location loc)
-	{
-		if (!this.isProtecting(player))
-		{
-			this.locations.put(player, new Location[2]);
-		}
-		this.locations.get(player)[0] = loc;
-	}
-
-	public void addLocationB(Player player, Location loc)
-	{
-		if (!isProtecting(player))
-		{
-			this.locations.put(player, new Location[2]);
-		}
-		this.locations.get(player)[1] = loc;
+	private static List<ProtectedRegion> protections = new ArrayList<ProtectedRegion>();;
+	private String fileLoc = "./fihgu/protections/";
+	
+	public static void addProtection(ProtectedRegion region){
+		protections.add(region);
 	}
 	
-	public boolean isProtecting(Player player)
-	{
-		if (this.locations.containsKey(player))
-			return true;
-		else
-			return false;
+	public static void populate(){
+		
 	}
-
-	public boolean hasSetTwoLocations(Player player)
-	{
-		if (this.isProtecting(player))
-		{
-			if (this.locations.get(player)[0] != null
-					&& this.locations.get(player)[1] != null)
-			{
+	
+	public static boolean exists(String name){
+		for(ProtectedRegion p : protections){
+			if(p.name.equalsIgnoreCase(name)){
 				return true;
-			} else
-			{
-				return false;
 			}
-		} else
-		{
-			return false;
 		}
-	}
-
-	public Location getA(Player player){
-		return this.locations.get(player)[0];
-	}
-
-	public Location getb(Player player){
-		return this.locations.get(player)[1];
-	}
-	
-	public void makeProtection(Player player)
-	{
-			this.pr = new ProtectedRegion(this.name, this.getA(player), this.getb(player));
-			pr.save();
-	}
-	
-	public String getName(){
-		return pr.name;
+		return false;
 	}
 }

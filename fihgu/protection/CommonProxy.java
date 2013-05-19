@@ -1,8 +1,8 @@
 package fihgu.protection;
 
 import fihgu.core.shortcut.Forge;
-import fihgu.permission.tools.EventHandler;
 import fihgu.protection.commands.LockCommand;
+import fihgu.protection.tools.EventHandler;
 import fihgu.teleport.commands.WarpCommand;
 import net.minecraftforge.common.MinecraftForge;
 

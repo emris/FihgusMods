@@ -36,7 +36,7 @@ public class ProtectedRegion extends Region
 		this.name = name;
 		this.point1 = loc1;
 		this.point2 = loc2;
-		file = new SaveFile(name,"./fihgu/protection/");
+		file = new SaveFile(name+".txt","./fihgu/protection/");
 		list = file.data;
 	}
 	

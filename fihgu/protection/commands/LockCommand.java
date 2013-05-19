@@ -15,13 +15,10 @@ import fihgu.protection.tools.EventHandler;
 public class LockCommand extends CommandBase
 {
 
-	private Protection protection;
-	private EventHandler events;
 	private Location loc1, loc2;
 
 	public LockCommand()
 	{
-		events = new EventHandler(protection);
 		name = "lock";
 		usage = Language
 				.translate(" [Region Name]: Protect region or single block when no name is given.");
@@ -41,12 +38,16 @@ public class LockCommand extends CommandBase
 		}
 		else if (args.length == 1)
 		{
-			protection = new Protection(args[0]);
-			player.msg(McColor.green
-					+ Language
-							.translate("Please RIGHT click two blocks to protect a region."));
-
-			events.watchPlayer(player);
+			if (!Protection.exists(args[0]))
+			{
+				player.msg(McColor.green
+						+ Language
+								.translate("Please RIGHT click two blocks to protect a region."));
+				EventHandler.name = args[0];
+				EventHandler.watchPlayer(player);
+			}else{
+				player.msg("A region with that name already exists!");
+			}
 		}
 		else if (args.length == 0)
 		{
