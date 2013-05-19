@@ -10,17 +10,19 @@ import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
 import fihgu.core.functions.Protection;
 import fihgu.protection.elements.ProtectedRegion;
+import fihgu.protection.tools.EventHandler;
 
 public class LockCommand extends CommandBase
 {
 	
 	private Protection protection;
-	private Request request;
+	private EventHandler events;
 	private Location loc1,loc2;
 	
 	public LockCommand()
 	{
 		protection = new Protection();
+		events = new EventHandler(protection);
 		name = "lock";
 		usage = Language.translate(" [Region Name]: Protect region or single block when no name is given.");
 	}
@@ -43,17 +45,8 @@ public class LockCommand extends CommandBase
 			player.msg(McColor.green
 					+ Language.translate("Please RIGHT click two blocks to protect a region."));
 			
+			events.watchPlayer(player);
 			
-			request = new Request(player,30000){
-				@Override
-				public void accepted(){
-					new ProtectedRegion(loc1,loc2);
-				}
-			};
-			
-			new RequestInteractEvent(request,true){
-				
-			};
 			
 		}
 		else if(args.length == 0)

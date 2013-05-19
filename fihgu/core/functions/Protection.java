@@ -60,19 +60,16 @@ public class Protection
 		}
 	}
 
-	public boolean makeProtection(Player player)
+	public Location getA(Player player){
+		return this.locations.get(player)[0];
+	}
+
+	public Location getb(Player player){
+		return this.locations.get(player)[1];
+	}
+	
+	public void makeProtection(Player player)
 	{
-		Location a;
-		Location b;
-		if (this.isProtecting(player) && this.hasSetTwoLocations(player))
-		{
-			a = this.locations.get(player)[0];
-			b = this.locations.get(player)[1];
-			this.pr = new ProtectedRegion(a, b);
-			return true;
-		} else
-		{
-			return false;
-		}
+			this.pr = new ProtectedRegion(this.getA(player), this.getb(player));
 	}
 }
