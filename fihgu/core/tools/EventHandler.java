@@ -16,6 +16,21 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventHandler implements IPlayerTracker
 {
+	@ForgeSubscribe
+	public void onPlayerInteract(PlayerInteractEvent e)
+	{
+		Player player = new Player(e.entityPlayer);
+		player.msg("x: " + e.x);
+		player.msg("y: " + e.y);
+		player.msg("z: " + e.z);
+		player.msg("face: " + e.face);
+		player.msg("action: " + e.action);
+		player.msg("useBlock: " + e.useBlock);
+		player.msg("useItem: " + e.useItem);
+		
+		e.setCanceled(true);
+	}
+	
 	@Override
 	public void onPlayerLogin(EntityPlayer player1) 
 	{

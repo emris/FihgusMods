@@ -58,6 +58,7 @@ public class FModContainer extends DummyModContainer
 		EventHandler eventHandler = new EventHandler();
 		
 		Forge.registerPlayerTracker(eventHandler);
+		//Forge.registerEventHandler(eventHandler);
 	}
 
 	@Subscribe
