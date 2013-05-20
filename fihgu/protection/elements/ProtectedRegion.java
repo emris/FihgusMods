@@ -1,144 +1,193 @@
 package fihgu.protection.elements;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
+
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
 import fihgu.core.elements.Region;
-import fihgu.core.functions.Protection;
+import fihgu.core.functions.Language;
+import fihgu.core.functions.McColor;
+import fihgu.core.functions.PlayerManager;
 import fihgu.core.io.SaveFile;
+import fihgu.teleport.elements.WarpPoint;
 
-public class ProtectedRegion extends Region
+public class ProtectedRegion
 {
-	public SaveFile file;
-
-	public Member owner;
-	public int id;
+	public static ArrayList<ProtectedRegion> protectedRegions = new ArrayList<ProtectedRegion>();
+	public static HashMap<Player,Location> watchlist = new HashMap<Player,Location>();
+	public static HashMap<Player,String> namelist = new HashMap<Player,String>();
+	
 	public String name;
-	public List<Member> members;
-
-	public boolean creeperDmg = false;
-	public boolean mobSpawn = false;
-	public boolean animalSpawn = true;
-	public boolean destroy = true;
-	public boolean build = true;
-	public boolean useItems = true;
-	public boolean accessBlocks = true;
-	public boolean fireSpread = false;
-	public boolean lavaFlow = false;
-	public boolean waterFlow = false;
-	public boolean pvp = false;
-
-	private List<String> list;
-
-	public ProtectedRegion(String name)
+	public Region region;
+	public Player owner;
+	public ArrayList<String> sharedPlayer = new ArrayList<String>();
+	
+	
+	public ProtectedRegion(String name, Player owner, Region region)
 	{
 		this.name = name;
-		members = new ArrayList<Member>();
-		file = new SaveFile(name + ".txt", "./fihgu/protection/regions/");
-		file.load();
-
-		list = file.data;
-		file.save(false);
+		this.owner = owner;
+		this.region = region;
 	}
-
-	private void populate()
+	
+	public static boolean watch(PlayerInteractEvent e)
 	{
-		list.clear();
-		list.add("Owner=" + owner.getName());
-		list.add("Members={" + getMembers() + "}");
-		list.add("Location=" + this.point1.toString() + ":"
-				+ this.point2.toString());
-		list.add("CreeperDamage=" + creeperDmg);
-		list.add("MobSpawn=" + mobSpawn);
-		list.add("AnimalSpawn=" + animalSpawn);
-		list.add("Destroy=" + destroy);
-		list.add("Build=" + build);
-		list.add("UseItems=" + useItems);
-		list.add("AccessBlocks=" + accessBlocks);
-		list.add("FireSpead=" + fireSpread);
-		list.add("LavaFlow=" + lavaFlow);
-		list.add("WaterFlow=" + waterFlow);
-		list.add("PvP=" + pvp);
-	}
-
-	public String getMembers()
-	{
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < members.size(); i++)
+		Player player = new Player(e.entityPlayer);
+		Location blockLocation = new Location(e.x,e.z,e.y,e.entityPlayer.dimension);
+		
+		ProtectedBlock blockCheck = ProtectedBlock.isProtected(blockLocation);
+		ProtectedRegion regionCheck = ProtectedRegion.isProtected(blockLocation);
+		
+		if(watchlist.containsKey(player))
 		{
-			sb.append(members.get(i).getName());
-			if (i < members.size() && members.size() > 0)
-				sb.append(",");
+			Location location = watchlist.get(player);
+			watchlist.remove(player);
+			//after using /lock regionName:
+			if(blockCheck != null)
+			{
+				player.msg(McColor.darkRed + Language.translate("This block is already locked by ") + McColor.aqua + blockCheck.owner.name + McColor.darkRed + ".");
+				return true;
+			}
+			else if(regionCheck != null)
+			{
+				player.msg(McColor.darkRed + Language.translate("This block is already locked by ") + McColor.aqua + regionCheck.owner.name + McColor.darkRed + ".");
+				return true;
+			}
+			else
+			{
+				if(location == null)
+				{
+					watchlist.put(player, blockLocation);
+					player.msg(McColor.aqua + "(" + blockLocation + ")" + McColor.green + Language.translate(" set as Point 1."));
+					player.msg(McColor.green + Language.translate("Please click on another block to define Point 2."));
+				}
+				else
+				{
+					Location point1 = location;
+					Location point2 = blockLocation;
+					ProtectedRegion protectedRegion = new ProtectedRegion(namelist.get(player),player,new Region(point1, point2));
+					
+					blockCheck = ProtectedBlock.isProtected(protectedRegion.region);
+					if(blockCheck != null)
+					{
+						player.msg(McColor.darkRed + Language.translate("Part of this region is already locked by ") + McColor.aqua + blockCheck.owner.name + McColor.darkRed + ".");
+						return true;
+					}
+					
+					player.msg(McColor.aqua + protectedRegion.name + McColor.green + Language.translate(" has been created."));
+					protectedRegions.add(protectedRegion);
+					protectedRegion.save();
+				}
+			}
+			return true;
 		}
-		return sb.toString();
+		return false;
 	}
-
-	public void addLocationA(Location loc)
+	
+	public static ProtectedRegion isProtected(Location location)
 	{
-		this.point1 = loc;
+		for(ProtectedRegion temp : protectedRegions)
+			if(temp.region.contains(location))
+				return temp;
+		return null;
 	}
-
-	public void addLocationB(Location loc)
+	
+	public static ProtectedRegion isProtected(Region region)
 	{
-		this.point2 = loc;
+		for(ProtectedRegion temp : protectedRegions)
+			if(temp.region.contains(region))
+				return temp;
+		return null;
 	}
-
-	public Location getLocationA()
+	
+	public static void loadAll()
 	{
-		String locations = file.getSingleData("Location");
-		String[] locSplit = locations.split(":");
-		String[] locationA = locSplit[0].split(" ");
-
-		return new Location(Integer.parseInt(locationA[0]),
-				Integer.parseInt(locationA[1]), Integer.parseInt(locationA[2]),
-				Integer.parseInt(locationA[3]));
+		protectedRegions.clear();
+		
+		File dir = new File("./fihgu/protection/region/");
+		dir.mkdirs();
+		File[] files = dir.listFiles();
+		
+		if(files != null && files.length > 0)
+			for(File file : files)
+			{
+				try
+				{
+					Scanner scan = new Scanner(file);
+					String name = scan.nextLine();
+					String owner = scan.nextLine();
+					String point1 = scan.nextLine();
+					String point2 = scan.nextLine();
+					ProtectedRegion temp = new ProtectedRegion(name,new Player(owner),new Region(new Location(point1),new Location(point2)));
+					while(scan.hasNext())
+						temp.sharedPlayer.add(scan.nextLine());
+					protectedRegions.add(temp);
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
 	}
-
-	public Location getLocationB()
+	
+	public static void saveAll()
 	{
-		String locations = file.getSingleData("Location");
-		String[] locSplit = locations.split(":");
-		String[] locationB = locSplit[1].split(" ");
-
-		return new Location(Integer.parseInt(locationB[0]),
-				Integer.parseInt(locationB[1]), Integer.parseInt(locationB[2]),
-				Integer.parseInt(locationB[3]));
+		for(ProtectedRegion region : protectedRegions)
+		{
+			SaveFile file = new SaveFile(region.name+".txt", "./fihgu/protection/region/");
+			file.data.add(region.name);
+			file.data.add(region.owner.name);
+			file.data.add(region.region.point1.toString());
+			file.data.add(region.region.point2.toString());
+			for(String name : region.sharedPlayer)
+				file.data.add(name);
+			file.save(false);			
+		}
 	}
-
-	public void addMember(Player player)
-	{
-		members.add(new Member(player, this));
-	}
-
-	public Member getOwner()
-	{
-		return owner;
-	}
-
+	
 	public void save()
 	{
-		this.populate();
-		file.save(false);
+		SaveFile file = new SaveFile(name+".txt", "./fihgu/protection/region/");
+		file.data.add(name);
+		file.data.add(owner.name);
+		file.data.add(region.point1.toString());
+		file.data.add(region.point2.toString());
+		for(String name1 : sharedPlayer)
+			file.data.add(name1);
+		file.save(false);	
 	}
-
-	public void load()
+	
+	public boolean canAccess(Player player)
 	{
-		file.load();
-		owner = new Member(new Player(file.getString("Owner")), this);
-		point1 = getLocationA();
-		point2 = getLocationB();
-		creeperDmg = file.getBoolean("CreeperDamage");
-		mobSpawn = file.getBoolean("MobSpawn");
-		animalSpawn = file.getBoolean("AnimalSpawn");
-		destroy = file.getBoolean("Destroy");
-		build = file.getBoolean("Build");
-		useItems = file.getBoolean("UseItems");
-		accessBlocks = file.getBoolean("AccessBlocks");
-		fireSpread = file.getBoolean("FireSpead");
-		lavaFlow = file.getBoolean("LavaFlow");
-		waterFlow = file.getBoolean("WaterFlow");
-		pvp = file.getBoolean("PvP");
+		if(player.name.equals(owner.name))
+			return true;
+		
+		for(String share : this.sharedPlayer)
+			if(share.equals(player.name))
+				return true;
+		
+		return false;
 	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if(o instanceof ProtectedRegion)
+			return name.equals(((ProtectedRegion)o).name);
+		
+		return false;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return name.hashCode();
+	}
+	
 }

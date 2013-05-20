@@ -88,4 +88,20 @@ public class Location
 	{
 		return posX + "," + posY + "," + posZ + "," + dimension;
 	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if(o instanceof Location)
+		{
+			Location location = (Location)o;
+			boolean equal = true;
+			equal = equal && this.posX == location.posX;
+			equal = equal && this.posY == location.posY;
+			equal = equal && this.posZ == location.posZ;
+			equal = equal && this.dimension == location.dimension;
+			return equal;
+		}
+		return false;
+	}
 }

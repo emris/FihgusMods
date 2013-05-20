@@ -100,7 +100,7 @@ public class CommandBase implements ICommand
 	public void argumentMismatch(ICommandSender sender)
 	{
 		sender.sendChatToPlayer(McColor.darkRed + Language.translate("Argument mismatch, try:"));
-		sender.sendChatToPlayer(McColor.green + usage);
+		sender.sendChatToPlayer(McColor.green + name + usage);
 	}
 
 	@Override
