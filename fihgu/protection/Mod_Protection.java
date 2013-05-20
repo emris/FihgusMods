@@ -6,6 +6,7 @@ import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import fihgu.core.functions.Protection;
 
 @Mod(modid="fihgu's Protection Mod", name="fihgu's Protection Mod", version="3.0.0")
 @NetworkMod(clientSideRequired=false, serverSideRequired=false)

@@ -10,6 +10,7 @@ import fihgu.core.transformers.containers.FServerConfigurationManager;
 import fihgu.core.elements.Group;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.Log;
+import fihgu.core.functions.Protection;
 import fihgu.core.io.ConfigFile;
 
 import cpw.mods.fml.relauncher.IFMLCallHook;

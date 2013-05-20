@@ -8,6 +8,7 @@ import com.google.common.eventbus.Subscribe;
 import fihgu.core.commands.*;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.Log;
+import fihgu.core.functions.Protection;
 import fihgu.core.shortcut.Forge;
 import fihgu.core.tools.EventHandler;
 

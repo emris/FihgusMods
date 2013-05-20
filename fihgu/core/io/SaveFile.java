@@ -163,4 +163,34 @@ public class SaveFile
 	{
 		return file.exists();
 	}
+	
+	public String getSingleData(String name){
+		for(String aData : data){
+			if(aData.contains(name))
+				return aData;
+		}
+		return null;
+	}
+	
+	public boolean isBoolean(String name){
+		if(name.contains("true") || name.contains("false"))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean getBoolean(String name){
+		String aData = getSingleData(name);
+		String[] split = null;
+		if(isBoolean(aData)){
+			split = aData.split("=");
+		}
+		return Boolean.parseBoolean(split[1]);
+	}
+	
+	public String getString(String name){
+		String aData = getSingleData(name);
+		String[] split = aData.split("=");
+		return split[1];
+	}
 }

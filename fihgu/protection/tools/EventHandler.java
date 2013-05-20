@@ -7,6 +7,7 @@ import java.util.List;
 import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
 import fihgu.core.functions.Protection;
+import fihgu.protection.elements.Member;
 import fihgu.protection.elements.ProtectedRegion;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -27,7 +28,7 @@ public class EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event)
 	{
 		Player player = new Player(event.entityPlayer);
-		Location loc = new Location(player.getEntity());
+		Location loc = new Location(event.x,event.z,event.y,player.getEntity().dimension);
 		
 		if (this.isWatching(player))
 		{
@@ -45,7 +46,7 @@ public class EventHandler
 				else if (getB(player) == null)
 				{
 					player.msg("Player has not set B");
-
+					setLocationB(player);
 					player.msg("Location 2 added: x=" + loc.posX + " y="
 							+ loc.posZ + " z=" + loc.posY);
 					this.makeProtection(player);
@@ -107,7 +108,10 @@ public class EventHandler
 	
 	private void makeProtection(Player player)
 	{
-		ProtectedRegion region = new ProtectedRegion(name, getA(player), getB(player));
+		ProtectedRegion region = new ProtectedRegion(name);
+		region.owner = new Member(player, region);
+		region.addLocationA(getA(player));
+		region.addLocationB(getB(player));
 		region.save();
 		Protection.addProtection(region);
 		player.msg("Protection " + name);
