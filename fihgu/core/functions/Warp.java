@@ -10,9 +10,9 @@ import net.minecraft.util.ChunkCoordinates;
 public class Warp
 {
 
-	private String fileLoc = "./fihgu/teleport/";
-	private ConfigFile warps = new ConfigFile("warps.txt", fileLoc);
-	private ConfigFile homes = new ConfigFile("homes.txt", fileLoc);
+	private static String fileLoc = "./fihgu/teleport/";
+	private static ConfigFile warps = new ConfigFile("warps.txt", fileLoc);
+	private static ConfigFile homes = new ConfigFile("homes.txt", fileLoc);
 	private static HashMap<EntityPlayerMP, Location> playerBackMap = new HashMap<EntityPlayerMP, Location>();
 
 	// ////////////////////////////////////////////////////////////////////
@@ -47,9 +47,9 @@ public class Warp
 	 * @param name
 	 *            : the name of target warp point. player to warp point
 	 */
-	public boolean warpTo(EntityPlayerMP who, String name)
+	public static boolean warpTo(EntityPlayerMP who, String name)
 	{
-		Location loc = this.getWarp(name);
+		Location loc = getWarp(name);
 
 		if (loc != null)
 		{
@@ -65,9 +65,9 @@ public class Warp
 	 * @param name
 	 *            : the name of target warp point. player to warp point
 	 */
-	public boolean warpTo(EntityPlayerMP who, EntityPlayerMP where)
+	public static boolean warpTo(EntityPlayerMP who, EntityPlayerMP where)
 	{
-		Location loc = this.getLocation(where);
+		Location loc = getLocation(where);
 
 		if (loc != null)
 		{
@@ -132,7 +132,7 @@ public class Warp
 		}
 	}
 
-	public Location getWarp(String name)
+	public static Location getWarp(String name)
 	{
 		warps.load();
 		Location loc;
@@ -214,7 +214,7 @@ public class Warp
 				who.chunkCoordY, who.chunkCoordZ), true);
 	}
 
-	public Location getLocation(EntityPlayerMP who)
+	public static Location getLocation(EntityPlayerMP who)
 	{
 		return new Location(who);
 	}

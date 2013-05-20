@@ -12,49 +12,44 @@ import fihgu.core.functions.Warp;
 
 public class SummonCommand extends CommandBase
 {
-	private Warp warp;
 	private EntityPlayerMP sender;
 
 	public SummonCommand()
 	{
-		warp = new Warp();
 		name = "summon";
-		usage = Language
-				.translate(" <Player name>: Summon a player to yourself.");
+		usage = Language.translate(" <Player name>: Summon a player to yourself.");
 	}
 
 	@Override
-	public void processPlayer(EntityPlayerMP p, String[] args)
+	public void processPlayer(EntityPlayerMP senderEntity, String[] args)
 	{
-		Player player = new Player(p);
-	Player player2 = new Player(PlayerManager.getPossiblePlayer(args[0]));
-
+		final Player sender = new Player(senderEntity);
+		final Player target = new Player(PlayerManager.getPossiblePlayer(args[0]));
+		
 		if(args.length < 1 || args.length > 1)
 		{
-			player.msg(McColor.red
-					+ Language.translate("Invalad command arguments."));
-			player.msg(Language.translate("Usage: /summon <Player Name>"));
-		} else if (args.length == 1)
+			this.argumentMismatch(sender.getEntity());
+		} 
+		else if (args.length == 1)
 		{
-			if (player2 != null)
+			if (target != null)
 			{
-				player.msg(McColor.green
-						+ Language.translate("Request sent to ") + player2.name
-						+ Language.translate("!"));
-				player2.msg(McColor.green + player.name
-						+ Language.translate(" has send you a Warp request!"));
-				player2.msg(McColor.green
-						+ Language
-								.translate("Would you like to warp? Use command /accept"));
-				sender = p;
-				new Request(player2, 30) {
+				sender.msg(McColor.green + Language.translate("Request sent to ") + target.name + "!");
+				target.msg(McColor.green + sender.name	+ Language.translate(" has send you a Warp request!"));
+				target.msg(McColor.green + Language.translate("Please accept with /y or deny with /n."));
+				
+				new Request(target, 30) 
+				{
+					Player from = sender;
+					Player to = target;
+					
 					@Override
 					public void accepted()
 					{
-						Location loc = new Location(sender);
-						warp.warpTo(player.getEntity(), loc, false);
+						Warp.warpTo(to.getEntity(), from.getEntity());
 					}
 				};
+				
 			}
 		}
 	}

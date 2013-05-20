@@ -12,75 +12,73 @@ import fihgu.core.functions.Warp;
 
 public class WarpCommand extends CommandBase
 {
-	Warp warp;
-	private EntityPlayerMP sender;
-
 	public WarpCommand()
 	{
-		warp = new Warp();
 		name = "warp";
-		usage = Language.translate(" <Warp Name>: Teleport to a set Warp");
+		usage = Language.translate(" <name>: Warp you to a location or a player.");
 	}
 
 	@Override
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{
-		EntityPlayerMP player2 ;
-		if (args.length < 1 || args.length > 1)
+		final EntityPlayerMP sender = player;
+		
+		if (args.length != 1)
 		{
-			player.sendChatToPlayer(McColor.red
-					+ Language.translate("Invalad command arguments."));
-			player.sendChatToPlayer(Language
-					.translate("Usage: /warp <Warp Name | Player>"));
-		} else if (args.length == 1)
+			this.argumentMismatch(player);
+		} 
+		else if (args.length == 1)
 		{
-			player2 = PlayerManager.getPlayer(args[0], true);
-			if (player2 != null)
+			final EntityPlayerMP target = PlayerManager.getPlayer(args[0], true);
+			
+			if (target != null)
 			{
-				sender = player;
-				new Request(new Player(player2), 30) {
+				player.sendChatToPlayer(McColor.green + Language.translate("Request sent to ")  + target.username + "!");
+				target.sendChatToPlayer(McColor.aqua + player.username + McColor.green + Language.translate(" has send you a Warp request!"));
+				target.sendChatToPlayer(McColor.green + Language.translate("Please accept with /y or deny with /n."));
+				
+				new Request(new Player(target), 30) 
+				{
+					EntityPlayerMP from = sender;
+					EntityPlayerMP to = target;
 					@Override
 					public void accepted()
 					{
-						warp.warpTo(sender, player.getEntity());
-						sender.sendChatToPlayer(McColor.blue + player
-								+ McColor.green
-								+ Language.translate(" has accepted!"));
-						player.msg(McColor.green
-								+ Language.translate("Warpped to ")
-								+ McColor.blue + sender.username);
-
+						Warp.warpTo(from, to);
+						from.sendChatToPlayer(McColor.aqua + to.username + McColor.green + Language.translate(" has accepted your warp request."));
+						from.sendChatToPlayer(McColor.green + Language.translate("Warpped to ") + McColor.aqua + to.username);
 					}
 				};
-			} else if (warp.warpTo(player, args[0]))
+			}
+			else if (Warp.warpTo(player, args[0]))
 			{
-				player.sendChatToPlayer(McColor.green
-						+ Language.translate("Warped to ") + args[0] + ".");			
+				//location warp
+				player.sendChatToPlayer(McColor.green + Language.translate("Warped to ") + args[0] + ".");			
 			}
 			else if(PlayerManager.getPossiblePlayer(args[0]) != null)
 			{
-				player2 = PlayerManager.getPossiblePlayer(args[0]);
+				final EntityPlayerMP target2 = PlayerManager.getPossiblePlayer(args[0]);
 				
-				player.sendChatToPlayer(Language.translate("Request sent to ")  + player2.username + "!");
-				player2.sendChatToPlayer(player.username + Language.translate(" has send you a Warp request!"));
-				player2.sendChatToPlayer(Language.translate("you can use /y to accept or /n to deny."));
+				player.sendChatToPlayer(McColor.green + Language.translate("Request sent to ")  + target2.username + "!");
+				target2.sendChatToPlayer(McColor.aqua + player.username + McColor.green + Language.translate(" has send you a Warp request!"));
+				target2.sendChatToPlayer(McColor.green + Language.translate("Please accept with /y or deny with /n."));
 				
-				new Request(new Player(player2), 30)
+				new Request(new Player(target2), 30) 
 				{
+					EntityPlayerMP from = sender;
+					EntityPlayerMP to = target2;
 					@Override
 					public void accepted()
 					{
-						sender.sendChatToPlayer(player + " has accepted!");
-						warp.warpTo(sender, player.getEntity());
-						player.msg("Warpped to " + sender.username);
+						Warp.warpTo(from, to);
+						from.sendChatToPlayer(McColor.aqua + to.username + McColor.green + Language.translate(" has accepted your warp request."));
+						from.sendChatToPlayer(McColor.green + Language.translate("Warpped to ") + McColor.aqua + to.username);
 					}
 				};
 			}
 			else
 			{
-				player.sendChatToPlayer(McColor.red
-						+ Language.translate("Warp ") + McColor.blue + args[0]
-						+ McColor.red + Language.translate(" does not exist!"));
+				player.sendChatToPlayer(McColor.red	+ Language.translate("Warp ") + McColor.blue + args[0] + McColor.red + Language.translate(" does not exist!"));
 			}
 		}
 	}

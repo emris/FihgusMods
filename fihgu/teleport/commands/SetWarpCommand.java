@@ -16,8 +16,7 @@ public class SetWarpCommand extends CommandBase
 	{
 		warp = new Warp();
 		name = "setwarp";
-		usage = Language
-				.translate(" <Warp Name>: Create a new warp at your location.");
+		usage = Language.translate(" <Warp Name>: Create a new warp at your location.");
 	}
 
 	@Override
@@ -25,24 +24,18 @@ public class SetWarpCommand extends CommandBase
 	{
 		if (args.length < 1 || args.length > 1)
 		{
-			player.sendChatToPlayer(Language.translate(McColor.red
-					+ "Invalad command arguments."));
-			player.sendChatToPlayer(Language
-					.translate("Usage: /setwarp <Warp Name>"));
-		} else if (args.length == 1)
+			this.argumentMismatch(player);
+		} 
+		else if (args.length == 1)
 		{
 			loc = new Location(player);
 			if (warp.newWarp(loc, args[0]))
 			{
-				player.sendChatToPlayer(McColor.green
-						+ Language.translate("Warp ") + McColor.blue + args[0]
-						+ McColor.green
-						+ Language.translate(" set to your current location!"));
-			} else
+				player.sendChatToPlayer(McColor.green + Language.translate("Warp ") + McColor.blue + args[0] + McColor.green + Language.translate(" set to your current location!"));
+			}
+			else
 			{
-				player.sendChatToPlayer(McColor.red
-						+ Language.translate("Warp ") + McColor.blue + args[0]
-						+ McColor.red + Language.translate(" already exists."));
+				player.sendChatToPlayer(McColor.red	+ Language.translate("Warp ") + McColor.blue + args[0] + McColor.red + Language.translate(" already exists."));
 			}
 		}
 	}
