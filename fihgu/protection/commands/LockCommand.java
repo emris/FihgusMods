@@ -15,13 +15,11 @@ import fihgu.protection.tools.EventHandler;
 public class LockCommand extends CommandBase
 {
 
-	private Location loc1, loc2;
-
 	public LockCommand()
 	{
 		name = "lock";
 		usage = Language
-				.translate(" [Region Name]: Protect region or single block when no name is given.");
+				.translate(" [Region Name]: Protect a region or a single block when no name is given.");
 	}
 
 	@Override
@@ -30,11 +28,7 @@ public class LockCommand extends CommandBase
 		Player player = new Player(p);
 		if (args.length > 1)
 		{
-			player.msg(McColor.red
-					+ Language.translate("Invalad command arguments."));
-			player.msg(McColor.red
-					+ Language.translate("Usage: /lock [Region Name]"));
-			player.msg(McColor.red + Language.translate("or: /lock"));
+			this.argumentMismatch(p);
 		}
 		else if (args.length == 1)
 		{
