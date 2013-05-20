@@ -65,7 +65,6 @@ public class PermissionNode
 				
 				nodePart = nodePart.substring(1,nodePart.length()-1);
 				String[] parts = nodePart.split("[:]");
-				System.out.println(parts[0]);
 				
 				if(parts.length < 2)
 					return false;
