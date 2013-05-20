@@ -5,16 +5,16 @@ import fihgu.core.elements.CommandBase;
 import fihgu.core.elements.Location;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
-import fihgu.core.functions.Warp;
+import fihgu.core.functions.Teleport;
 
 public class SetWarpCommand extends CommandBase
 {
-	Warp warp;
+	Teleport warp;
 	Location loc;
 
 	public SetWarpCommand()
 	{
-		warp = new Warp();
+		warp = new Teleport();
 		name = "setwarp";
 		usage = Language.translate(" <Warp Name>: Create a new warp at your location.");
 	}

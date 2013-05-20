@@ -8,7 +8,7 @@ import fihgu.core.elements.Request;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
 import fihgu.core.functions.PlayerManager;
-import fihgu.core.functions.Warp;
+import fihgu.core.functions.Teleport;
 
 public class SummonCommand extends CommandBase
 {
@@ -46,7 +46,7 @@ public class SummonCommand extends CommandBase
 					@Override
 					public void accepted()
 					{
-						Warp.warpTo(to.getEntity(), from.getEntity());
+						Teleport.warpTo(to.getEntity(), from.getEntity());
 					}
 				};
 				

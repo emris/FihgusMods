@@ -3,7 +3,7 @@ package fihgu.core.elements;
 import java.util.ArrayList;
 
 import fihgu.core.functions.PlayerManager;
-import fihgu.core.functions.Warp;
+import fihgu.core.functions.Teleport;
 import fihgu.core.shortcut.Server;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -104,7 +104,7 @@ public class Player
 	
 	public void warp(Location loc)
 	{
-		Warp.warpTo(getEntity(), loc, false);
+		Teleport.warpTo(getEntity(), loc, false);
 	}
 	
 	@Override

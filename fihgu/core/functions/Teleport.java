@@ -7,7 +7,7 @@ import fihgu.core.io.ConfigFile;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChunkCoordinates;
 
-public class Warp
+public class Teleport
 {
 
 	private static String fileLoc = "./fihgu/teleport/";

@@ -4,15 +4,15 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.CommandBase;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
-import fihgu.core.functions.Warp;
+import fihgu.core.functions.Teleport;
 
 public class SetHomeCommand extends CommandBase
 {
-	private Warp warp;
+	private Teleport warp;
 
 	public SetHomeCommand()
 	{
-		warp = new Warp();
+		warp = new Teleport();
 		name = "sethome";
 		usage = Language.translate(" : Set or update Home at your location.");
 	}
