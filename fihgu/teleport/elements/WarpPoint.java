@@ -23,6 +23,12 @@ public class WarpPoint
 		location = new Location(player);
 	}
 	
+	public WarpPoint(String name, Location location)
+	{
+		this.name = name;
+		this.location = location;
+	}
+	
 	public static WarpPoint getHome(String name)
 	{
 		WarpPoint target = new WarpPoint(name,null);
@@ -35,7 +41,11 @@ public class WarpPoint
 	{
 		WarpPoint target = new WarpPoint(name,null);
 		if(warpPoints.contains(target))
+		{
+			System.out.println(warpPoints.get(warpPoints.indexOf(target)).location);
 			return warpPoints.get(warpPoints.indexOf(target));
+		}
+			//return warpPoints.get(warpPoints.indexOf(target));
 		return null;
 	}
 	
