@@ -45,7 +45,7 @@ public class Location
 	 */
 	public Location(String info)
 	{
-		String[] part = info.split(" ");
+		String[] part = info.split("[,]");
 		
 		init(Double.parseDouble(part[0]), Double.parseDouble(part[1]), Double.parseDouble(part[2]), Integer.parseInt(part[3]));
 	}
@@ -74,6 +74,6 @@ public class Location
 	
 	public String toString()
 	{
-		return posX + " " + posY + " " + posZ + " " + dimension;
+		return posX + "," + posY + "," + posZ + "," + dimension;
 	}
 }

@@ -21,10 +21,7 @@ public class Warp
 
 	/**
 	 * Send player to location.
-	 * 
-	 * @param exact
-	 *            : use double when it's true;
-	 * 
+	 * @param exact: use doubles when it's true;
 	 */
 	public static void warpTo(EntityPlayerMP player, Location loc, boolean exact)
 	{
