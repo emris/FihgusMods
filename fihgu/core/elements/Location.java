@@ -1,6 +1,7 @@
 package fihgu.core.elements;
 
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.ChunkCoordinates;
 
 /**
  * contain a chunk location x,y,z
@@ -46,15 +47,22 @@ public class Location
 	public Location(String info)
 	{
 		String[] part = info.split("[,]");
-		
-		init(Double.parseDouble(part[0]), Double.parseDouble(part[1]), Double.parseDouble(part[2]), Integer.parseInt(part[3]));
+		try
+		{
+			init(Double.parseDouble(part[0]), Double.parseDouble(part[1]), Double.parseDouble(part[2]), Integer.parseInt(part[3]));
+		}
+		catch(Exception e)
+		{
+			System.err.println("Exception on attemping to rebuild Location from String.");
+			init(0,0,0,0);
+		}
 	}
 	
 	private void init(double posX, double posY, double posZ, int dimension)
 	{
-		this.x = toChunkLocation(posX);
-		this.y = toChunkLocation(posY);
-		this.z = toChunkLocation(posZ);
+		this.x = round(posX);
+		this.y = round(posY);
+		this.z = round(posZ);
 		
 		this.posX = posX;
 		this.posY = posY;
@@ -63,11 +71,15 @@ public class Location
 		this.dimension = dimension;
 	}
 
+	public void setSpawn(EntityPlayerMP player)
+	{
+		player.setSpawnChunk(new ChunkCoordinates(x,z,y), true);
+	}
 	
 	/**
 	 * floor then cast to int.
 	 */
-	public static int toChunkLocation(double pos)
+	private static int round(double pos)
 	{
 		return (int)Math.floor(pos);
 	}

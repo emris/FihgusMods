@@ -104,7 +104,7 @@ public class Player
 	
 	public void warp(Location loc)
 	{
-		Teleport.warpTo(getEntity(), loc, false);
+		Teleport.warp(getEntity(), loc, false);
 	}
 	
 	@Override

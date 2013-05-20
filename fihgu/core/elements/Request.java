@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import fihgu.core.events.RequestInteractEvent;
 import fihgu.core.functions.Language;
+import fihgu.core.functions.McColor;
 import fihgu.core.shortcut.Forge;
 
 public class Request 
@@ -45,9 +46,9 @@ public class Request
 		{
 			if(this.isEffective())
 				if(accept)
-					this.accepted();
+					this.accept();
 				else
-					this.denied();
+					this.deny();
 			else
 				player.msg(Language.translate("your request has been timeout."));
 		}
@@ -56,7 +57,7 @@ public class Request
 	/**
 	 * Override this class to do stuff when a player accept his request.
 	 */
-	public void accepted()
+	public void accept()
 	{
 		
 	}
@@ -64,8 +65,8 @@ public class Request
 	/**
 	 * Override this class to do stuff when a player deny his request.
 	 */
-	public void denied()
+	public void deny()
 	{
-		
+		player.msg(McColor.grey + Language.translate("Request has been denied."));
 	}
 }

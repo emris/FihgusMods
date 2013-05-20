@@ -35,8 +35,8 @@ public class SummonCommand extends CommandBase
 			if (target != null)
 			{
 				sender.msg(McColor.green + Language.translate("Request sent to ") + target.name + "!");
-				target.msg(McColor.green + sender.name	+ Language.translate(" has send you a Warp request!"));
-				target.msg(McColor.green + Language.translate("Please accept with /y or deny with /n."));
+				target.msg(McColor.aqua + sender.name + McColor.pink + Language.translate(" sent you a Warp request!"));
+				target.msg(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
 				
 				new Request(target, 30) 
 				{
@@ -44,9 +44,9 @@ public class SummonCommand extends CommandBase
 					Player to = target;
 					
 					@Override
-					public void accepted()
+					public void accept()
 					{
-						Teleport.warpTo(to.getEntity(), from.getEntity());
+						Teleport.warp(to.getEntity(), from.getEntity());
 					}
 				};
 				

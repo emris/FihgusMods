@@ -2,9 +2,12 @@ package fihgu.teleport.commands;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.CommandBase;
+import fihgu.core.elements.Player;
+import fihgu.core.elements.Request;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
 import fihgu.core.functions.Teleport;
+import fihgu.teleport.elements.WarpPoint;
 
 public class SetHomeCommand extends CommandBase
 {
@@ -20,24 +23,25 @@ public class SetHomeCommand extends CommandBase
 	@Override
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{
-		if (args.length > 0)
+		WarpPoint home = WarpPoint.getHome(player.username);
+		if (home == null)
 		{
-			player.sendChatToPlayer(McColor.red
-					+ Language.translate("Invalad command arguments."));
-			player.sendChatToPlayer(Language.translate("Usage: /sethome"));
-		} else if (args.length == 0)
+			WarpPoint.setHome(player);
+			player.sendChatToPlayer(McColor.green + Language.translate("Home set."));
+		}
+		else
 		{
-			if (warp.newHome(player))
+			player.sendChatToPlayer(McColor.pink + Language.translate("You already have a home, would you like to relocate it?"));
+			player.sendChatToPlayer(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
+			new Request(new Player(player),30)
 			{
-				player.sendChatToPlayer(McColor.green
-						+ Language
-								.translate("Your home has been set to your location!"));
-			} else
-			{
-				player.sendChatToPlayer(McColor.green
-						+ Language
-								.translate("Your home has been updated to your location!"));
-			}
+				@Override
+				public void accept()
+				{
+					WarpPoint.setHome(player.getEntity());
+					player.msg(McColor.green + Language.translate("Your home has been relocate to your current location!"));
+				}
+			};
 		}
 	}
 }

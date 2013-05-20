@@ -4,17 +4,15 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.CommandBase;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
-import fihgu.core.functions.Warp;
+import fihgu.core.functions.Teleport;
+import fihgu.teleport.elements.WarpPoint;
 
 public class HomeCommand extends CommandBase
 {
-	private Warp warp;
-
 	public HomeCommand()
 	{
-		warp = new Warp();
 		name = "home";
-		usage = Language.translate(" : Go to Home location.");
+		usage = Language.translate(" : Go home.");
 	}
 
 	@Override
@@ -22,19 +20,18 @@ public class HomeCommand extends CommandBase
 	{
 		if (args.length > 0)
 		{
-			player.sendChatToPlayer(McColor.red
-					+ Language.translate("Invalad command arguments."));
-			player.sendChatToPlayer(Language.translate("Usage: /home"));
-		} else if (args.length == 0)
+			this.argumentMismatch(player);
+		} 
+		else if (args.length == 0)
 		{
-			if (warp.warpHome(player))
+			WarpPoint home = WarpPoint.getHome(player.username);
+			if (home != null)
 			{
-				player.sendChatToPlayer(McColor.green
-						+ Language.translate("Warped home."));
+				Teleport.warp(player, home.location, false);
+				player.sendChatToPlayer(McColor.green + Language.translate("Warped home."));
 			} else
 			{
-				player.sendChatToPlayer(McColor.red
-						+ Language.translate("You have not set home yet!"));
+				player.sendChatToPlayer(McColor.darkRed + Language.translate("You are homeless!"));
 			}
 		}
 	}

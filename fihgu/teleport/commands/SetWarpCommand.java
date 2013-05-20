@@ -3,20 +3,20 @@ package fihgu.teleport.commands;
 import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.CommandBase;
 import fihgu.core.elements.Location;
+import fihgu.core.elements.Player;
+import fihgu.core.elements.Request;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
 import fihgu.core.functions.Teleport;
+import fihgu.teleport.elements.WarpPoint;
 
 public class SetWarpCommand extends CommandBase
 {
-	Teleport warp;
-	Location loc;
 
 	public SetWarpCommand()
 	{
-		warp = new Teleport();
 		name = "setwarp";
-		usage = Language.translate(" <Warp Name>: Create a new warp at your location.");
+		usage = Language.translate(" <Warp point Name>: Create a new warp point at your location.");
 	}
 
 	@Override
@@ -28,14 +28,28 @@ public class SetWarpCommand extends CommandBase
 		} 
 		else if (args.length == 1)
 		{
-			loc = new Location(player);
-			if (warp.newWarp(loc, args[0]))
+			final String warpPointName = args[0];
+			WarpPoint warpPoint = WarpPoint.getWarpPoint(warpPointName);
+			
+			if (warpPoint == null)
 			{
-				player.sendChatToPlayer(McColor.green + Language.translate("Warp ") + McColor.blue + args[0] + McColor.green + Language.translate(" set to your current location!"));
+				WarpPoint.setWarpPoint(player,warpPointName);
+				player.sendChatToPlayer(McColor.aqua + warpPointName + McColor.green + Language.translate(" has been set."));
 			}
 			else
 			{
-				player.sendChatToPlayer(McColor.red	+ Language.translate("Warp ") + McColor.blue + args[0] + McColor.red + Language.translate(" already exists."));
+				player.sendChatToPlayer(McColor.aqua + warpPointName + McColor.pink + Language.translate(" already exist, would you like to relocate it?"));
+				player.sendChatToPlayer(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
+				new Request(new Player(player),30)
+				{
+					String name = warpPointName;
+					@Override
+					public void accept()
+					{
+						WarpPoint.setWarpPoint(player.getEntity(),name);
+						player.msg(McColor.aqua + warpPointName + McColor.green + Language.translate(" has been relocate to your current location!"));
+					}
+				};
 			}
 		}
 	}

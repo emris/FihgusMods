@@ -9,21 +9,13 @@ import net.minecraft.util.ChunkCoordinates;
 
 public class Teleport
 {
-
-	private static String fileLoc = "./fihgu/teleport/";
-	private static ConfigFile warps = new ConfigFile("warps.txt", fileLoc);
-	private static ConfigFile homes = new ConfigFile("homes.txt", fileLoc);
 	private static HashMap<EntityPlayerMP, Location> playerBackMap = new HashMap<EntityPlayerMP, Location>();
-
-	// ////////////////////////////////////////////////////////////////////
-	// Functions for teleporting player
-	// ////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Send player to location.
 	 * @param exact: use doubles when it's true;
 	 */
-	public static void warpTo(EntityPlayerMP player, Location loc, boolean exact)
+	public static void warp(EntityPlayerMP player, Location loc, boolean exact)
 	{
 		playerBackMap.put(player, new Location(player));
 		int dimension = loc.dimension;
@@ -41,178 +33,26 @@ public class Teleport
 	}
 
 	/**
-	 * @param name
-	 *            : the name of target warp point. player to warp point
+	 * @param name: the name of target warp point. player to warp point
 	 */
-	public static boolean warpTo(EntityPlayerMP who, String name)
+	public static void warp(EntityPlayerMP player, EntityPlayerMP target)
 	{
-		Location loc = getWarp(name);
-
-		if (loc != null)
-		{
-			warpTo(who, loc, false);
-			return true;
-		} else
-		{
-			return false;
-		}
+		Location loc = new Location(target);
+		warp(player, loc, false);
 	}
 
-	/**
-	 * @param name
-	 *            : the name of target warp point. player to warp point
-	 */
-	public static boolean warpTo(EntityPlayerMP who, EntityPlayerMP where)
-	{
-		Location loc = getLocation(where);
-
-		if (loc != null)
-		{
-			warpTo(who, loc, false);
-			return true;
-		} else
-		{
-			return false;
-		}
-	}
-
-	public boolean warpHome(EntityPlayerMP who)
-	{
-		Location loc = this.getHome(who);
-
-		if (loc != null)
-		{
-			warpTo(who, loc, false);
-			return true;
-		} else
-		{
-			return false;
-		}
-	}
-
-	public boolean goBack(EntityPlayerMP player)
+	public static boolean goBack(EntityPlayerMP player)
 	{
 		Location loc;
 		if (playerBackMap.containsKey(player))
 		{
 			loc = playerBackMap.get(player);
-			warpTo(player, loc, true);
+			warp(player, loc, true);
 			return true;
-		} else
+		} 
+		else
 		{
 			return false;
 		}
-	}
-
-	// ////////////////////////////////////////////////////////////////////
-	// Functions for saving file information
-	// ////////////////////////////////////////////////////////////////////
-
-	public boolean newWarp(Location loc, String name)
-	{
-		warps.load();
-		int x, y, z, d;
-		String toSave;
-		if (!warps.containsKey(name))
-		{
-			x = loc.x;
-			y = loc.z;
-			z = loc.y;
-			d = loc.dimension;
-			toSave = x + "," + y + "," + z + "," + d;
-			warps.get(name, toSave);
-			warps.save();
-			return true;
-		} else
-		{
-			return false;
-		}
-	}
-
-	public static Location getWarp(String name)
-	{
-		warps.load();
-		Location loc;
-		int x, y, z, d;
-
-		if (warps.containsKey(name))
-		{
-
-			String warp = warps.get(name);
-			String[] warpSplit = warp.split(",");
-
-			x = Integer.parseInt(warpSplit[0]);
-			y = Integer.parseInt(warpSplit[2]);
-			z = Integer.parseInt(warpSplit[1]);
-			d = Integer.parseInt(warpSplit[3]);
-
-			loc = new Location(x, y, z, d);
-
-			return loc;
-		} else
-		{
-			return null;
-		}
-	}
-
-	public boolean newHome(EntityPlayerMP who)
-	{
-		homes.load();
-		Location loc = new Location(who);
-		String toSave = loc.x + "," + loc.z + "," + loc.y + "," + loc.dimension;
-		if (!homes.containsKey(who.username))
-		{
-			homes.get(who.username, toSave);
-			homes.save();
-			setRespawn(who);
-			return true;
-		} else
-		{
-			homes.set(who.username, toSave);
-			homes.save();
-			setRespawn(who);
-			return false;
-		}
-	}
-
-	public Location getHome(EntityPlayerMP who)
-	{
-		homes.load();
-		Location loc;
-		int x, y, z, d;
-
-		if (homes.containsKey(who.username))
-		{
-
-			String warp = homes.get(who.username);
-			String[] warpSplit = warp.split(",");
-
-			x = Integer.parseInt(warpSplit[0]);
-			y = Integer.parseInt(warpSplit[2]);
-			z = Integer.parseInt(warpSplit[1]);
-			d = Integer.parseInt(warpSplit[3]);
-
-			loc = new Location(x, y, z, d);
-
-			return loc;
-		} else
-		{
-			return null;
-		}
-	}
-
-	// ////////////////////////////////////////////////////////////////////
-	// Misc functions
-	// ////////////////////////////////////////////////////////////////////
-
-	public void setRespawn(EntityPlayerMP who)
-	{
-		who.setSpawnChunk(new ChunkCoordinates(who.chunkCoordX,
-				who.chunkCoordY, who.chunkCoordZ), true);
-	}
-
-	public static Location getLocation(EntityPlayerMP who)
-	{
-		return new Location(who);
 	}
 }
