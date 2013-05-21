@@ -7,6 +7,7 @@ import java.util.List;
 import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
 import fihgu.core.elements.Region;
+import fihgu.core.events.BlockExplodedEvent;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
 import fihgu.core.functions.PlayerManager;
@@ -87,5 +88,16 @@ public class EventHandler
 				e.setCanceled(true);
 			}
 		}
+	}
+	
+	@ForgeSubscribe
+	public void onBlockExploded(BlockExplodedEvent e)
+	{
+		Location blockLocation = e.location;
+		ProtectedBlock blockCheck = ProtectedBlock.isProtected(blockLocation);
+		ProtectedRegion regionCheck = ProtectedRegion.isProtected(blockLocation);
+		
+		if(blockCheck != null || regionCheck != null)
+			e.setCanceled(true);
 	}
 }
