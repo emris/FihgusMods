@@ -6,6 +6,9 @@ import fihgu.core.elements.Group;
 import fihgu.core.elements.Player;
 import fihgu.core.events.TryCommandEvent;
 import fihgu.core.io.SaveFile;
+import fihgu.core.shortcut.FML;
+import fihgu.login.commands.LoginCommand;
+import fihgu.login.commands.RegisterCommand;
 
 public class PermissionOwner
 {
@@ -52,6 +55,12 @@ public class PermissionOwner
 	
 	public boolean canUse(TryCommandEvent e)
 	{		
+		if(FML.isModLoaded("fihgu's Login Mod"))
+		{
+			if(RegisterCommand.instance.name.equals(e.command) || LoginCommand.instance.name.equals(e.command))
+				return true;
+		}
+		
 		if(canDeny(e))
 			return false;
 		
