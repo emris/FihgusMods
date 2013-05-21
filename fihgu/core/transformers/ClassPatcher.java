@@ -2,6 +2,7 @@ package fihgu.core.transformers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -33,6 +34,10 @@ public class ClassPatcher implements IClassTransformer
 				temp.targetMethods.add(new MethodInfo("getPossibleCommands","a","(Lnet/minecraft/command/ICommandSender;)Ljava/util/List;","(Lab;)Ljava/util/List;"));
 				list.add(temp);
 				
+				temp = new PatchInfo("net.minecraft.block.Block");
+				temp.targetMethods.add(new MethodInfo("onBlockExploded","onBlockExploded","(Lnet/minecraft/world/World;IIILnet/minecraft/world/Explosion;)V","(Laab;IIILzw;)V"));
+				list.add(temp);
+				
 	}
 	
 	@Override
@@ -60,18 +65,21 @@ public class ClassPatcher implements IClassTransformer
 		System.out.println("[fihgu's Core Mod] Patching Class: " + patchInfo.targetClass);
 		System.out.println("[fihgu's Core Mod] Mapped Class Name: " + targetCN.name);
 		
+		HashMap<MethodNode,MethodNode> replaceMap = new HashMap<MethodNode,MethodNode>();
+		
 		//find each target methods
 		for(MethodNode targetMethod : targetCN.methods)
 		{
 			for(MethodInfo targetMethodInfo : patchInfo.targetMethods)
 			{
+				
 				//when a targetMethod is found
 				if((targetMethod.name.equals(targetMethodInfo.name) || targetMethod.name.equals(targetMethodInfo.mappedName)) 
 				&& (targetMethod.desc.equals(targetMethodInfo.desc) || targetMethod.desc.equals(targetMethodInfo.mappedDesc)))
 				{
 					//replace it with prepared replacement.
 					MethodNode replacementMethod = getReplacementMethod(patchInfo,targetMethodInfo);				
-					replaceMethod(targetMethod,replacementMethod);
+					replaceMap.put(targetMethod, replacementMethod);					
 					System.out.println(Language.translate("[fihgu's Core Mod] Patched: ")  + targetMethodInfo.name + "@" + targetMethodInfo.desc);
 					patched = true;
 				}
@@ -80,20 +88,20 @@ public class ClassPatcher implements IClassTransformer
 		
 		if(patched)
 		{
+			
+			for(MethodNode method : replaceMap.keySet())
+			{
+				MethodNode replacement = replaceMap.get(method);
+				targetCN.methods.remove(method);
+				targetCN.methods.add(replacement);
+			}
+			
 			ClassWriter targetCW = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 			targetCN.accept(targetCW);
 			transformedBytes = targetCW.toByteArray();
 		}
 		
 		return transformedBytes;
-	}
-	
-	private void replaceMethod(MethodNode target, MethodNode replacement)
-	{
-		target.instructions.clear();							
-		target.instructions.add(replacement.instructions);
-		target.tryCatchBlocks.clear();
-		target.tryCatchBlocks.addAll(replacement.tryCatchBlocks);
 	}
 	
 	private PatchInfo getPatchInfo(String className)
