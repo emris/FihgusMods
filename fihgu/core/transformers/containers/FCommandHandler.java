@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import fihgu.core.elements.Player;
 import fihgu.core.events.TryCommandEvent;
 import fihgu.core.shortcut.FML;
 import cpw.mods.fml.common.event.FMLLoadEvent;
@@ -149,19 +150,32 @@ public class FCommandHandler extends CommandHandler
     }
 	
 	@Override
-	public List getPossibleCommands(ICommandSender par1ICommandSender)
+	public List getPossibleCommands(ICommandSender sender)
     {       
         ArrayList arraylist = new ArrayList();
-        Iterator iterator = super.getCommands().entrySet().iterator();
-
+        Iterator iterator = super.getCommands().keySet().iterator();
         while (iterator.hasNext())
         {
-            ICommand icommand = (ICommand)iterator.next();
-
-            if (icommand.canCommandSenderUseCommand(par1ICommandSender) || FML.isModLoaded("fihgu's Permission Mod"))
-            {
-                arraylist.add(icommand);
-            }
+        	Object next = iterator.next();
+        	
+        	if(true)
+        	{
+        		ICommand icommand = (ICommand)super.getCommands().get(next);
+        		
+        		
+        		if(FML.isModLoaded("fihgu's Permission Mod") && sender instanceof EntityPlayerMP)
+        		{
+        			Player player = new Player(sender.getCommandSenderName());
+        			fihgu.permission.element.PermissionOwner owner = new fihgu.permission.element.PermissionOwner(player);
+        			if(owner.canUse(new TryCommandEvent(sender, icommand.getCommandName())))
+        				if(!arraylist.contains(icommand))
+        					arraylist.add(icommand);
+        		}
+        		else if (icommand.canCommandSenderUseCommand(sender))
+        		{
+        			arraylist.add(icommand);
+        		}
+        	}
         }
 
         return arraylist;
