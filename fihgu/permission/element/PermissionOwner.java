@@ -57,7 +57,7 @@ public class PermissionOwner
 	{		
 		if(FML.isModLoaded("fihgu's Login Mod"))
 		{
-			if(RegisterCommand.instance.name.equals(e.command) || LoginCommand.instance.name.equals(e.command))
+			if(e.command.startsWith(RegisterCommand.instance.name) || e.command.startsWith(LoginCommand.instance.name))
 				return true;
 		}
 		
