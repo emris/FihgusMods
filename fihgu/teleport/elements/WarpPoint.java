@@ -124,6 +124,7 @@ public class WarpPoint
 		{
 			this.name = info.substring(0,info.indexOf("("));
 			String locationInfo = info.substring(info.indexOf("(") + 1, info.indexOf(")"));
+			this.location = new Location(locationInfo);
 		}
 		catch(Exception e)
 		{

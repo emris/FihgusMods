@@ -14,6 +14,8 @@ public class CommonProxy
 		new BackCommand().register();
 		new SummonCommand().register();
 		new DelWarpCommand().register();
+		new SetSpawnCommand().register();
+		new SpawnCommand().register();
 		
 		WarpPoint.loadAll();
 	}

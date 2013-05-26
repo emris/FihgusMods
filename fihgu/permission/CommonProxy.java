@@ -44,6 +44,14 @@ public class CommonProxy
 		SaveFile temp;
 		
 		temp = new SaveFile("Player.txt","./fihgu/permission/groups/");
+		temp.data.add("spawn");
+		temp.data.add("spawn" + allNode  + "*");
+		temp.data.add("setspawn");
+		temp.data.add("setspawn" + allNode  + "*");
+		temp.data.add("y");
+		temp.data.add("y" + allNode  + "*");
+		temp.data.add("n");
+		temp.data.add("n" + allNode  + "*");
 		temp.data.add("login");
 		temp.data.add("login.*" + allNode  + "*");
 		temp.data.add("register");

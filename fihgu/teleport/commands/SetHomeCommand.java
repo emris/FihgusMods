@@ -11,11 +11,8 @@ import fihgu.teleport.elements.WarpPoint;
 
 public class SetHomeCommand extends CommandBase
 {
-	private Teleport warp;
-
 	public SetHomeCommand()
 	{
-		warp = new Teleport();
 		name = "sethome";
 		usage = Language.translate(" : Set or update Home at your location.");
 	}
