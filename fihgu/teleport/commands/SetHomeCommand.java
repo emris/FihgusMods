@@ -6,7 +6,6 @@ import fihgu.core.elements.Player;
 import fihgu.core.elements.Request;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
-import fihgu.core.functions.Teleport;
 import fihgu.teleport.elements.WarpPoint;
 
 public class SetHomeCommand extends CommandBase
@@ -24,12 +23,12 @@ public class SetHomeCommand extends CommandBase
 		if (home == null)
 		{
 			WarpPoint.setHome(player);
-			player.sendChatToPlayer(McColor.green + Language.translate("Home set."));
+			player.addChatMessage(McColor.green + Language.translate("Home set."));
 		}
 		else
 		{
-			player.sendChatToPlayer(McColor.pink + Language.translate("You already have a home, would you like to relocate it?"));
-			player.sendChatToPlayer(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
+			player.addChatMessage(McColor.pink + Language.translate("You already have a home, would you like to relocate it?"));
+			player.addChatMessage(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
 			new Request(new Player(player),30)
 			{
 				@Override

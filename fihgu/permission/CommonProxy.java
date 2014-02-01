@@ -1,7 +1,5 @@
 package fihgu.permission;
 
-import java.util.ArrayList;
-
 import fihgu.core.io.ConfigFile;
 import fihgu.core.io.SaveFile;
 import fihgu.core.shortcut.Forge;

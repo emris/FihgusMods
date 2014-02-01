@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-
 import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
 import fihgu.core.elements.Region;
@@ -17,25 +16,25 @@ public class ProtectedBlock
 {
 	public static ArrayList<ProtectedBlock> protectedBlocks = new ArrayList<ProtectedBlock>();
 	public static HashMap<Player,Boolean> watchlist = new HashMap<Player,Boolean>();
-	
+
 	public Location blockLocation;
 	public Player owner;
 	public ArrayList<String> sharedPlayer = new ArrayList<String>();
-	
+
 	public ProtectedBlock(Location blockLocation, Player owner)
 	{
 		this.blockLocation = blockLocation;
 		this.owner = owner;
 	}
-	
+
 	public static boolean watch(PlayerInteractEvent e)
 	{
 		Player player = new Player(e.entityPlayer);
 		Location blockLocation = new Location(e.x,e.z,e.y,e.entityPlayer.dimension);
-		
+
 		ProtectedBlock blockCheck = ProtectedBlock.isProtected(blockLocation);
 		ProtectedRegion regionCheck = ProtectedRegion.isProtected(blockLocation);
-		
+
 		if(watchlist.containsKey(player))
 		{
 			boolean create = watchlist.get(player);
@@ -115,30 +114,30 @@ public class ProtectedBlock
 			}
 			return false;
 		}
-		
+
 	}
-	
+
 	@Override
 	public boolean equals(Object o)
 	{
 		if(o instanceof ProtectedBlock)
 			return blockLocation.equals(((ProtectedBlock)o).blockLocation);
-		
+
 		return false;
 	}
-	
+
 	public boolean canAccess(Player player)
 	{
 		if(player.name.equals(owner.name))
 			return true;
-		
+
 		for(String share : this.sharedPlayer)
 			if(share.equals(player.name))
 				return true;
-		
+
 		return false;
 	}
-	
+
 	public static ProtectedBlock isProtected(Location location)
 	{
 		for(ProtectedBlock temp : protectedBlocks)
@@ -148,7 +147,7 @@ public class ProtectedBlock
 		}
 		return null;
 	}
-	
+
 	public static ProtectedBlock isProtected(Region region)
 	{
 		for(ProtectedBlock temp : protectedBlocks)
@@ -158,22 +157,22 @@ public class ProtectedBlock
 		}
 		return null;
 	}
-	
+
 	public static void saveAll()
 	{
 		SaveFile file = new SaveFile("locks.txt", "./fihgu/protection/");
 		for(ProtectedBlock block : protectedBlocks)
 		{
 			String line = block.owner.name + ":" + block.blockLocation.toString();
-			
+
 			for(String name : block.sharedPlayer)
 				line = line + ":" + name;
-			
+
 			file.data.add(line);			
 		}
 		file.save(false);
 	}
-	
+
 	public static void loadAll()
 	{
 		SaveFile file = new SaveFile("locks.txt", "./fihgu/protection/");

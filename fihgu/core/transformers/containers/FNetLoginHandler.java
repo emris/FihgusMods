@@ -2,30 +2,13 @@ package fihgu.core.transformers.containers;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Iterator;
-
-import fihgu.core.events.PlayerLoginEvent;
-import fihgu.core.shortcut.Server;
-import cpw.mods.fml.common.network.FMLNetworkHandler;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
-import net.minecraft.network.NetServerHandler;
-import net.minecraft.network.packet.Packet16BlockItemSwitch;
-import net.minecraft.network.packet.Packet1Login;
-import net.minecraft.network.packet.Packet202PlayerAbilities;
-import net.minecraft.network.packet.Packet3Chat;
-import net.minecraft.network.packet.Packet41EntityEffect;
-import net.minecraft.network.packet.Packet4UpdateTime;
-import net.minecraft.network.packet.Packet6SpawnPosition;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.world.EnumGameType;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
+import fihgu.core.events.PlayerLoginEvent;
+import fihgu.core.shortcut.Server;
 
 public class FNetLoginHandler extends NetLoginHandler
 {

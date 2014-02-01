@@ -7,8 +7,6 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
-import fihgu.core.transformers.containers.FCommandHandler;
-
 /**
  * allows you to check out the method names after remapping.
  */
@@ -35,5 +33,7 @@ public class MethodBrowser
 		
 		System.out.println("=====================================");
 		System.out.println();
+		
+		scan.close();
 	}
 }

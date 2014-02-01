@@ -14,13 +14,14 @@ public class Language
 	 */
 	public static String translate(String line)
 	{
-		boolean isNewText = !languageFile.containsKey(line);
-		
-		String result = languageFile.get(line, line);
-		
-		if(isNewText)
-			save();
-		
+		String result = line;
+		if(languageFile != null) {
+			boolean isNewText = !languageFile.containsKey(line);
+			result = languageFile.get(line, line);
+
+			if(isNewText)
+				save();
+		}
 		return result;
 	}
 	

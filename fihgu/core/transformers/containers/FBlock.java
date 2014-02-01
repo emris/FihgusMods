@@ -11,15 +11,15 @@ public class FBlock extends Block
 	{
 		super(par1, par2Material);
 	}
-	
+
 	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion)
-    {
-		fihgu.core.events.BlockExplodedEvent event = new fihgu.core.events.BlockExplodedEvent(new fihgu.core.elements.Location(x,z,y,world.getWorldInfo().getDimension()),explosion);
-        
+	{
+		fihgu.core.events.BlockExplodedEvent event = new fihgu.core.events.BlockExplodedEvent(new fihgu.core.elements.Location(x,z,y,world.provider.dimensionId),explosion);
+
 		if(!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event))
 		{
 			world.setBlockToAir(x, y, z);
 			super.onBlockDestroyedByExplosion(world, x, y, z, explosion);
 		}
-    }
+	}
 }

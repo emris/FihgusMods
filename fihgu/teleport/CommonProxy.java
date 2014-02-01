@@ -1,6 +1,14 @@
 package fihgu.teleport;
 
-import fihgu.teleport.commands.*;
+import fihgu.teleport.commands.BackCommand;
+import fihgu.teleport.commands.DelWarpCommand;
+import fihgu.teleport.commands.HomeCommand;
+import fihgu.teleport.commands.SetHomeCommand;
+import fihgu.teleport.commands.SetSpawnCommand;
+import fihgu.teleport.commands.SetWarpCommand;
+import fihgu.teleport.commands.SpawnCommand;
+import fihgu.teleport.commands.SummonCommand;
+import fihgu.teleport.commands.WarpCommand;
 import fihgu.teleport.elements.WarpPoint;
 
 public class CommonProxy 

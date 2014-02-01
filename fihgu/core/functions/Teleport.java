@@ -2,10 +2,8 @@ package fihgu.core.functions;
 
 import java.util.HashMap;
 
-import fihgu.core.elements.Location;
-import fihgu.core.io.ConfigFile;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChunkCoordinates;
+import fihgu.core.elements.Location;
 
 public class Teleport
 {

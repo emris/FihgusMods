@@ -1,9 +1,9 @@
 package fihgu.core.events;
 
-import fihgu.core.elements.Location;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.event.Cancelable;
 import net.minecraftforge.event.Event;
+import fihgu.core.elements.Location;
 
 @Cancelable
 public class BlockExplodedEvent extends Event

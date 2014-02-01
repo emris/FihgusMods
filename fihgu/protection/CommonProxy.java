@@ -1,12 +1,13 @@
 package fihgu.protection;
 
 import fihgu.core.shortcut.Forge;
-import fihgu.protection.commands.*;
+import fihgu.protection.commands.LockCommand;
+import fihgu.protection.commands.ShareCommand;
+import fihgu.protection.commands.UnlockCommand;
+import fihgu.protection.commands.UnshareCommand;
 import fihgu.protection.elements.ProtectedBlock;
 import fihgu.protection.elements.ProtectedRegion;
 import fihgu.protection.tools.EventHandler;
-import fihgu.teleport.commands.WarpCommand;
-import net.minecraftforge.common.MinecraftForge;
 
 public class CommonProxy 
 {

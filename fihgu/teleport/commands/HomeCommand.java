@@ -28,10 +28,10 @@ public class HomeCommand extends CommandBase
 			if (home != null)
 			{
 				Teleport.warp(player, home.location, false);
-				player.sendChatToPlayer(McColor.green + Language.translate("Warped home."));
+				player.addChatMessage(McColor.green + Language.translate("Warped home."));
 			} else
 			{
-				player.sendChatToPlayer(McColor.darkRed + Language.translate("You are homeless!"));
+				player.addChatMessage(McColor.darkRed + Language.translate("You are homeless!"));
 			}
 		}
 	}

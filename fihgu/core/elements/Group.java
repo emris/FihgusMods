@@ -47,8 +47,8 @@ public class Group
 		
 			for(File file:list)
 			{
-				if(file.getName().startsWith("group_") && file.getName().endsWith(".txt"));
-				groups.add(new Group(file.getName().substring(6,file.getName().length()-4)));
+				if(file.getName().startsWith("group_") && file.getName().endsWith(".txt"))
+					groups.add(new Group(file.getName().substring(6,file.getName().length()-4)));
 			}
 		}
 		
@@ -75,9 +75,7 @@ public class Group
 		saveFile.data.clear();
 		
 		for(Player player:players)
-		{
 			saveFile.data.add(player.name);
-		}
 		
 		saveFile.save(false);
 	}
@@ -98,13 +96,13 @@ public class Group
 	{
 		String defaultGroup = FPreloader.mainConfig.get("default Group", "Player");
 		
-		if(groups.contains(new Group("Player")))
+		if(groups.contains(new Group(defaultGroup)))
 		{
-			return groups.get(groups.indexOf(new Group("Player")));
+			return groups.get(groups.indexOf(new Group(defaultGroup)));
 		}
 		else
 		{
-			Group temp = new Group("Player");
+			Group temp = new Group(defaultGroup);
 			groups.add(temp);
 			return temp;
 		}

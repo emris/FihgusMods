@@ -1,11 +1,10 @@
 package fihgu.login.commands;
 
-import fihgu.login.CommonProxy;
 import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.CommandBase;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
-import fihgu.core.shortcut.Server;
+import fihgu.login.CommonProxy;
 
 public class LogoutCommand extends CommandBase
 {
@@ -17,7 +16,7 @@ public class LogoutCommand extends CommandBase
 		usage = Language.translate(": logout from this computer.");
 		instance = this;
 	}
-	
+
 	@Override
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{

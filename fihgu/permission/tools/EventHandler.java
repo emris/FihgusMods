@@ -1,15 +1,12 @@
 package fihgu.permission.tools;
 
-import fihgu.permission.CommonProxy;
-import fihgu.permission.element.PermissionOwner;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.event.ForgeSubscribe;
 import fihgu.core.elements.Player;
 import fihgu.core.events.TryCommandEvent;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.Message;
-import fihgu.core.functions.PlayerManager;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.event.CommandEvent;
-import net.minecraftforge.event.ForgeSubscribe;
+import fihgu.permission.element.PermissionOwner;
 
 public class EventHandler 
 {

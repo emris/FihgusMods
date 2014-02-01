@@ -1,18 +1,13 @@
 package fihgu.core.tools;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import cpw.mods.fml.common.IPlayerTracker;
 import fihgu.core.elements.Group;
 import fihgu.core.elements.Player;
-import fihgu.core.events.PlayerLoginEvent;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
-import fihgu.core.functions.Message;
-import fihgu.core.functions.PlayerManager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.event.CommandEvent;
-import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class EventHandler implements IPlayerTracker
 {

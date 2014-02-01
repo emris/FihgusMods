@@ -2,7 +2,6 @@ package fihgu.teleport.commands;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.CommandBase;
-import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
 import fihgu.core.elements.Request;
 import fihgu.core.functions.Language;
@@ -23,7 +22,7 @@ public class WarpCommand extends CommandBase
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{
 		final EntityPlayerMP sender = player;
-		
+
 		if (args.length != 1)
 		{
 			this.argumentMismatch(player);
@@ -31,13 +30,13 @@ public class WarpCommand extends CommandBase
 		else if (args.length == 1)
 		{
 			final EntityPlayerMP target = PlayerManager.getPlayer(args[0], true);
-			
+
 			if (target != null)
 			{
-				player.sendChatToPlayer(McColor.green + Language.translate("Request sent to ")  + target.username + "!");
-				target.sendChatToPlayer(McColor.aqua + player.username + McColor.pink + Language.translate(" has send you a Warp request!"));
-				target.sendChatToPlayer(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
-				
+				player.addChatMessage(McColor.green + Language.translate("Request sent to ")  + target.username + "!");
+				target.addChatMessage(McColor.aqua + player.username + McColor.pink + Language.translate(" has send you a Warp request!"));
+				target.addChatMessage(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
+
 				new Request(new Player(target), 30) 
 				{
 					EntityPlayerMP from = sender;
@@ -46,24 +45,24 @@ public class WarpCommand extends CommandBase
 					public void accept()
 					{
 						Teleport.warp(from, to);
-						from.sendChatToPlayer(McColor.aqua + to.username + McColor.green + Language.translate(" has accepted your warp request."));
-						from.sendChatToPlayer(McColor.green + Language.translate("Warpped to ") + McColor.aqua + to.username);
+						from.addChatMessage(McColor.aqua + to.username + McColor.green + Language.translate(" has accepted your warp request."));
+						from.addChatMessage(McColor.green + Language.translate("Warpped to ") + McColor.aqua + to.username);
 					}
 				};
 			}
 			else if (WarpPoint.getWarpPoint(args[0]) != null)
 			{
 				Teleport.warp(player, WarpPoint.getWarpPoint(args[0]).location, false);
-				player.sendChatToPlayer(McColor.green + Language.translate("Warped to ") + args[0] + ".");			
+				player.addChatMessage(McColor.green + Language.translate("Warped to ") + args[0] + ".");
 			}
 			else if(PlayerManager.getPossiblePlayer(args[0]) != null)
 			{
 				final EntityPlayerMP target2 = PlayerManager.getPossiblePlayer(args[0]);
-				
-				player.sendChatToPlayer(McColor.green + Language.translate("Request sent to ")  + target2.username + "!");
-				target2.sendChatToPlayer(McColor.aqua + player.username + McColor.pink + Language.translate(" has send you a Warp request!"));
-				target2.sendChatToPlayer(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
-				
+
+				player.addChatMessage(McColor.green + Language.translate("Request sent to ")  + target2.username + "!");
+				target2.addChatMessage(McColor.aqua + player.username + McColor.pink + Language.translate(" has send you a Warp request!"));
+				target2.addChatMessage(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
+
 				new Request(new Player(target2), 30) 
 				{
 					EntityPlayerMP from = sender;
@@ -72,14 +71,14 @@ public class WarpCommand extends CommandBase
 					public void accept()
 					{
 						Teleport.warp(from, to);
-						from.sendChatToPlayer(McColor.aqua + to.username + McColor.green + Language.translate(" has accepted your warp request."));
-						from.sendChatToPlayer(McColor.green + Language.translate("Warpped to ") + McColor.aqua + to.username);
+						from.addChatMessage(McColor.aqua + to.username + McColor.green + Language.translate(" has accepted your warp request."));
+						from.addChatMessage(McColor.green + Language.translate("Warpped to ") + McColor.aqua + to.username);
 					}
 				};
 			}
 			else
 			{
-				player.sendChatToPlayer(McColor.darkRed	+ Language.translate("Warp Point ") + McColor.aqua + args[0] + McColor.darkAqua + Language.translate(" does not exist!"));
+				player.addChatMessage(McColor.darkRed	+ Language.translate("Warp Point ") + McColor.aqua + args[0] + McColor.darkAqua + Language.translate(" does not exist!"));
 			}
 		}
 	}

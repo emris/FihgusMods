@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.ChatMessageComponent;
 import fihgu.core.FPreloader;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.Log;
@@ -99,8 +100,8 @@ public class CommandBase implements ICommand
 	
 	public void argumentMismatch(ICommandSender sender)
 	{
-		sender.sendChatToPlayer(McColor.darkRed + Language.translate("Argument mismatch, try:"));
-		sender.sendChatToPlayer(McColor.green + name + usage);
+		sender.sendChatToPlayer(ChatMessageComponent.createFromText(McColor.darkRed + Language.translate("Argument mismatch, try:")));
+		sender.sendChatToPlayer(ChatMessageComponent.createFromText(McColor.green + name + usage));
 	}
 
 	@Override

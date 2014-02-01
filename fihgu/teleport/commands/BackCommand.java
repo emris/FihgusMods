@@ -19,10 +19,10 @@ public class BackCommand extends CommandBase
 	{
 		if (Teleport.goBack(player))
 		{
-			player.sendChatToPlayer(McColor.green + Language.translate("Warped back to previous location."));
+			player.addChatMessage(McColor.green + Language.translate("Warped back to previous location."));
 		} else
 		{
-			player.sendChatToPlayer(McColor.darkRed	+ Language.translate("You have not warped anywhere!"));
+			player.addChatMessage(McColor.darkRed	+ Language.translate("You have not warped anywhere!"));
 		}
 	}
 }

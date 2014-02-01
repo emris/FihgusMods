@@ -14,20 +14,20 @@ public class YCommand extends CommandBase
 		this.usage = Language.translate("use this command to accept a pending request.");
 		this.trueName = name;
 	}
-	
+
 	@Override
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{
 		if(args.length > 0)
 			this.argumentMismatch(player);
-		
+
 		if(Request.map.containsKey(new Player(player)))
 		{
 			Request.map.get(new Player(player)).interact(true);
 		}
 		else
 		{
-			player.sendChatToPlayer(Language.translate("You don't have any request."));
+			player.addChatMessage(Language.translate("You don't have any request."));
 		}
 	}
 }

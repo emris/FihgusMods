@@ -2,15 +2,11 @@ package fihgu.protection.commands;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.CommandBase;
-import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
-import fihgu.core.elements.Request;
-import fihgu.core.events.RequestInteractEvent;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
 import fihgu.protection.elements.ProtectedBlock;
 import fihgu.protection.elements.ProtectedRegion;
-import fihgu.protection.tools.EventHandler;
 
 public class LockCommand extends CommandBase
 {

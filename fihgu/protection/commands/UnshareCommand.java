@@ -25,6 +25,6 @@ public class UnshareCommand extends CommandBase
 		}
 		
 		EventHandler.watchlist.put(new Player(player), args[0]);
-		player.sendChatToPlayer(McColor.green + Language.translate("Please click on a block that you want to unshare."));
+		player.addChatMessage(McColor.green + Language.translate("Please click on a block that you want to unshare."));
 	}
 }

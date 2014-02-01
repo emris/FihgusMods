@@ -2,14 +2,15 @@ package fihgu.core.elements;
 
 import java.util.ArrayList;
 
-import fihgu.core.functions.PlayerManager;
-import fihgu.core.functions.Teleport;
-import fihgu.core.shortcut.Server;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemInWorldManager;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.storage.SaveHandler;
 import net.minecraftforge.common.DimensionManager;
+import fihgu.core.functions.PlayerManager;
+import fihgu.core.functions.Teleport;
+import fihgu.core.shortcut.Server;
 
 public class Player 
 {
@@ -51,7 +52,7 @@ public class Player
 	{
 		if(this.isOnline())
 		{
-			this.getEntity().sendChatToPlayer(line);
+			this.getEntity().addChatMessage(line);
 		}
 	}
 	

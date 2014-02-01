@@ -5,7 +5,6 @@ import fihgu.core.elements.CommandBase;
 import fihgu.core.elements.Location;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
-import fihgu.core.functions.Teleport;
 
 public class SetSpawnCommand extends CommandBase
 {
@@ -20,6 +19,6 @@ public class SetSpawnCommand extends CommandBase
 	{
 		Location loc = new Location(player);
 		player.getServerForPlayer().setSpawnLocation(loc.x,loc.z,loc.y);
-		player.sendChatToPlayer(McColor.green + Language.translate("spawn set."));
+		player.addChatMessage(McColor.green + Language.translate("spawn set."));
 	}
 }

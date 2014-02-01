@@ -1,24 +1,16 @@
 package fihgu.login.tools;
 
-import java.util.Iterator;
-
-import fihgu.login.CommonProxy;
-import fihgu.login.commands.LoginCommand;
-import fihgu.login.commands.RegisterCommand;
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.NetServerHandler;
 import net.minecraft.network.packet.Packet16BlockItemSwitch;
 import net.minecraft.network.packet.Packet1Login;
-import net.minecraft.network.packet.Packet201PlayerInfo;
 import net.minecraft.network.packet.Packet202PlayerAbilities;
 import net.minecraft.network.packet.Packet3Chat;
-import net.minecraft.network.packet.Packet41EntityEffect;
 import net.minecraft.network.packet.Packet4UpdateTime;
 import net.minecraft.network.packet.Packet6SpawnPosition;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.EnumGameType;
 import net.minecraft.world.WorldServer;
@@ -29,7 +21,9 @@ import fihgu.core.events.TryCommandEvent;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
 import fihgu.core.shortcut.Server;
-import cpw.mods.fml.common.registry.GameRegistry;
+import fihgu.login.CommonProxy;
+import fihgu.login.commands.LoginCommand;
+import fihgu.login.commands.RegisterCommand;
 
 public class EventHandler 
 {
@@ -72,7 +66,7 @@ public class EventHandler
 	        Server.getConfigurationManager().sendPacketToAllPlayers(new Packet3Chat("\u00a7e" + par2EntityPlayerMP.username + Language.translate(" are trying to login.")));
 	        //var6.setPlayerLocation(par2EntityPlayerMP.posX, par2EntityPlayerMP.posY, par2EntityPlayerMP.posZ, par2EntityPlayerMP.rotationYaw, par2EntityPlayerMP.rotationPitch);
 	        Server.getServer().getNetworkThread().addPlayer(var6);
-	        var6.sendPacketToPlayer(new Packet4UpdateTime(var4.getTotalWorldTime(), var4.getWorldTime()));
+	        var6.sendPacketToPlayer(new Packet4UpdateTime(var4.getTotalWorldTime(), var4.getWorldTime(), var4.getGameRules().getGameRuleBooleanValue("doDaylightCycle")));
 
 	        if (Server.getServer().getTexturePack().length() > 0)
 	        {
@@ -83,7 +77,7 @@ public class EventHandler
 	        handler.connectionComplete = true;
 	        
 	        fihgu.login.CommonProxy.waitMap.put(par2EntityPlayerMP, handler);
-	        par2EntityPlayerMP.sendChatToPlayer(Language.translate("Please login or Register."));
+	        par2EntityPlayerMP.addChatMessage(Language.translate("Please login or Register."));
 		}
 	}
 		
@@ -118,7 +112,7 @@ public class EventHandler
 				else
 				{
 					e.setCanceled(true);
-					e.sender.sendChatToPlayer(McColor.darkRed + Language.translate("You must login/register before you can use any command!"));
+					e.sender.sendChatToPlayer(ChatMessageComponent.createFromText(McColor.darkRed + Language.translate("You must login/register before you can use any command!")));
 				}
 			}
 		}

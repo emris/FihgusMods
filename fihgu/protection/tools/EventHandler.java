@@ -1,21 +1,17 @@
 package fihgu.protection.tools;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
+import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
-import fihgu.core.elements.Region;
 import fihgu.core.events.BlockExplodedEvent;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
 import fihgu.core.functions.PlayerManager;
 import fihgu.protection.elements.ProtectedBlock;
 import fihgu.protection.elements.ProtectedRegion;
-import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 public class EventHandler
 {		

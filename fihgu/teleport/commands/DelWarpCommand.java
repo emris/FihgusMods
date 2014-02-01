@@ -2,12 +2,8 @@ package fihgu.teleport.commands;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.CommandBase;
-import fihgu.core.elements.Location;
-import fihgu.core.elements.Player;
-import fihgu.core.elements.Request;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
-import fihgu.core.functions.Teleport;
 import fihgu.teleport.elements.WarpPoint;
 
 public class DelWarpCommand extends CommandBase
@@ -29,15 +25,15 @@ public class DelWarpCommand extends CommandBase
 		{
 			String warpPointName = args[0];
 			WarpPoint warpPoint = WarpPoint.getWarpPoint(warpPointName);
-			
+
 			if (warpPoint == null)
 			{
-				player.sendChatToPlayer(McColor.aqua + warpPointName + McColor.darkRed + Language.translate(" does not exist."));
+				player.addChatMessage(McColor.aqua + warpPointName + McColor.darkRed + Language.translate(" does not exist."));
 			}
 			else
 			{
 				WarpPoint.delWarpPoint(warpPointName);
-				player.sendChatToPlayer(McColor.aqua + warpPointName + McColor.grey + Language.translate(" has been deleted."));
+				player.addChatMessage(McColor.aqua + warpPointName + McColor.grey + Language.translate(" has been deleted."));
 			}
 		}
 	}

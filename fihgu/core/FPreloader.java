@@ -1,29 +1,24 @@
 package fihgu.core;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.Map;
 
-import fihgu.core.transformers.containers.FCommandHandler;
-import fihgu.core.transformers.containers.FNetLoginHandler;
-import fihgu.core.transformers.containers.FServerConfigurationManager;
-import fihgu.core.elements.Group;
-import fihgu.core.functions.Language;
-import fihgu.core.functions.Log;
-import fihgu.core.io.ConfigFile;
-
+import net.minecraft.launchwrapper.LaunchClassLoader;
 import cpw.mods.fml.relauncher.IFMLCallHook;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
-import cpw.mods.fml.relauncher.RelaunchClassLoader;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
+import fihgu.core.elements.Group;
+import fihgu.core.functions.Language;
+import fihgu.core.io.ConfigFile;
 
+@MCVersion(value = "1.6.2")
 public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 {
 	public static ConfigFile mainConfig = new ConfigFile("config.cfg", "./fihgu/core/");
 	public static ConfigFile commandConfig = new ConfigFile("command.cfg", "./fihgu/core/");
 
 	File location = null;
-	RelaunchClassLoader loader = null;
+	LaunchClassLoader loader = (LaunchClassLoader)FPreloader.class.getClassLoader();
 
 	@Override
 	public String[] getLibraryRequestClass()
@@ -52,7 +47,6 @@ public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 	@Override
 	public void injectData(Map<String, Object> data)
 	{
-		loader = (RelaunchClassLoader)data.get("classLoader");
 		location= (File)data.get("coremodLocation");
 	}
 
@@ -61,7 +55,7 @@ public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 	{
 		mainConfig.load();
 		commandConfig.load();
-		String language = mainConfig.get("language", "English");
+		String language = mainConfig.get("language", "en_US");
 
 		Language.setLanguage(language);
 		System.out.println("[fihgu's Core Mod]: " + Language.translate("Language has been set to: ") + Language.getLanguage());

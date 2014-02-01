@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraft.launchwrapper.LaunchClassLoader;
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
-import cpw.mods.fml.relauncher.IClassTransformer;
-import cpw.mods.fml.relauncher.RelaunchClassLoader;
 import fihgu.core.functions.Language;
 
 public class ClassPatcher implements IClassTransformer
@@ -118,7 +119,7 @@ public class ClassPatcher implements IClassTransformer
 	{
 		try 
 		{
-			RelaunchClassLoader loader = (RelaunchClassLoader) this.getClass().getClassLoader();
+			LaunchClassLoader loader = (LaunchClassLoader) this.getClass().getClassLoader();
 			ClassNode cn = new ClassNode();
 			ClassReader cr = new ClassReader(loader.getClassBytes(patchInfo.getReplacementClass()));;
 			cr.accept(cn, 0);

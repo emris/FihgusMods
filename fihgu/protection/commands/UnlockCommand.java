@@ -1,7 +1,5 @@
 package fihgu.protection.commands;
 
-import java.io.File;
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.CommandBase;
 import fihgu.core.elements.Player;

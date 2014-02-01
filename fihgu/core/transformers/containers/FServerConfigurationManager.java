@@ -1,14 +1,13 @@
 package fihgu.core.transformers.containers;
 
-import fihgu.core.events.PlayerLogoutEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.packet.Packet201PlayerInfo;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
+import cpw.mods.fml.common.registry.GameRegistry;
+import fihgu.core.events.PlayerLogoutEvent;
 
 public class FServerConfigurationManager extends ServerConfigurationManager
 {

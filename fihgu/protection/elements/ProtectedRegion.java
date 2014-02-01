@@ -3,47 +3,43 @@ package fihgu.protection.elements;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-
 import fihgu.core.elements.Location;
 import fihgu.core.elements.Player;
 import fihgu.core.elements.Region;
 import fihgu.core.functions.Language;
 import fihgu.core.functions.McColor;
-import fihgu.core.functions.PlayerManager;
 import fihgu.core.io.SaveFile;
-import fihgu.teleport.elements.WarpPoint;
 
 public class ProtectedRegion
 {
 	public static ArrayList<ProtectedRegion> protectedRegions = new ArrayList<ProtectedRegion>();
 	public static HashMap<Player,Location> watchlist = new HashMap<Player,Location>();
 	public static HashMap<Player,String> namelist = new HashMap<Player,String>();
-	
+
 	public String name;
 	public Region region;
 	public Player owner;
 	public ArrayList<String> sharedPlayer = new ArrayList<String>();
-	
-	
+
+
 	public ProtectedRegion(String name, Player owner, Region region)
 	{
 		this.name = name;
 		this.owner = owner;
 		this.region = region;
 	}
-	
+
 	public static boolean watch(PlayerInteractEvent e)
 	{
 		Player player = new Player(e.entityPlayer);
 		Location blockLocation = new Location(e.x,e.z,e.y,e.entityPlayer.dimension);
-		
+
 		ProtectedBlock blockCheck = ProtectedBlock.isProtected(blockLocation);
 		ProtectedRegion regionCheck = ProtectedRegion.isProtected(blockLocation);
-		
+
 		if(watchlist.containsKey(player))
 		{
 			Location location = watchlist.get(player);
@@ -72,14 +68,14 @@ public class ProtectedRegion
 					Location point1 = location;
 					Location point2 = blockLocation;
 					ProtectedRegion protectedRegion = new ProtectedRegion(namelist.get(player),player,new Region(point1, point2));
-					
+
 					blockCheck = ProtectedBlock.isProtected(protectedRegion.region);
 					if(blockCheck != null)
 					{
 						player.msg(McColor.darkRed + Language.translate("Part of this region is already locked by ") + McColor.aqua + blockCheck.owner.name + McColor.darkRed + ".");
 						return true;
 					}
-					
+
 					player.msg(McColor.aqua + protectedRegion.name + McColor.green + Language.translate(" has been created."));
 					protectedRegions.add(protectedRegion);
 					protectedRegion.save();
@@ -89,7 +85,7 @@ public class ProtectedRegion
 		}
 		return false;
 	}
-	
+
 	public static ProtectedRegion isProtected(Location location)
 	{
 		for(ProtectedRegion temp : protectedRegions)
@@ -97,7 +93,7 @@ public class ProtectedRegion
 				return temp;
 		return null;
 	}
-	
+
 	public static ProtectedRegion isProtected(Region region)
 	{
 		for(ProtectedRegion temp : protectedRegions)
@@ -105,15 +101,15 @@ public class ProtectedRegion
 				return temp;
 		return null;
 	}
-	
+
 	public static void loadAll()
 	{
 		protectedRegions.clear();
-		
+
 		File dir = new File("./fihgu/protection/region/");
 		dir.mkdirs();
 		File[] files = dir.listFiles();
-		
+
 		if(files != null && files.length > 0)
 			for(File file : files)
 			{
@@ -128,6 +124,7 @@ public class ProtectedRegion
 					while(scan.hasNext())
 						temp.sharedPlayer.add(scan.nextLine());
 					protectedRegions.add(temp);
+					scan.close();
 				}
 				catch(Exception e)
 				{
@@ -135,7 +132,7 @@ public class ProtectedRegion
 				}
 			}
 	}
-	
+
 	public static void saveAll()
 	{
 		for(ProtectedRegion region : protectedRegions)
@@ -147,10 +144,10 @@ public class ProtectedRegion
 			file.data.add(region.region.point2.toString());
 			for(String name : region.sharedPlayer)
 				file.data.add(name);
-			file.save(false);			
+			file.save(false);
 		}
 	}
-	
+
 	public void save()
 	{
 		SaveFile file = new SaveFile(name+".txt", "./fihgu/protection/region/");
@@ -160,34 +157,34 @@ public class ProtectedRegion
 		file.data.add(region.point2.toString());
 		for(String name1 : sharedPlayer)
 			file.data.add(name1);
-		file.save(false);	
+		file.save(false);
 	}
-	
+
 	public boolean canAccess(Player player)
 	{
 		if(player.name.equals(owner.name))
 			return true;
-		
+
 		for(String share : this.sharedPlayer)
 			if(share.equals(player.name))
 				return true;
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean equals(Object o)
 	{
 		if(o instanceof ProtectedRegion)
 			return name.equals(((ProtectedRegion)o).name);
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
 		return name.hashCode();
 	}
-	
+
 }
