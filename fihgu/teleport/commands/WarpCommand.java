@@ -25,8 +25,9 @@ public class WarpCommand extends CommandBase
 
 		if (args.length != 1)
 		{
+			player.addChatMessage(McColor.green + "WarpPointNames: " + McColor.aqua + WarpPoint.getWarpPoints());
 			this.argumentMismatch(player);
-		} 
+		}
 		else if (args.length == 1)
 		{
 			final EntityPlayerMP target = PlayerManager.getPlayer(args[0], true);

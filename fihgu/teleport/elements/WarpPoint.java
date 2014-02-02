@@ -47,6 +47,15 @@ public class WarpPoint
 		return null;
 	}
 	
+	public static String getWarpPoints()
+	{
+		String targets = "";
+		for(WarpPoint wp:warpPoints)
+			targets = targets + ", " + wp.name;
+		
+		return targets.substring(2);
+	}
+	
 	public static void setHome(EntityPlayerMP player)
 	{
 		Location location = new Location(player);
