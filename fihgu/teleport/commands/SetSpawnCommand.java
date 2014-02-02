@@ -18,7 +18,7 @@ public class SetSpawnCommand extends CommandBase
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{
 		Location loc = new Location(player);
-		player.getServerForPlayer().setSpawnLocation(loc.x,loc.z,loc.y);
+		player.worldObj.getWorldInfo().setSpawnPosition(loc.x,loc.z,loc.y);
 		player.addChatMessage(McColor.green + Language.translate("spawn set."));
 	}
 }
