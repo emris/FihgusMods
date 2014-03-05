@@ -8,22 +8,22 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid="fihgu's Permission Mod", name="fihgu's Permission Mod", version="3.0.3")
+@Mod(modid="fihgus_permission_mod", name="fihgu's Permission Mod", version="3.0.3")
 @NetworkMod(clientSideRequired=false, serverSideRequired=false)
 public class Mod_Permission 
 {
-	@Instance("fihgu's Permission Mod")
+	@Instance("fihgus_permission_mod")
 	public static Mod_Permission instance;
-	
+
 	@SidedProxy(clientSide="fihgu.permission.ClientProxy", serverSide="fihgu.permission.ServerProxy")
 	public static CommonProxy proxy;
-	
+
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event)
 	{
 		proxy.init();
 	}
-	
+
 	@EventHandler
 	public void onServerStopping(FMLServerStoppingEvent e)
 	{

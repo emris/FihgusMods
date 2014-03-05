@@ -9,7 +9,7 @@ public class ClientProxy extends CommonProxy
 	{
 		if(Server.isDedicatedServer())
 		{
-			
+
 		}
 		else
 		{

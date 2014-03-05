@@ -16,7 +16,6 @@ public class EventHandler
 		if(e.sender instanceof EntityPlayerMP)
 		{
 			EntityPlayerMP player = (EntityPlayerMP) e.sender;
-			
 			if(!new PermissionOwner(new Player(player)).canUse(e))
 			{
 				Message.warnPlayer(player, Language.translate("[fihgu's Permission Mod]: You don't have permission to use this command."));

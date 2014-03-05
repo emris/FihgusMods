@@ -94,7 +94,7 @@ public class Group
 	
 	public static Group getDefaultGroup()
 	{
-		String defaultGroup = FPreloader.mainConfig.get("default Group", "Player");
+		String defaultGroup = FPreloader.mainConfig.get("default_Group", "Player");
 		
 		if(groups.contains(new Group(defaultGroup)))
 		{

@@ -24,10 +24,10 @@ public class CommonProxy
 		new DelWarpCommand().register();
 		new SetSpawnCommand().register();
 		new SpawnCommand().register();
-		
+
 		WarpPoint.loadAll();
 	}
-	
+
 	public void exit()
 	{
 		WarpPoint.saveAll();

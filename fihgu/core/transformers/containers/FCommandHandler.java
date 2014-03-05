@@ -64,7 +64,7 @@ public class FCommandHandler extends CommandHandler
 			}
 
 			i = -1;
-		}        
+		}
 		//////////////////////////////////////////////////
 
 		int j = 0;
@@ -76,9 +76,8 @@ public class FCommandHandler extends CommandHandler
 				throw new CommandNotFoundException();
 			}
 
-
 			if (!MinecraftForge.EVENT_BUS.post(new TryCommandEvent(par1ICommandSender, par2Str))
-					&& (icommand.canCommandSenderUseCommand(par1ICommandSender) || FML.isModLoaded("fihgu's Permission Mod")))
+				&& (icommand.canCommandSenderUseCommand(par1ICommandSender) || FML.isModLoaded("fihgus_permission_mod")))
 			{
 				CommandEvent event = new CommandEvent(icommand, par1ICommandSender, astring);
 				if (MinecraftForge.EVENT_BUS.post(event))
@@ -123,8 +122,8 @@ public class FCommandHandler extends CommandHandler
 			}
 			else
 			{
-				if(!FML.isModLoaded("fihgu's Permission Mod"))
-					par1ICommandSender.sendChatToPlayer(ChatMessageComponent.createFromText("" + EnumChatFormatting.RED + "You do not have permission to use this command."));
+				if(!FML.isModLoaded("fihgus_permission_mod"))
+					par1ICommandSender.sendChatToPlayer(ChatMessageComponent.createFromText(EnumChatFormatting.RED + "You do not have permission to use this command."));
 			}
 		}
 		catch (WrongUsageException wrongusageexception)
@@ -157,8 +156,7 @@ public class FCommandHandler extends CommandHandler
 			{
 				ICommand icommand = (ICommand)super.getCommands().get(next);
 
-
-				if(FML.isModLoaded("fihgu's Permission Mod") && sender instanceof EntityPlayerMP)
+				if(FML.isModLoaded("fihgus_permission_mod") && sender instanceof EntityPlayerMP)
 				{
 					Player player = new Player(sender.getCommandSenderName());
 					fihgu.permission.element.PermissionOwner owner = new fihgu.permission.element.PermissionOwner(player);

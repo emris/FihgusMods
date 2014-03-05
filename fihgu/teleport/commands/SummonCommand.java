@@ -37,7 +37,7 @@ public class SummonCommand extends CommandBase
 				target.msg(McColor.aqua + sender.name + McColor.pink + Language.translate(" sent you a Warp request!"));
 				target.msg(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
 
-				new Request(target, 30) 
+				new Request(target, 30)
 				{
 					Player from = sender;
 					Player to = target;

@@ -8,7 +8,7 @@ import fihgu.permission.tools.EventHandler;
 public class CommonProxy 
 {
 	public static ConfigFile config = new ConfigFile("permission.cfg","./fihgu/permission/");
-	
+
 	public static String allNode = "all";
 	public static String partNode = "part";
 	public static String commandSenderNode = "commandsender";
@@ -16,16 +16,16 @@ public class CommonProxy
 	public static String groupNode = "group";
 	public static String rangeNode = "range";
 	public static String permissionsFromNode = "permissionsFrom";
-	
-	public void init() 
+
+	public void init()
 	{
 		Forge.registerEventHandler(new EventHandler());
-		
+
 		config.load();
-		
+
 		if(config.get("regenerateDefaultPermission", "true").equals("true"))
 			createDefaultPermission();
-		
+
 		allNode = config.get("allNode", allNode);
 		partNode = config.get("partNode", partNode);
 		commandSenderNode = config.get("commandSenderNode", commandSenderNode);
@@ -33,14 +33,15 @@ public class CommonProxy
 		groupNode = config.get("groupNode", groupNode);
 		rangeNode = config.get("rangeNode", rangeNode);
 		permissionsFromNode = config.get("permissionsFrom", permissionsFromNode);
-		
+
 		config.save();
-		
+
 	}
+
 	private void createDefaultPermission()
 	{
 		SaveFile temp;
-		
+
 		temp = new SaveFile("Player.txt","./fihgu/permission/groups/");
 		temp.data.add("spawn");
 		temp.data.add("spawn" + allNode  + "*");
@@ -91,6 +92,7 @@ public class CommonProxy
 		temp.data.add("summon");
 		temp.data.add("summon.*" + allNode + "*");
 		temp.save(false);
+
 		temp = new SaveFile("Admin.txt","./fihgu/permission/groups/");
 		temp.data.add("*"+ permissionsFromNode + ":Player*");
 		temp.data.add("setwarp");
@@ -146,6 +148,7 @@ public class CommonProxy
 		temp.data.add("op.*"+ commandSenderNode + "*");
 		temp.data.add("deop.*"+ commandSenderNode + "*");
 		temp.save(false);
+
 		temp = new SaveFile("Owner.txt","./fihgu/permission/groups/");
 		temp.data.add("*"+ permissionsFromNode + ":Admin*");
 		temp.data.add("op");
@@ -162,13 +165,13 @@ public class CommonProxy
 		temp.data.add("stop.*" + allNode  + "*");
 		temp.data.add("*" + allNode  + "*");
 		temp.save(false);
-		
+
 		config.map.put("regenerateDefaultPermission", "false");
 		config.save();
 	}
-	
+
 	public void exit()
 	{
-		
+
 	}
 }

@@ -8,11 +8,11 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid="fihgu's Login Mod", name="fihgu's Login Mod", version="3.0.3")
+@Mod(modid="fihgus_login_mod", name="fihgu's Login Mod", version="3.0.3")
 @NetworkMod(clientSideRequired=false, serverSideRequired=false)
 public class Mod_Login 
 {
-	@Instance("fihgu's Login Mod")
+	@Instance("fihgus_login_mod")
 	public static Mod_Login instance;
 	
 	@SidedProxy(clientSide="fihgu.login.ClientProxy", serverSide="fihgu.login.ServerProxy")

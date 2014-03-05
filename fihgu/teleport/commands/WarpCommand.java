@@ -38,7 +38,7 @@ public class WarpCommand extends CommandBase
 				target.addChatMessage(McColor.aqua + player.username + McColor.pink + Language.translate(" has send you a Warp request!"));
 				target.addChatMessage(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
 
-				new Request(new Player(target), 30) 
+				new Request(new Player(target), 30)
 				{
 					EntityPlayerMP from = sender;
 					EntityPlayerMP to = target;
