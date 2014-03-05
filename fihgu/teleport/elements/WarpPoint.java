@@ -52,8 +52,11 @@ public class WarpPoint
 		String targets = "";
 		for(WarpPoint wp:warpPoints)
 			targets = targets + ", " + wp.name;
-		
-		return targets.substring(2);
+
+		if (targets.length() > 2)
+			targets = targets.substring(2);
+
+		return targets;
 	}
 	
 	public static void setHome(EntityPlayerMP player)
