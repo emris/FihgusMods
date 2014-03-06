@@ -7,7 +7,6 @@ import net.minecraft.launchwrapper.LaunchClassLoader;
 import cpw.mods.fml.relauncher.IFMLCallHook;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
-import fihgu.core.elements.Group;
 import fihgu.core.functions.Language;
 import fihgu.core.io.ConfigFile;
 
@@ -59,8 +58,6 @@ public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 
 		Language.setLanguage(language);
 		System.out.println("[fihgu's Core Mod]: " + Language.translate("Language has been set to: ") + Language.getLanguage());
-
-		Group.loadAll();
 
 		return null;
 	}

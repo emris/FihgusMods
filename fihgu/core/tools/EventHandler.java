@@ -27,34 +27,29 @@ public class EventHandler implements IPlayerTracker
 	}
 
 	@Override
-	public void onPlayerLogin(EntityPlayer player1) 
+	public void onPlayerLogin(EntityPlayer player1)
 	{
 		Player player = new Player(player1.username);
-
 		if(player.getGroups().size() <= 0)
 		{
 			Group.getDefaultGroup().players.add(player);
 			player.msg(McColor.grey + Language.translate("you have been put into ") + Group.getDefaultGroup().name + Language.translate(" Group by default."));
+			Group.saveAll();
 		}
-
-		Group.saveAll();
 	}
 
 	@Override
-	public void onPlayerLogout(EntityPlayer player) 
+	public void onPlayerLogout(EntityPlayer player)
 	{
-
 	}
 
 	@Override
-	public void onPlayerChangedDimension(EntityPlayer player) 
+	public void onPlayerChangedDimension(EntityPlayer player)
 	{
-
 	}
 
 	@Override
-	public void onPlayerRespawn(EntityPlayer player) 
+	public void onPlayerRespawn(EntityPlayer player)
 	{
-
 	}
 }

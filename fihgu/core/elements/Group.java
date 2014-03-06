@@ -53,15 +53,16 @@ public class Group
 		}
 		
 		//deafult groups
-		
-		if(!(groups.contains(new Group("Player")) || groups.contains(new Group("Admin")) || groups.contains(new Group("Owner"))))
-		{
+		if(!groups.contains(new Group("Player")))
 			groups.add(new Group("Player"));
+		
+		if(!groups.contains(new Group("Admin")))
 			groups.add(new Group("Admin"));
+		
+		if(!groups.contains(new Group("Owner")))
 			groups.add(new Group("Owner"));
 			
 			saveAll();
-		}
 	}
 	
 	public static void saveAll()

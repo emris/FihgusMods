@@ -19,6 +19,7 @@ public class SpawnCommand extends CommandBase
 	public void processPlayer(EntityPlayerMP player, String[] args)
 	{
 		ChunkCoordinates spawn = player.getServerForPlayer().getSpawnPoint();
-		Teleport.warp(player, new Location(spawn.posX,spawn.posZ,spawn.posY,0), false);
+		int topBlock = player.getServerForPlayer().getTopSolidOrLiquidBlock(spawn.posX, spawn.posZ);
+		Teleport.warp(player, new Location(spawn.posX,topBlock+1,spawn.posZ,0), false);
 	}
 }

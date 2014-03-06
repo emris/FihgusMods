@@ -11,6 +11,7 @@ public class Forge
 	{
 		MinecraftForge.EVENT_BUS.register(eventHandler);
 	}
+
 	public static void registerPlayerTracker(IPlayerTracker playerTracker)
 	{
 		GameRegistry.registerPlayerTracker(playerTracker);

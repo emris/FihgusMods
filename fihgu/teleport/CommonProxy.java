@@ -3,6 +3,7 @@ package fihgu.teleport;
 import fihgu.teleport.commands.BackCommand;
 import fihgu.teleport.commands.DelWarpCommand;
 import fihgu.teleport.commands.HomeCommand;
+import fihgu.teleport.commands.JumpCommand;
 import fihgu.teleport.commands.SetHomeCommand;
 import fihgu.teleport.commands.SetSpawnCommand;
 import fihgu.teleport.commands.SetWarpCommand;
@@ -24,6 +25,7 @@ public class CommonProxy
 		new DelWarpCommand().register();
 		new SetSpawnCommand().register();
 		new SpawnCommand().register();
+		new JumpCommand().register();
 
 		WarpPoint.loadAll();
 	}

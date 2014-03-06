@@ -21,14 +21,13 @@ public class CommandBase implements ICommand
 	public String name;
 	public String usage;
 	public boolean opOnly = false;
-	
-	
+
 	public void register()
 	{
 		name = FPreloader.commandConfig.get(name, name);
 		Server.getCommandHandler().registerCommand(this);
 	}
-	
+
 	/**
 	 * Override this method to process things when command is used by console.
 	 */
@@ -36,7 +35,7 @@ public class CommandBase implements ICommand
 	{
 		Log.logWarnning(Language.translate("You may not use this command in console."));
 	}
-	
+
 	/**
 	 * Override this method to process things when command is used by a player.
 	 */
@@ -85,10 +84,10 @@ public class CommandBase implements ICommand
 		//Console or RCON
 		if(!(sender instanceof EntityPlayerMP))
 			return true;
-		
+
 		if(opOnly && !PlayerManager.isOp(sender.getCommandSenderName()))
 			return false;
-		
+
 		return true;
 	}
 
@@ -97,7 +96,7 @@ public class CommandBase implements ICommand
 	{
 		return null;
 	}
-	
+
 	public void argumentMismatch(ICommandSender sender)
 	{
 		sender.sendChatToPlayer(ChatMessageComponent.createFromText(McColor.darkRed + Language.translate("Argument mismatch, try:")));

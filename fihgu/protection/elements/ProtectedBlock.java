@@ -30,7 +30,7 @@ public class ProtectedBlock
 	public static boolean watch(PlayerInteractEvent e)
 	{
 		Player player = new Player(e.entityPlayer);
-		Location blockLocation = new Location(e.x,e.z,e.y,e.entityPlayer.dimension);
+		Location blockLocation = new Location(e.x,e.y,e.z,e.entityPlayer.dimension);
 
 		ProtectedBlock blockCheck = ProtectedBlock.isProtected(blockLocation);
 		ProtectedRegion regionCheck = ProtectedRegion.isProtected(blockLocation);
@@ -168,7 +168,7 @@ public class ProtectedBlock
 			for(String name : block.sharedPlayer)
 				line = line + ":" + name;
 
-			file.data.add(line);			
+			file.data.add(line);
 		}
 		file.save(false);
 	}

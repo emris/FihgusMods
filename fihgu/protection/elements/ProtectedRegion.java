@@ -35,7 +35,7 @@ public class ProtectedRegion
 	public static boolean watch(PlayerInteractEvent e)
 	{
 		Player player = new Player(e.entityPlayer);
-		Location blockLocation = new Location(e.x,e.z,e.y,e.entityPlayer.dimension);
+		Location blockLocation = new Location(e.x,e.y,e.z,e.entityPlayer.dimension);
 
 		ProtectedBlock blockCheck = ProtectedBlock.isProtected(blockLocation);
 		ProtectedRegion regionCheck = ProtectedRegion.isProtected(blockLocation);

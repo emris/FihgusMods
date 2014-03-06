@@ -2,7 +2,7 @@ package fihgu.core.shortcut;
 
 import cpw.mods.fml.common.Loader;
 
-public class FML 
+public class FML
 {
 	public static boolean isModLoaded(String modName)
 	{

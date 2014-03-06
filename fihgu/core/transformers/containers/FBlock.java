@@ -14,7 +14,7 @@ public class FBlock extends Block
 
 	public void onBlockExploded(World world, int x, int y, int z, Explosion explosion)
 	{
-		fihgu.core.events.BlockExplodedEvent event = new fihgu.core.events.BlockExplodedEvent(new fihgu.core.elements.Location(x,z,y,world.provider.dimensionId),explosion);
+		fihgu.core.events.BlockExplodedEvent event = new fihgu.core.events.BlockExplodedEvent(new fihgu.core.elements.Location(x,y,z,world.provider.dimensionId),explosion);
 
 		if(!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event))
 		{

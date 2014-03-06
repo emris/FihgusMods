@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import fihgu.core.elements.Location;
+import net.minecraft.util.MovingObjectPosition;
 
 public class Teleport
 {
@@ -23,10 +24,10 @@ public class Teleport
 
 		if (!exact)
 		{
-			player.setPositionAndUpdate(loc.x + 0.5, loc.z, loc.y + 0.5);
+			player.setPositionAndUpdate(loc.x + 0.5, loc.y, loc.z + 0.5);
 		} else
 		{
-			player.setPositionAndUpdate(loc.posX, loc.posZ, loc.posY);
+			player.setPositionAndUpdate(loc.posX, loc.posY, loc.posZ);
 		}
 	}
 
@@ -36,6 +37,16 @@ public class Teleport
 	public static void warp(EntityPlayerMP player, EntityPlayerMP target)
 	{
 		Location loc = new Location(target);
+		warp(player, loc, false);
+	}
+
+	/**
+	 * Send player to location he is looking at.
+	 * @param player
+	 */
+	public static void jump(EntityPlayerMP player)
+	{
+		Location loc = new Location(player, "jump");
 		warp(player, loc, false);
 	}
 

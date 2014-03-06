@@ -147,6 +147,7 @@ public class CommonProxy
 		temp.data.add("whitelist.*" + allNode  + "*");
 		temp.data.add("op.*"+ commandSenderNode + "*");
 		temp.data.add("deop.*"+ commandSenderNode + "*");
+		temp.data.add("jump");
 		temp.save(false);
 
 		temp = new SaveFile("Owner.txt","./fihgu/permission/groups/");

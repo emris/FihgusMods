@@ -35,7 +35,7 @@ public class EventHandler
 			{
 				String share = watchlist.get(player);
 				watchlist.remove(player);
-				Location blockLocation = new Location(e.x,e.z,e.y,e.entityPlayer.dimension);
+				Location blockLocation = new Location(e.x,e.y,e.z,e.entityPlayer.dimension);
 				ProtectedBlock blockCheck = ProtectedBlock.isProtected(blockLocation);
 				ProtectedRegion regionCheck = ProtectedRegion.isProtected(blockLocation);
 				
