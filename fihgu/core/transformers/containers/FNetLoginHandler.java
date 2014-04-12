@@ -19,24 +19,21 @@ public class FNetLoginHandler extends NetLoginHandler
 	}
 	///Minecraft/src/net/minecraft/network/NetLoginHandler.java
 	public void completeConnection(String var1)
-    {
+	{
 
-        if (var1 != null)
-        {
-            super.raiseErrorAndDisconnect(var1);
-        }
-        else
-        {
-            EntityPlayerMP var2 = Server.getConfigurationManager().createPlayerForUser(super.clientUsername);
-
-            if(!MinecraftForge.EVENT_BUS.post(new PlayerLoginEvent(var2,this)))
-            {
-            	if (var2 != null)
-            	{
-            		Server.getConfigurationManager().initializeConnectionToPlayer(super.myTCPConnection, var2);
-            	}
-            }
-        }
-        super.connectionComplete = true;
-    }
+		if (var1 != null)
+		{
+			super.raiseErrorAndDisconnect(var1);
+		}
+		else
+		{
+			EntityPlayerMP var2 = Server.getConfigurationManager().createPlayerForUser(super.clientUsername);
+			if(!MinecraftForge.EVENT_BUS.post(new PlayerLoginEvent(var2,this)))
+			{
+				if (var2 != null)
+					Server.getConfigurationManager().initializeConnectionToPlayer(super.myTCPConnection, var2);
+			}
+		}
+		super.connectionComplete = true;
+	}
 }

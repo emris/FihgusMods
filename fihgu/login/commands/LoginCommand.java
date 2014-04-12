@@ -55,7 +55,9 @@ public class LoginCommand extends CommandBase
 		}
 
 		if(args[0].equals(CommonProxy.getPassword(player.username)))
+		{
 			login(player);
+		}
 		else
 		{
 			player.addChatMessage(McColor.darkRed + Language.translate("Wrong password!"));
@@ -82,9 +84,8 @@ public class LoginCommand extends CommandBase
 			String var3 = "local";
 
 			if (par1INetworkManager.getSocketAddress() != null)
-			{
 				var3 = par1INetworkManager.getSocketAddress().toString();
-			}
+
 			Server.getServer().getLogAgent().logInfo(par2EntityPlayerMP.username + "[" + var3 + "] logged in with entity id " + par2EntityPlayerMP.entityId + " at (" + par2EntityPlayerMP.posX + ", " + par2EntityPlayerMP.posY + ", " + par2EntityPlayerMP.posZ + ")");
 			WorldServer var4 = Server.getServer().worldServerForDimension(par2EntityPlayerMP.dimension);
 

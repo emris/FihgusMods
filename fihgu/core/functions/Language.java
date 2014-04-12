@@ -15,7 +15,8 @@ public class Language
 	public static String translate(String line)
 	{
 		String result = line;
-		if(languageFile != null) {
+		if(languageFile != null)
+		{
 			boolean isNewText = !languageFile.containsKey(line);
 			result = languageFile.get(line, line);
 

@@ -10,7 +10,7 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import fihgu.core.functions.Language;
 import fihgu.core.io.ConfigFile;
 
-@MCVersion(value = "1.6.2")
+@MCVersion(value = "1.6.4")
 public class FPreloader implements IFMLLoadingPlugin, IFMLCallHook
 {
 	public static ConfigFile mainConfig = new ConfigFile("config.cfg", "./fihgu/core/");

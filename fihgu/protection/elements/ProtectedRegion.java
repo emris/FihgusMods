@@ -89,16 +89,20 @@ public class ProtectedRegion
 	public static ProtectedRegion isProtected(Location location)
 	{
 		for(ProtectedRegion temp : protectedRegions)
+		{
 			if(temp.region.contains(location))
 				return temp;
+		}
 		return null;
 	}
 
 	public static ProtectedRegion isProtected(Region region)
 	{
 		for(ProtectedRegion temp : protectedRegions)
+		{
 			if(temp.region.contains(region))
 				return temp;
+		}
 		return null;
 	}
 
@@ -122,7 +126,9 @@ public class ProtectedRegion
 					String point2 = scan.nextLine();
 					ProtectedRegion temp = new ProtectedRegion(name,new Player(owner),new Region(new Location(point1),new Location(point2)));
 					while(scan.hasNext())
+					{
 						temp.sharedPlayer.add(scan.nextLine());
+					}
 					protectedRegions.add(temp);
 					scan.close();
 				}
@@ -143,7 +149,9 @@ public class ProtectedRegion
 			file.data.add(region.region.point1.toString());
 			file.data.add(region.region.point2.toString());
 			for(String name : region.sharedPlayer)
+			{
 				file.data.add(name);
+			}
 			file.save(false);
 		}
 	}
@@ -156,7 +164,9 @@ public class ProtectedRegion
 		file.data.add(region.point1.toString());
 		file.data.add(region.point2.toString());
 		for(String name1 : sharedPlayer)
+		{
 			file.data.add(name1);
+		}
 		file.save(false);
 	}
 
@@ -164,11 +174,11 @@ public class ProtectedRegion
 	{
 		if(player.name.equals(owner.name))
 			return true;
-
 		for(String share : this.sharedPlayer)
+		{
 			if(share.equals(player.name))
 				return true;
-
+		}
 		return false;
 	}
 
@@ -177,7 +187,6 @@ public class ProtectedRegion
 	{
 		if(o instanceof ProtectedRegion)
 			return name.equals(((ProtectedRegion)o).name);
-
 		return false;
 	}
 

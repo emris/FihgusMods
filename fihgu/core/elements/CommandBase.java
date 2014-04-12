@@ -104,8 +104,8 @@ public class CommandBase implements ICommand
 	}
 
 	@Override
-	public boolean isUsernameIndex(String[] astring, int i) {
-		// TODO Auto-generated method stub
+	public boolean isUsernameIndex(String[] astring, int i)
+	{
 		return false;
 	}
 }

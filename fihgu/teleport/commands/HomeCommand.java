@@ -21,7 +21,7 @@ public class HomeCommand extends CommandBase
 		if (args.length > 0)
 		{
 			this.argumentMismatch(player);
-		} 
+		}
 		else if (args.length == 0)
 		{
 			WarpPoint home = WarpPoint.getHome(player.username);
@@ -29,7 +29,8 @@ public class HomeCommand extends CommandBase
 			{
 				Teleport.warp(player, home.location, false);
 				player.addChatMessage(McColor.green + Language.translate("Warped home."));
-			} else
+			}
+			else
 			{
 				player.addChatMessage(McColor.darkRed + Language.translate("You are homeless!"));
 			}

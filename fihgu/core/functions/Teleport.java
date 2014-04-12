@@ -23,12 +23,9 @@ public class Teleport
 			player.travelToDimension(dimension);
 
 		if (!exact)
-		{
 			player.setPositionAndUpdate(loc.x + 0.5, loc.y, loc.z + 0.5);
-		} else
-		{
+		else
 			player.setPositionAndUpdate(loc.posX, loc.posY, loc.posZ);
-		}
 	}
 
 	/**
@@ -58,7 +55,7 @@ public class Teleport
 			loc = playerBackMap.get(player);
 			warp(player, loc, true);
 			return true;
-		} 
+		}
 		else
 		{
 			return false;

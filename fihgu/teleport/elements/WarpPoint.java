@@ -34,7 +34,6 @@ public class WarpPoint
 		WarpPoint target = new WarpPoint(name,null);
 		if(homes.contains(target))
 			return homes.get(homes.indexOf(target));
-
 		return null;
 	}
 
@@ -42,9 +41,7 @@ public class WarpPoint
 	{
 		WarpPoint target = new WarpPoint(name,null);
 		if(warpPoints.contains(target))
-		{
 			return warpPoints.get(warpPoints.indexOf(target));
-		}
 		return null;
 	}
 
@@ -53,10 +50,8 @@ public class WarpPoint
 		String targets = "";
 		for(WarpPoint wp:warpPoints)
 			targets = targets + ", " + wp.name;
-
 		if (targets.length() > 2)
 			targets = targets.substring(2);
-
 		return targets;
 	}
 
@@ -64,15 +59,11 @@ public class WarpPoint
 	{
 		Location location = new Location(player);
 		WarpPoint home = new WarpPoint(player.username, location);
-
 		if(homes.contains(home))
 			homes.remove(home);
-
 		homes.add(home);
-
 		if(location.dimension == 0)
 			location.setSpawn(player);
-
 		saveAll();
 	}
 
@@ -80,12 +71,9 @@ public class WarpPoint
 	{
 		Location location = new Location(player);
 		WarpPoint warpPoint = new WarpPoint(name, location);
-
 		if(warpPoints.contains(warpPoint))
 			warpPoints.remove(warpPoint);
-
 		warpPoints.add(warpPoint);
-
 		saveAll();
 	}
 
@@ -122,13 +110,11 @@ public class WarpPoint
 		warpPointsSaveFile.clear();
 		for(WarpPoint warpPoint : warpPoints)
 			warpPointsSaveFile.data.add(warpPoint.toString());
-
 		warpPointsSaveFile.save(false);
 
 		homesSaveFile.clear();
 		for(WarpPoint home : homes)
 			homesSaveFile.data.add(home.toString());
-
 		homesSaveFile.save(false);
 	}
 
@@ -158,7 +144,6 @@ public class WarpPoint
 	{
 		if(location == null)
 			return "";
-
 		return name + "(" + location.toString() + ")";
 	}
 
@@ -167,7 +152,6 @@ public class WarpPoint
 	{
 		if(o instanceof WarpPoint)
 			return name.equals(((WarpPoint)o).name);
-
 		return false;
 	}
 

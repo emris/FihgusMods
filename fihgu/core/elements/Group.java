@@ -44,7 +44,6 @@ public class Group
 		if(dir.exists())
 		{
 			File[] list = dir.listFiles();
-		
 			for(File file:list)
 			{
 				if(file.getName().startsWith("group_") && file.getName().endsWith(".txt"))

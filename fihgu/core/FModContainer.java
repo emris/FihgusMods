@@ -26,7 +26,7 @@ public class FModContainer extends DummyModContainer
 		ModMetadata meta = super.getMetadata();
 		meta.name = "fihgu's Core Mod";
 		meta.modId = "fihgus_core_mod";
-		meta.version = "3.0.4";
+		meta.version = "3.1.0";
 		meta.authorList = Arrays.asList(new String[]{"fihgu"});
 		meta.description = "Provide API for fihgu's other mods";
 	}

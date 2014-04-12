@@ -46,7 +46,9 @@ public class ConfigFile extends SaveFile
 	public String get(String key, String defaultValue)
 	{
 		if(map.containsKey(key))
+		{
 			return map.get(key);
+		}
 		else
 		{
 			map.put(key, defaultValue);
@@ -75,7 +77,7 @@ public class ConfigFile extends SaveFile
 			map.put(key, value);
 			return true;
 		}
-		else 
+		else
 		{
 			return false;
 		}

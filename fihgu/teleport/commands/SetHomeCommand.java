@@ -29,7 +29,7 @@ public class SetHomeCommand extends CommandBase
 		{
 			player.addChatMessage(McColor.pink + Language.translate("You already have a home, would you like to relocate it?"));
 			player.addChatMessage(McColor.pink + Language.translate("Please accept with /y or deny with /n."));
-			new Request(new Player(player),30)
+			new Request(new Player(player), 30)
 			{
 				@Override
 				public void accept()

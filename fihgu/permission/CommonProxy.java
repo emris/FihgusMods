@@ -35,7 +35,6 @@ public class CommonProxy
 		permissionsFromNode = config.get("permissionsFrom", permissionsFromNode);
 
 		config.save();
-
 	}
 
 	private void createDefaultPermission()

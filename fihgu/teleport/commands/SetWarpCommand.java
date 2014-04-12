@@ -23,7 +23,7 @@ public class SetWarpCommand extends CommandBase
 		if (args.length < 1 || args.length > 1)
 		{
 			this.argumentMismatch(player);
-		} 
+		}
 		else if (args.length == 1)
 		{
 			final String warpPointName = args[0];

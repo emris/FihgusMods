@@ -39,20 +39,18 @@ public class Player
 	{
 		ArrayList<Group> list = new ArrayList<Group>();
 		Group.loadAll();
-
 		for(Group group:Group.groups)
+		{
 			if(group.players.contains(this))
 				list.add(group);
-
+		}
 		return list;
 	}
 
 	public void msg(String line)
 	{
 		if(this.isOnline())
-		{
 			this.getEntity().addChatMessage(line);
-		}
 	}
 
 	/**
@@ -72,15 +70,15 @@ public class Player
 	public EntityPlayerMP getEntity()
 	{
 		if(isOnline())
+		{
 			entity = PlayerManager.getPlayer(name);
+		}
 		else
 		{
 			ItemInWorldManager itemInWorldManager = new ItemInWorldManager(Server.getServer().worldServerForDimension(0));
 			entity = new EntityPlayerMP(Server.getServer(), Server.getServer().worldServerForDimension(0), name, itemInWorldManager);
-
 			Server.getConfigurationManager().readPlayerDataFromFile(entity);
 		}
-
 		return entity;
 	}
 
@@ -91,9 +89,7 @@ public class Player
 	public void save()
 	{
 		if(entity != null)
-		{
 			((SaveHandler)DimensionManager.getWorld(0).getSaveHandler()).writePlayerData(entity);
-		}
 	}
 
 	@Override

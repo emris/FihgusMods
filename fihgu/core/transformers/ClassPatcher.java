@@ -22,20 +22,20 @@ public class ClassPatcher implements IClassTransformer
 	{
 		PatchInfo temp;
 		temp = new PatchInfo("net.minecraft.network.NetLoginHandler");
-		temp.targetMethods.add(new MethodInfo("completeConnection","completeConnection","(Ljava/lang/String;)V","(Ljava/lang/String;)V"));
+		temp.targetMethods.add(new MethodInfo("completeConnection", "completeConnection", "(Ljava/lang/String;)V", "(Ljava/lang/String;)V"));
 		list.add(temp);
 
 		temp = new PatchInfo("net.minecraft.server.management.ServerConfigurationManager");
-		temp.targetMethods.add(new MethodInfo("playerLoggedOut","e","(Lnet/minecraft/entity/player/EntityPlayerMP;)V","(Lju;)V")); //jc
+		temp.targetMethods.add(new MethodInfo("playerLoggedOut", "e", "(Lnet/minecraft/entity/player/EntityPlayerMP;)V","(Ljv;)V"));
 		list.add(temp);
 
 		temp = new PatchInfo("net.minecraft.command.CommandHandler");
-		temp.targetMethods.add(new MethodInfo("executeCommand","a","(Lnet/minecraft/command/ICommandSender;Ljava/lang/String;)I","(Lad;Ljava/lang/String;)I")); //ab
-		temp.targetMethods.add(new MethodInfo("getPossibleCommands","a","(Lnet/minecraft/command/ICommandSender;)Ljava/util/List;","(Lad;)Ljava/util/List;")); //ab
+		temp.targetMethods.add(new MethodInfo("executeCommand", "a", "(Lnet/minecraft/command/ICommandSender;Ljava/lang/String;)I", "(Lad;Ljava/lang/String;)I"));
+		temp.targetMethods.add(new MethodInfo("getPossibleCommands", "a", "(Lnet/minecraft/command/ICommandSender;)Ljava/util/List;", "(Lad;)Ljava/util/List;"));
 		list.add(temp);
 
 		temp = new PatchInfo("net.minecraft.block.Block");
-		temp.targetMethods.add(new MethodInfo("onBlockExploded","onBlockExploded","(Lnet/minecraft/world/World;IIILnet/minecraft/world/Explosion;)V","(Labv;IIILabq;)V")); //aab, zw
+		temp.targetMethods.add(new MethodInfo("onBlockExploded", "onBlockExploded", "(Lnet/minecraft/world/World;IIILnet/minecraft/world/Explosion;)V", "(Labw;IIILabr;)V"));
 		list.add(temp);
 
 	}
@@ -44,12 +44,9 @@ public class ClassPatcher implements IClassTransformer
 	public byte[] transform(String name, String transformedName, byte[] bytes)
 	{
 		byte[] transformedBytes = bytes;
-
 		PatchInfo patchInfo = getPatchInfo(transformedName);
-
 		if(patchInfo != null)
 			transformedBytes = transform(patchInfo,bytes);
-
 		return transformedBytes;
 	}
 
@@ -87,7 +84,7 @@ public class ClassPatcher implements IClassTransformer
 			}
 		}
 
-		if(patched)
+		if (patched)
 		{
 			for(MethodNode method : replaceMap.keySet())
 			{
@@ -95,12 +92,14 @@ public class ClassPatcher implements IClassTransformer
 				targetCN.methods.remove(method);
 				targetCN.methods.add(replacement);
 			}
-
 			ClassWriter targetCW = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 			targetCN.accept(targetCW);
 			transformedBytes = targetCW.toByteArray();
 		}
-
+		else
+		{
+			System.out.println("[fihgu's Core Mod] Mapped Class Name: " + targetCN.name + " NOT Patched!!!");
+		}
 		return transformedBytes;
 	}
 
@@ -131,13 +130,11 @@ public class ClassPatcher implements IClassTransformer
 					return method;
 				}
 			}
-
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 }

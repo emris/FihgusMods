@@ -22,8 +22,8 @@ public class SetPasswordCommand extends CommandBase
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) 
-	{	
+	public void processCommand(ICommandSender sender, String[] args)
+	{
 		if(sender instanceof EntityPlayerMP && args.length == 1)
 		{
 			setPassword(sender.getCommandSenderName(),args[0]);
@@ -47,7 +47,7 @@ public class SetPasswordCommand extends CommandBase
 		{
 			sender.sendChatToPlayer(ChatMessageComponent.createFromText(McColor.darkRed + Language.translate("This name hasn't been registered.")));
 			return;
-		}		
+		}
 
 		setPassword(args[0],args[1]);
 		sender.sendChatToPlayer(ChatMessageComponent.createFromText(McColor.green + args[0] + Language.translate("'s password has been changed to ") + args[1]));

@@ -67,6 +67,7 @@ public class ProtectedBlock
 					player.msg(McColor.darkRed + Language.translate("This block is already locked by ") + McColor.aqua + regionCheck.owner.name + McColor.darkRed + ".");
 					return true;
 				}
+				else
 				{
 					if(regionCheck.owner.name.equals(player.name) || PlayerManager.isOp(player.name))
 					{
@@ -122,7 +123,6 @@ public class ProtectedBlock
 	{
 		if(o instanceof ProtectedBlock)
 			return blockLocation.equals(((ProtectedBlock)o).blockLocation);
-
 		return false;
 	}
 
@@ -130,11 +130,11 @@ public class ProtectedBlock
 	{
 		if(player.name.equals(owner.name))
 			return true;
-
 		for(String share : this.sharedPlayer)
+		{
 			if(share.equals(player.name))
 				return true;
-
+		}
 		return false;
 	}
 
@@ -164,10 +164,10 @@ public class ProtectedBlock
 		for(ProtectedBlock block : protectedBlocks)
 		{
 			String line = block.owner.name + ":" + block.blockLocation.toString();
-
 			for(String name : block.sharedPlayer)
+			{
 				line = line + ":" + name;
-
+			}
 			file.data.add(line);
 		}
 		file.save(false);
@@ -182,7 +182,9 @@ public class ProtectedBlock
 			String[] part = data.split("[:]");
 			ProtectedBlock block = new ProtectedBlock(new Location(part[1]),new Player(part[0]));
 			for(int i = 2; i < part.length; i++)
+			{
 				block.sharedPlayer.add(part[i]);
+			}
 			protectedBlocks.add(block);
 		}
 	}

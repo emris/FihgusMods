@@ -47,9 +47,8 @@ public class EventHandler
 
 			String var3 = "local";
 			if (par1INetworkManager.getSocketAddress() != null)
-			{
 				var3 = par1INetworkManager.getSocketAddress().toString();
-			}
+
 			Server.getServer().getLogAgent().logInfo(par2EntityPlayerMP.username + "[" + var3 + "]" + Language.translate(" are trying to login."));
 			WorldServer var4 = Server.getServer().worldServerForDimension(par2EntityPlayerMP.dimension);
 			ChunkCoordinates var5 = var4.getSpawnPoint();
@@ -69,9 +68,7 @@ public class EventHandler
 			var6.sendPacketToPlayer(new Packet4UpdateTime(var4.getTotalWorldTime(), var4.getWorldTime(), var4.getGameRules().getGameRuleBooleanValue("doDaylightCycle")));
 
 			if (Server.getServer().getTexturePack().length() > 0)
-			{
 				par2EntityPlayerMP.requestTexturePackLoad(Server.getServer().getTexturePack(), Server.getServer().textureSize());
-			}
 
 			par2EntityPlayerMP.addSelfToInternalCraftingInventory();
 			handler.connectionComplete = true;

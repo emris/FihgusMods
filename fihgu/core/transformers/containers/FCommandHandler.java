@@ -28,9 +28,7 @@ public class FCommandHandler extends CommandHandler
 		par2Str = par2Str.trim();
 
 		if (par2Str.startsWith("/"))
-		{
 			par2Str = par2Str.substring(1);
-		}
 
 		String[] astring = par2Str.split(" ");
 		String s1 = astring[0];
@@ -38,9 +36,7 @@ public class FCommandHandler extends CommandHandler
 		//astring = dropFirstString(astring);
 		String[] var1 = new String[astring.length - 1];
 		for (int var2 = 1; var2 < astring.length; ++var2)
-		{
 			var1[var2 - 1] = astring[var2];
-		}
 
 		astring = var1;
 		/////////////////////////////////////
@@ -58,11 +54,8 @@ public class FCommandHandler extends CommandHandler
 			for (int temp = 0; temp < astring.length; ++temp)
 			{
 				if (icommand.isUsernameIndex(astring, temp) && PlayerSelector.matchesMultiplePlayers(astring[temp]))
-				{
 					i = temp;
-				}
 			}
-
 			i = -1;
 		}
 		//////////////////////////////////////////////////
@@ -83,9 +76,7 @@ public class FCommandHandler extends CommandHandler
 				if (MinecraftForge.EVENT_BUS.post(event))
 				{
 					if (event.exception != null)
-					{
 						throw event.exception;
-					}
 					return 1;
 				}
 
@@ -111,7 +102,6 @@ public class FCommandHandler extends CommandHandler
 							par1ICommandSender.sendChatToPlayer(ChatMessageComponent.createFromText(EnumChatFormatting.RED + commandexception.getMessage()));
 						}
 					}
-
 					astring[i] = s2;
 				}
 				else
@@ -161,8 +151,10 @@ public class FCommandHandler extends CommandHandler
 					Player player = new Player(sender.getCommandSenderName());
 					fihgu.permission.element.PermissionOwner owner = new fihgu.permission.element.PermissionOwner(player);
 					if(owner.canUse(new TryCommandEvent(sender, icommand.getCommandName())))
+					{
 						if(!arraylist.contains(icommand))
 							arraylist.add(icommand);
+					}
 				}
 				else if (icommand.canCommandSenderUseCommand(sender))
 				{
@@ -170,7 +162,6 @@ public class FCommandHandler extends CommandHandler
 				}
 			}
 		}
-
 		return arraylist;
 	}
 }

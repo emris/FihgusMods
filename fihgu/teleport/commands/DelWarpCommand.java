@@ -20,7 +20,7 @@ public class DelWarpCommand extends CommandBase
 		if (args.length < 1 || args.length > 1)
 		{
 			this.argumentMismatch(player);
-		} 
+		}
 		else if (args.length == 1)
 		{
 			String warpPointName = args[0];

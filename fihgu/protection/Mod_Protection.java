@@ -8,7 +8,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid="fihgus_protection_mod", name="fihgu's Protection Mod", version="3.0.3")
+@Mod(modid="fihgus_protection_mod", name="fihgu's Protection Mod", version="3.1.0")
 @NetworkMod(clientSideRequired=false, serverSideRequired=false)
 public class Mod_Protection
 {

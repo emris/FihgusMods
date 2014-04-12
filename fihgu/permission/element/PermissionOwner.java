@@ -84,9 +84,7 @@ public class PermissionOwner
 			for(Group group: player.getGroups())
 			{
 				if(new PermissionOwner(group).canAllow(e))
-				{
 					return true;
-				}
 			}
 		}
 		return false;
@@ -106,9 +104,7 @@ public class PermissionOwner
 			for(Group group: player.getGroups())
 			{
 				if(new PermissionOwner(group).canDeny(e))
-				{
 					return true;
-				}
 			}
 		}
 		return false;

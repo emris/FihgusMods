@@ -41,28 +41,31 @@ public class PermissionNode
 			String commandPart = commandParts[i];
 
 			if(nodePart.equalsIgnoreCase("*" + CommonProxy.allNode + "*"))
+			{
 				return true;
+			}
 			else if(nodePart.equalsIgnoreCase("*" + CommonProxy.partNode + "*"))
+			{
 				continue;
+			}
 			else if(nodePart.equalsIgnoreCase(commandPart))
+			{
 				continue;
+			}
 			else if(nodePart.equalsIgnoreCase("*" + CommonProxy.onlinePlayerNode + "*"))
 			{
 				if(PlayerManager.getPossiblePlayer(commandPart) != null)
 					continue;
-
 				return false;
 			}
 			else if(nodePart.equalsIgnoreCase("*" + CommonProxy.commandSenderNode + "*"))
 			{
 				if(e.sender.getCommandSenderName().equalsIgnoreCase(commandPart))
 					continue;
-
 				return false;
 			}
 			else if(nodePart.startsWith("*") && nodePart.endsWith("*"))
 			{
-
 				nodePart = nodePart.substring(1,nodePart.length()-1);
 				String[] parts = nodePart.split("[:]");
 
@@ -77,10 +80,8 @@ public class PermissionNode
 						double num1 = Double.parseDouble(nums[0]);
 						double num2 = Double.parseDouble(nums[1]);
 						double num = Double.parseDouble(commandPart);
-
 						if((num >= num1 && num <= num2) || (num >= num2 && num <= num1))
 							continue;
-
 						return false;
 					}
 					catch(Exception ex)
@@ -93,7 +94,6 @@ public class PermissionNode
 					Group group = new Group(parts[1]);
 					if(group.players.contains(new Player(commandPart)))
 						continue;
-
 					return false;
 				}
 				if(parts[0].equalsIgnoreCase(CommonProxy.permissionsFromNode))

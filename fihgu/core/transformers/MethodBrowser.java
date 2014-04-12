@@ -27,10 +27,8 @@ public class MethodBrowser
 		System.out.println("");
 		
 		for(MethodNode mn : cn.methods)
-		{
 			System.out.println(mn.name + "@" + mn.desc + "_____" + mn.access);
-		}
-		
+
 		System.out.println("=====================================");
 		System.out.println();
 		

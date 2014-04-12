@@ -28,7 +28,7 @@ public class SummonCommand extends CommandBase
 		if(args.length < 1 || args.length > 1)
 		{
 			this.argumentMismatch(sender.getEntity());
-		} 
+		}
 		else if (args.length == 1)
 		{
 			if (target != null)
@@ -48,7 +48,6 @@ public class SummonCommand extends CommandBase
 						Teleport.warp(to.getEntity(), from.getEntity());
 					}
 				};
-
 			}
 		}
 	}
