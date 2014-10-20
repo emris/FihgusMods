@@ -42,12 +42,12 @@ public class EventHandler
 				if(regionCheck != null && !(regionCheck.canAccess(player) || PlayerManager.isOp(player.name)))
 				{
 					System.out.println("1");
-					player.msg(McColor.darkRed + Language.translate("This blocked is locked by ") + McColor.aqua + regionCheck.owner.name);
+					player.msg(McColor.darkRed + Language.translate("This block is locked by ") + McColor.aqua + regionCheck.owner.name);
 				}
 				else if(blockCheck != null && !(blockCheck.canAccess(player) || PlayerManager.isOp(player.name)))
 				{
 					System.out.println("2");
-					player.msg(McColor.darkRed + Language.translate("This blocked is locked by ") + McColor.aqua + blockCheck.owner.name);
+					player.msg(McColor.darkRed + Language.translate("This block is locked by ") + McColor.aqua + blockCheck.owner.name);
 				}
 				else if(blockCheck != null)
 				{

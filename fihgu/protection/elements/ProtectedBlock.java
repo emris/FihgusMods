@@ -103,13 +103,13 @@ public class ProtectedBlock
 		{
 			if(regionCheck != null && !(regionCheck.canAccess(player) || PlayerManager.isOp(player.name)))
 			{
-				player.msg(McColor.darkRed + Language.translate("This blocked is locked by ") + McColor.aqua + regionCheck.owner.name);
+				player.msg(McColor.darkRed + Language.translate("This block is locked by ") + McColor.aqua + regionCheck.owner.name);
 				e.setCanceled(true);
 				return true;
 			}
 			else if(blockCheck != null && !(blockCheck.canAccess(player) || PlayerManager.isOp(player.name)))
 			{
-				player.msg(McColor.darkRed + Language.translate("This blocked is locked by ") + McColor.aqua + blockCheck.owner.name);
+				player.msg(McColor.darkRed + Language.translate("This block is locked by ") + McColor.aqua + blockCheck.owner.name);
 				e.setCanceled(true);
 				return true;
 			}
